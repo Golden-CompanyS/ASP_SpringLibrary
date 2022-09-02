@@ -1,0 +1,2 @@
+C:\Users\mateu\source\repos\ASP_SpringLibrary\ASP_SpringLibrary\obj\Debug\ASP_SpringLibrary.csproj.AssemblyReference.cache
+C:\Users\mateu\source\repos\ASP_SpringLibrary\ASP_SpringLibrary\obj\Debug\ASP_SpringLibrary.csproj.CoreCompileInputs.cache

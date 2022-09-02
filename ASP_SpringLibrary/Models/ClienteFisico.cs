@@ -15,11 +15,30 @@ namespace ASP_SpringLibrary.Models
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
+        public void cadCliF(ClienteFisico clienteF)
+        {
+            connection.Open();
+            command.CommandText = "CALL spcadCliF(@CPFCliF, @dtNascCliF, @nomUsuCli, @senhaCli, @nomCli, @celCli, @emailCli, @CEPCli, @numEndCli, @compEndCli);";
+                command.Parameters.Add("@CPFCliF", MySqlDbType.Int64).Value = clienteF.CPFCliF;
+                command.Parameters.Add("@dtNascCliF", MySqlDbType.Date).Value = clienteF.dtNascCliF;
+                command.Parameters.Add("@nomUsuCli", MySqlDbType.String).Value = clienteF.nomUsuCli;
+                command.Parameters.Add("senhaCli", MySqlDbType.String).Value = clienteF.senhaCli;
+                command.Parameters.Add("nomCli", MySqlDbType.String).Value = clienteF.nomCli;
+                command.Parameters.Add("celCli", MySqlDbType.Int64).Value = clienteF.celCli;
+                command.Parameters.Add("emailCli", MySqlDbType.Int64).Value = clienteF.emailCli;
+                command.Parameters.Add("@CEPCli", MySqlDbType.Int64).Value = clienteF.CEPCli;
+                command.Parameters.Add("numEndCli", MySqlDbType.Int64).Value = clienteF.numEndCli;
+                command.Parameters.Add("compEndCli", MySqlDbType.String).Value = clienteF.compEndCli;
+                command.Connection = connection;
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
         public ClienteFisico checkCliF(int CPFCliF)
         {
             connection.Open();
             command.CommandText = "CALL spcheckCliF(@CPFCliF);";
-            command.Parameters.Add("@CPFCliF", MySqlDbType.Int64).Value = idCli;
+                command.Parameters.Add("@CPFCliF", MySqlDbType.Int64).Value = CPFCliF;
             var readClienteF = command.ExecuteReader();
             var tempClienteF = new ClienteFisico();
 
@@ -44,13 +63,33 @@ namespace ASP_SpringLibrary.Models
             return tempClienteF;
         }
 
+        public void altCliF(ClienteFisico clienteF)
+        {
+            connection.Open();
+            command.CommandText = "CALL spaltCliF(@CPFCliF, @dtNascCliF, @idCli, @nomUsuCli, @senhaCli, @nomCli, @celCli, @emailCli, @CEPCli, @numEndCli, @compEndCli);";
+                command.Parameters.Add("@CPFCliF", MySqlDbType.Int64).Value = clienteF.CPFCliF;
+                command.Parameters.Add("@dtNascCliF", MySqlDbType.Date).Value = clienteF.dtNascCliF;
+                command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = clienteF.idCli;
+                command.Parameters.Add("@nomUsuCli", MySqlDbType.String).Value = clienteF.nomUsuCli;
+                command.Parameters.Add("senhaCli", MySqlDbType.String).Value = clienteF.senhaCli;
+                command.Parameters.Add("nomCli", MySqlDbType.String).Value = clienteF.nomCli;
+                command.Parameters.Add("celCli", MySqlDbType.Int64).Value = clienteF.celCli;
+                command.Parameters.Add("emailCli", MySqlDbType.Int64).Value = clienteF.emailCli;
+                command.Parameters.Add("@CEPCli", MySqlDbType.Int64).Value = clienteF.CEPCli;
+                command.Parameters.Add("numEndCli", MySqlDbType.Int64).Value = clienteF.numEndCli;
+                command.Parameters.Add("compEndCli", MySqlDbType.String).Value = clienteF.compEndCli;
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+            connection.Close();
+        }
+
         public void delCliF(int CPFCliF)
         {
             connection.Open();
             command.CommandText = "CALL spdelCliF(@CPFCliF);";
                 command.Parameters.Add("@CPFCliF", MySqlDbType.Int64).Value = CPFCliF;
                 command.Connection = connection;
-            command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             connection.Close();
         }
     }
