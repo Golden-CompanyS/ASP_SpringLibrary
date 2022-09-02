@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP_SpringLibrary", "ASP_SpringLibrary\ASP_SpringLibrary.csproj", "{DEDD4DA7-25A1-4CED-B82C-52DF64DFFF5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEDD4DA7-25A1-4CED-B82C-52DF64DFFF5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEDD4DA7-25A1-4CED-B82C-52DF64DFFF5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEDD4DA7-25A1-4CED-B82C-52DF64DFFF5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEDD4DA7-25A1-4CED-B82C-52DF64DFFF5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EE1A030-2514-4C91-B36C-DBB56CD6A674}
+	EndGlobalSection
+EndGlobal
