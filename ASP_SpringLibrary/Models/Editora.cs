@@ -26,7 +26,7 @@ namespace ASP_SpringLibrary.Models
                 command.Parameters.Add("@idEdit", MySqlDbType.Int64).Value = editora.idEdit;
                 command.Parameters.Add("@celEdit", MySqlDbType.Int64).Value = editora.idEdit;
                 command.Parameters.Add("emailEdit", MySqlDbType.String).Value = editora.emailEdit;
-            command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             connection.Close();
         }
 
@@ -35,7 +35,7 @@ namespace ASP_SpringLibrary.Models
             connection.Open();
                 command.CommandText = "CALL spdelEdit(@idEdit);";
                 command.Parameters.Add("@idEdit", MySqlDbType.Int64).Value = idEdit;
-            command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             connection.Close();
         }
     }

@@ -7,28 +7,28 @@ using System.Web;
 
 namespace ASP_SpringLibrary.Models
 {
-    public class Genero
+    public class Cargo
     {
-        public int idGen { get; set; }
-        public string nomGen { get; set; }
+        public int idCarg { get; set; }
+        public string nomCarg { get; set; }
 
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
-        public void cadGen(Genero genero)
+        public void cadCarg(Cargo cargo)
         {
             connection.Open();
-            command.CommandText = "CALL spcadGen(@nomGen);";
-                command.Parameters.Add("@nomGen", MySqlDbType.Int64).Value = genero.nomGen;
+            command.CommandText = "CALL spcadCarg(@nomCarg);";
+                command.Parameters.Add("@nomCarg", MySqlDbType.String).Value = cargo.nomCarg;
             command.ExecuteNonQuery();
             connection.Close();
         }
 
-        public void delGen(int idGen)
+        public void delCarg(int idCarg)
         {
             connection.Open();
-            command.CommandText = "CALL spdelGen(@idGen);";
-                command.Parameters.Add("@idGen", MySqlDbType.Int64).Value = idGen;
+            command.CommandText = "CALL spdelCarg(@idCarg);";
+                command.Parameters.Add("@idCarg", MySqlDbType.Int64).Value = idCarg;
                 command.ExecuteNonQuery();
             connection.Close();
         }

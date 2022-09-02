@@ -166,9 +166,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Autor.cs" />
+    <Compile Include="Models\Cargo.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\ClienteFisico.cs" />
     <Compile Include="Models\ClienteJuridico.cs" />
+    <Compile Include="Models\Delivery.cs" />
     <Compile Include="Models\Editora.cs" />
     <Compile Include="Models\Genero.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

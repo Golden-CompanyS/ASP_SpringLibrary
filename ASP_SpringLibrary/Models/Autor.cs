@@ -25,7 +25,7 @@ namespace ASP_SpringLibrary.Models
             command.CommandText = "CALL spcadAut(@nomAut);";
                 command.Parameters.Add("@nomAut", MySqlDbType.String).Value = autor.nomAut;
                 command.Connection = connection;
-            command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             connection.Close();
         }
 
