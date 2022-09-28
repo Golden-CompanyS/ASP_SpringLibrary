@@ -16,7 +16,7 @@ namespace ASP_SpringLibrary.Models
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
-        public void cadCliJ(ClienteJuridico clienteJ)
+        /*public void cadCliJ(ClienteJuridico clienteJ)
         {
             connection.Open();
             command.CommandText = "CALL spcadCliJ(@CNPJCliJ, @fantaCliJ, @represCliJ, @nomUsuCli, @senhaCli, @nomCli, @celCli, @emailCli, @CEPCli, @numEndCli, @compEndCli);";
@@ -95,6 +95,6 @@ namespace ASP_SpringLibrary.Models
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();
-        }
+        }*/
     }
 }

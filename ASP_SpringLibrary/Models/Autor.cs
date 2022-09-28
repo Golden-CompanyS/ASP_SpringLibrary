@@ -22,53 +22,73 @@ namespace ASP_SpringLibrary.Models
         public void cadAut(Autor autor)
         {
             connection.Open();
-            command.CommandText = "CALL spcadAut(@nomAut);";
+            command.CommandText = "CALL spcadAut(@nomAut);"; // INSERIR tbAutor
                 command.Parameters.Add("@nomAut", MySqlDbType.String).Value = autor.nomAut;
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();
         }
 
-        public Autor checkAut(int idAut)
-        {
-            connection.Open();
-;           command.CommandText = "CALL spXXXX(@xxx);";
-                command.Parameters.Add("@idAut", MySqlDbType.Int64).Value = idAut;
-                command.Connection = connection;
-            var readAutor = command.ExecuteReader();
-            var tempAutor = new Autor();
-
-            if (readAutor.Read())
-            {
-                tempAutor.idAut = int.Parse(readAutor["idAut"].ToString());
-                tempAutor.nomAut = readAutor["nomAut"].ToString();
-            };
-
-            readAutor.Close();
-            connection.Close();
-
-            return tempAutor;
-        }
-
         public void altAut(Autor autor)
         {
             connection.Open();
-            command.CommandText = "CALL spaltAut(@idAut, @nomAut);";
-                command.Parameters.Add("@idAut", MySqlDbType.Int64).Value = autor.nomAut;
+            command.CommandText = "CALL spaltAut(@idAut, @nomAut);"; // ALTERAR tbAutor
+                command.Parameters.Add("@idAut", MySqlDbType.Int64).Value = autor.idAut;
                 command.Parameters.Add("@nomAut", MySqlDbType.String).Value = autor.nomAut;
                 command.Connection = connection;
-            command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
             connection.Close();
         }
 
-        public void delAut(int idAut)
+        public List<Autor> checkAllAut()
         {
             connection.Open();
-            command.CommandText = "CALL delAut(@idAut);";
-                command.Parameters.Add("@idAut", MySqlDbType.Int64).Value = idAut;
+            command.CommandText = "CALL spcheckAllAut();"; // SELECIONAR TUDO DA tbAutor
                 command.Connection = connection;
-            command.ExecuteNonQuery();
+
+            var readAut = command.ExecuteReader();
+            List<Autor> tempAutList = new List<Autor>();
+
+            while (readAut.Read())
+            {
+                var tempAut = new Autor();
+
+                tempAut.idAut = int.Parse(readAut["idAut"].ToString());
+                tempAut.nomAut = readAut["nomAut"].ToString();
+
+                tempAutList.Add(tempAut);
+            }
+
+            readAut.Close();
             connection.Close();
+
+            return tempAutList;
+        }
+
+        public List<Autor> checkAutListByLivId(int idLiv)
+        {
+            connection.Open();
+            command.CommandText = "CALL spcheckAutListByLivId(@idLiv);"; // SELECIONAR TUDO DA tbAutor PELO ID DO LIVRO
+            command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = idLiv;
+            command.Connection = connection;
+
+            var readAut = command.ExecuteReader();
+            List<Autor> tempAutList = new List<Autor>();
+
+            while (readAut.Read())
+            {
+                var tempAut = new Autor();
+
+                tempAut.idAut = int.Parse(readAut["idAut"].ToString());
+                tempAut.nomAut = readAut["nomAut"].ToString();
+
+                tempAutList.Add(tempAut);
+            }
+
+            readAut.Close();
+            connection.Close();
+
+            return tempAutList;
         }
     }
 }

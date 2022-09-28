@@ -15,7 +15,7 @@ namespace ASP_SpringLibrary.Models
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
-        public void cadCliF(ClienteFisico clienteF)
+        /*public void cadCliF(ClienteFisico clienteF)
         {
             connection.Open();
             command.CommandText = "CALL spcadCliF(@CPFCliF, @dtNascCliF, @nomUsuCli, @senhaCli, @nomCli, @celCli, @emailCli, @CEPCli, @numEndCli, @compEndCli);";
@@ -91,6 +91,6 @@ namespace ASP_SpringLibrary.Models
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();
-        }
+        }*/
     }
 }
