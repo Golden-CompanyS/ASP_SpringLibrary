@@ -65,8 +65,8 @@ namespace ASP_SpringLibrary.Models
         {
             connection.Open();
             command.CommandText = "CALL spcheckLivById(@idLiv);"; // SELECIONAR tbLivro PELO ID
-            command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = idLiv;
-            command.Connection = connection;
+                command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = idLiv;
+                command.Connection = connection;
 
             var readLiv = command.ExecuteReader();
             var tempLiv = new Livro();
@@ -92,7 +92,127 @@ namespace ASP_SpringLibrary.Models
             return tempLiv;
         }
 
-        // FALTAM UM MONTE DE MÉTODOS.
+        public List<Livro> checkAllLiv()
+        {
+            connection.Open();
+            command.CommandText = "CALL spcheckAllLiv();"; // SELECIONAR TUDO DA tbLivro
+                command.Connection = connection;
+
+            var readLiv = command.ExecuteReader();
+            List<Livro> tempLivList = new List<Livro>();
+
+            while (readLiv.Read())
+            {
+                var tempLiv = new Livro();
+
+                tempLiv.idLiv = int.Parse(readLiv["idLiv"].ToString());
+                tempLiv.ISBNLiv = int.Parse(readLiv["ISBNLiv"].ToString());
+                tempLiv.sinopLiv = readLiv["sinopLiv"].ToString();
+                tempLiv.nomOriLiv = readLiv["nomOriLiv"].ToString();
+                tempLiv.pratLiv = int.Parse(readLiv["pratLiv"].ToString());
+                tempLiv.publLiv = int.Parse(readLiv["publLiv"].ToString());
+                tempLiv.pagLiv = int.Parse(readLiv["pagLiv"].ToString());
+                tempLiv.anoLiv = int.Parse(readLiv["anoLiv"].ToString());
+                tempLiv.editLiv = new Editora().checkEditById(int.Parse(readLiv["editLiv"].ToString()));
+                tempLiv.autLiv = new Autor().checkAutListByLivId(int.Parse(readLiv["idLiv"].ToString()));
+                tempLiv.genLiv = new Genero().checkGenById(int.Parse(readLiv["genLiv"].ToString()));
+
+                tempLivList.Add(tempLiv);
+            }
+
+            readLiv.Close();
+            connection.Close();
+
+            return tempLivList;
+        }
+
+        public List<Livro> checkAllLivByFilter(string filter, string query)
+        {
+            filter = filter.ToLower();
+
+            if (filter == "editora" || 
+                filter == "autor" || 
+                filter == "genero")
+            {
+                switch (filter)
+                {
+                    case "editora":
+                        command.CommandText = "CALL spcheckAllLivByEdit(@query);"; // SELECIONAR TUDO DA tbLivro PELA EDITORA
+                        break;
+                    case "autor":
+                        command.CommandText = "CALL spcheckAllLivByAut(@query);"; // SELECIONAR TUDO DA tbLivro PELO AUTOR
+                        break;
+                    case "genero":
+                        command.CommandText = "CALL spcheckAllLivByGen(@query);"; // SELECIONAR TUDO DA tbLivro PELO GENERO
+                        break;
+                }
+
+                command.Parameters.Add("@query", MySqlDbType.VarChar).Value = query;
+                connection.Open();
+                command.Connection = connection;
+
+                var readLiv = command.ExecuteReader();
+                List<Livro> tempLivList = new List<Livro>();
+
+                while (readLiv.Read())
+                {
+                    var tempLiv = new Livro();
+
+                    tempLiv.idLiv = int.Parse(readLiv["idLiv"].ToString());
+                    tempLiv.ISBNLiv = int.Parse(readLiv["ISBNLiv"].ToString());
+                    tempLiv.sinopLiv = readLiv["sinopLiv"].ToString();
+                    tempLiv.nomOriLiv = readLiv["nomOriLiv"].ToString();
+                    tempLiv.pratLiv = int.Parse(readLiv["pratLiv"].ToString());
+                    tempLiv.publLiv = int.Parse(readLiv["publLiv"].ToString());
+                    tempLiv.pagLiv = int.Parse(readLiv["pagLiv"].ToString());
+                    tempLiv.anoLiv = int.Parse(readLiv["anoLiv"].ToString());
+                    tempLiv.editLiv = new Editora().checkEditById(int.Parse(readLiv["editLiv"].ToString()));
+                    tempLiv.autLiv = new Autor().checkAutListByLivId(int.Parse(readLiv["idLiv"].ToString()));
+                    tempLiv.genLiv = new Genero().checkGenById(int.Parse(readLiv["genLiv"].ToString()));
+
+                    tempLivList.Add(tempLiv);
+                }
+
+                readLiv.Close();
+                connection.Close();
+
+                return tempLivList;
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid filter parameter. Use \"Editora\", \"Autor\" or \"genero\"."); ;
+            }
+        }
+
+        public void altLiv(Livro livro)
+        {
+            connection.Open();
+            command.CommandText = "CALL spaltLiv(@idLiv, @ISBNLiv, @sinopLiv, @nomOriLiv, @pratLiv, " +
+                                  "              @publLiv, @pagLiv, @anoLiv,                        " +
+                                  "              @FKeditLiv, @FKgenLiv);                            "; // ALTERAR tbLivro
+                command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = livro.idLiv;
+                command.Parameters.Add("@ISBNLiv", MySqlDbType.Int64).Value = livro.ISBNLiv;
+                command.Parameters.Add("@sinopLiv", MySqlDbType.String).Value = livro.sinopLiv;
+                command.Parameters.Add("@nomOriLiv", MySqlDbType.String).Value = livro.nomOriLiv;
+                command.Parameters.Add("@pratLiv", MySqlDbType.Int64).Value = livro.pratLiv;
+                command.Parameters.Add("@publLiv", MySqlDbType.Int64).Value = livro.publLiv;
+                command.Parameters.Add("@pagLiv", MySqlDbType.Int64).Value = livro.pagLiv;
+                command.Parameters.Add("@anoLiv", MySqlDbType.Int64).Value = livro.anoLiv;
+                command.Parameters.Add("@FKeditLiv", MySqlDbType.Int64).Value = livro.editLiv.idEdit; // FOREIGN KEY DA tbEditora
+                command.Parameters.Add("@FKgenLiv", MySqlDbType.Int64).Value = livro.genLiv.idGen; // FOREIGN KEY DA tbGenero
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+            connection.Close();
+
+            new Autor().delAutsByLivId(livro.idLiv); // TIRAR TODOS RELACIONADOS E ADICIONAR TD DNV??
+
+            foreach (Autor autor in livro.autLiv)
+            {
+                new Autor().cadAut(autor); // ALTERAR AUTOR COMO??
+                cadAutLiv(autor, livro);
+            }
+        }
+
         // REVER SE DEVEM ESTAR AQUI OU NA CLASSE PRODUTO.
     }
 }
