@@ -65,7 +65,7 @@ namespace ASP_SpringLibrary.Models
             connection.Open();
             command.CommandText = "CALL spcheckLivById(@idLiv);"; // SELECIONAR tbLivro PELO ID
                 command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = idLiv;
-                command.Connection = connection;
+            command.Connection = connection;
 
             var readLiv = command.ExecuteReader();
             var tempLiv = new Livro();
@@ -94,8 +94,8 @@ namespace ASP_SpringLibrary.Models
         public List<Livro> checkAllLiv()
         {
             connection.Open();
-            command.CommandText = "CALL spcheckAllLiv();"; // SELECIONAR TUDO DA tbLivro
-                command.Connection = connection;
+                command.CommandText = "CALL spcheckAllLiv();"; // SELECIONAR TUDO DA tbLivro
+            command.Connection = connection;
 
             var readLiv = command.ExecuteReader();
             List<Livro> tempLivList = new List<Livro>();
@@ -129,8 +129,8 @@ namespace ASP_SpringLibrary.Models
         {
             filter = filter.ToLower();
 
-            if (filter == "editora" || 
-                filter == "autor" || 
+            if (filter == "editora" ||
+                filter == "autor" ||
                 filter == "genero")
             {
                 switch (filter)
@@ -203,15 +203,22 @@ namespace ASP_SpringLibrary.Models
                 command.ExecuteNonQuery();
             connection.Close();
 
-            new Autor().delAutsLivByLivId(livro.idLiv); // TIRAR TODOS RELACIONADOS E ADICIONAR TD DNV??
+            delAutsLivByLivId(livro.idLiv); // TIRAR TODOS RELACIONADOS PARA ADICIONAR TUDO NOVAMENTE
 
             foreach (Autor autor in livro.autLiv)
             {
-                new Autor().cadAutIfNotExists(autor); // ALTERAR AUTOR COMO??
                 cadAutLiv(autor, livro);
             }
         }
 
-        // REVER SE DEVEM ESTAR AQUI OU NA CLASSE PRODUTO.
+        public void delAutsLivByLivId(int idLiv)
+        {
+            connection.Open();
+            command.CommandText = "CALL spdelAutsLivByLivId(@idLiv);"; // DELETAR TODAS RELAÇÕES DE AUTORES COM O LIVRO EM ESPECÍFICO
+                command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = idLiv;
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+            connection.Close();
+        }
     }
 }
