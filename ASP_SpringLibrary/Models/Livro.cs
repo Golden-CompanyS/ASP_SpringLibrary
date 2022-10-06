@@ -30,17 +30,17 @@ namespace ASP_SpringLibrary.Models
             command.CommandText = "CALL spcadLiv(@ISBNLiv, @sinopLiv, @nomOriLiv, @pratLiv, " +
                                   "              @publLiv, @pagLiv, @anoLiv,                " +
                                   "              @FKeditLiv, @FKgenLiv);                    "; // INSERIR tbLivro
-            command.Parameters.Add("@ISBNLiv", MySqlDbType.Int64).Value = livro.ISBNLiv;
-            command.Parameters.Add("@sinopLiv", MySqlDbType.String).Value = livro.sinopLiv;
-            command.Parameters.Add("@nomOriLiv", MySqlDbType.String).Value = livro.nomOriLiv;
-            command.Parameters.Add("@pratLiv", MySqlDbType.Int64).Value = livro.pratLiv;
-            command.Parameters.Add("@publLiv", MySqlDbType.Int64).Value = livro.publLiv;
-            command.Parameters.Add("@pagLiv", MySqlDbType.Int64).Value = livro.pagLiv;
-            command.Parameters.Add("@anoLiv", MySqlDbType.Int64).Value = livro.anoLiv;
-            command.Parameters.Add("@FKeditLiv", MySqlDbType.Int64).Value = livro.editLiv.idEdit; // ID da Editora
-            command.Parameters.Add("@FKgenLiv", MySqlDbType.Int64).Value = livro.genLiv.idGen; // ID do Genero
-            command.Connection = connection;
-            command.ExecuteNonQuery();
+                command.Parameters.Add("@ISBNLiv", MySqlDbType.Int64).Value = livro.ISBNLiv;
+                command.Parameters.Add("@sinopLiv", MySqlDbType.String).Value = livro.sinopLiv;
+                command.Parameters.Add("@nomOriLiv", MySqlDbType.String).Value = livro.nomOriLiv;
+                command.Parameters.Add("@pratLiv", MySqlDbType.Int64).Value = livro.pratLiv;
+                command.Parameters.Add("@publLiv", MySqlDbType.Int64).Value = livro.publLiv;
+                command.Parameters.Add("@pagLiv", MySqlDbType.Int64).Value = livro.pagLiv;
+                command.Parameters.Add("@anoLiv", MySqlDbType.Int64).Value = livro.anoLiv;
+                command.Parameters.Add("@FKeditLiv", MySqlDbType.Int64).Value = livro.editLiv.idEdit; // ID da Editora
+                command.Parameters.Add("@FKgenLiv", MySqlDbType.Int64).Value = livro.genLiv.idGen; // ID do Genero
+                command.Connection = connection;
+                command.ExecuteNonQuery();
             connection.Close();
 
             foreach (Autor autor in livro.autLiv)
@@ -53,10 +53,10 @@ namespace ASP_SpringLibrary.Models
         {
             connection.Open();
             command.CommandText = "CALL spcadAutLiv(@idAut, @idLiv);"; // INSERIR tbLivro_Autor
-            command.Parameters.Add("@idAut", MySqlDbType.Int64).Value = autor.idAut;
-            command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = livro.idLiv;
-            command.Connection = connection;
-            command.ExecuteNonQuery();
+                command.Parameters.Add("@idAut", MySqlDbType.Int64).Value = autor.idAut;
+                command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = livro.idLiv;
+                command.Connection = connection;
+                command.ExecuteNonQuery();
             connection.Close();
         }
 
@@ -64,7 +64,7 @@ namespace ASP_SpringLibrary.Models
         {
             connection.Open();
             command.CommandText = "CALL spcheckLivById(@idLiv);"; // SELECIONAR tbLivro PELO ID
-            command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = idLiv;
+                command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = idLiv;
             command.Connection = connection;
 
             var readLiv = command.ExecuteReader();
@@ -94,7 +94,7 @@ namespace ASP_SpringLibrary.Models
         public List<Livro> checkAllLiv()
         {
             connection.Open();
-            command.CommandText = "CALL spcheckAllLiv();"; // SELECIONAR TUDO DA tbLivro
+                command.CommandText = "CALL spcheckAllLiv();"; // SELECIONAR TUDO DA tbLivro
             command.Connection = connection;
 
             var readLiv = command.ExecuteReader();
@@ -189,18 +189,18 @@ namespace ASP_SpringLibrary.Models
             command.CommandText = "CALL spaltLiv(@idLiv, @ISBNLiv, @sinopLiv, @nomOriLiv, @pratLiv, " +
                                   "              @publLiv, @pagLiv, @anoLiv,                        " +
                                   "              @FKeditLiv, @FKgenLiv);                            "; // ALTERAR tbLivro
-            command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = livro.idLiv;
-            command.Parameters.Add("@ISBNLiv", MySqlDbType.Int64).Value = livro.ISBNLiv;
-            command.Parameters.Add("@sinopLiv", MySqlDbType.String).Value = livro.sinopLiv;
-            command.Parameters.Add("@nomOriLiv", MySqlDbType.String).Value = livro.nomOriLiv;
-            command.Parameters.Add("@pratLiv", MySqlDbType.Int64).Value = livro.pratLiv;
-            command.Parameters.Add("@publLiv", MySqlDbType.Int64).Value = livro.publLiv;
-            command.Parameters.Add("@pagLiv", MySqlDbType.Int64).Value = livro.pagLiv;
-            command.Parameters.Add("@anoLiv", MySqlDbType.Int64).Value = livro.anoLiv;
-            command.Parameters.Add("@FKeditLiv", MySqlDbType.Int64).Value = livro.editLiv.idEdit; // FOREIGN KEY DA tbEditora
-            command.Parameters.Add("@FKgenLiv", MySqlDbType.Int64).Value = livro.genLiv.idGen; // FOREIGN KEY DA tbGenero
-            command.Connection = connection;
-            command.ExecuteNonQuery();
+                command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = livro.idLiv;
+                command.Parameters.Add("@ISBNLiv", MySqlDbType.Int64).Value = livro.ISBNLiv;
+                command.Parameters.Add("@sinopLiv", MySqlDbType.String).Value = livro.sinopLiv;
+                command.Parameters.Add("@nomOriLiv", MySqlDbType.String).Value = livro.nomOriLiv;
+                command.Parameters.Add("@pratLiv", MySqlDbType.Int64).Value = livro.pratLiv;
+                command.Parameters.Add("@publLiv", MySqlDbType.Int64).Value = livro.publLiv;
+                command.Parameters.Add("@pagLiv", MySqlDbType.Int64).Value = livro.pagLiv;
+                command.Parameters.Add("@anoLiv", MySqlDbType.Int64).Value = livro.anoLiv;
+                command.Parameters.Add("@FKeditLiv", MySqlDbType.Int64).Value = livro.editLiv.idEdit; // FOREIGN KEY DA tbEditora
+                command.Parameters.Add("@FKgenLiv", MySqlDbType.Int64).Value = livro.genLiv.idGen; // FOREIGN KEY DA tbGenero
+                command.Connection = connection;
+                command.ExecuteNonQuery();
             connection.Close();
 
             delAutsLivByLivId(livro.idLiv); // TIRAR TODOS RELACIONADOS PARA ADICIONAR TUDO NOVAMENTE
@@ -215,9 +215,9 @@ namespace ASP_SpringLibrary.Models
         {
             connection.Open();
             command.CommandText = "CALL spdelAutsLivByLivId(@idLiv);"; // DELETAR TODAS RELAÇÕES DE AUTORES COM O LIVRO EM ESPECÍFICO
-            command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = idLiv;
-            command.Connection = connection;
-            command.ExecuteNonQuery();
+                command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = idLiv;
+                command.Connection = connection;
+                command.ExecuteNonQuery();
             connection.Close();
         }
     }
