@@ -21,13 +21,14 @@ namespace ASP_SpringLibrary.Models
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
-        public void cadEdit(Editora editora)
+        public void cadEditIfNotExists(Editora editora)
         {
             connection.Open();
-            command.CommandText = "CALL spcadEdit(@nomEdit, @celEdit, @emailEdit);"; // INSERIR tbEditora
+            command.CommandText = "CALL spcadEditIfNotExists(@nomEdit, @celEdit, @emailEdit);"; // INSERIR tbEditora
                 command.Parameters.Add("@nomEdit", MySqlDbType.String).Value = editora.nomEdit;
                 command.Parameters.Add("@celEdit", MySqlDbType.Int64).Value = editora.idEdit;
                 command.Parameters.Add("@emailEdit", MySqlDbType.String).Value = editora.emailEdit;
+                command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();
         }

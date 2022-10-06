@@ -15,11 +15,12 @@ namespace ASP_SpringLibrary.Models
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
-        public void cadGen(Genero genero)
+        public void cadGenIfNotExists(Genero genero)
         {
             connection.Open();
-            command.CommandText = "CALL spcadGen(@nomGen);"; // INSERIR tbGenero
+            command.CommandText = "CALL spcadGenIfNotExists(@nomGen);"; // INSERIR tbGenero
                 command.Parameters.Add("@nomGen", MySqlDbType.Int64).Value = genero.nomGen;
+                command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();
         }

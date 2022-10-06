@@ -24,7 +24,7 @@ namespace ASP_SpringLibrary.Models
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
-        public void cadLiv(Livro livro)
+        public void cadLivIfNotExists(Livro livro)
         {
             connection.Open();
             command.CommandText = "CALL spcadLiv(@ISBNLiv, @sinopLiv, @nomOriLiv, @pratLiv, " +
@@ -37,15 +37,14 @@ namespace ASP_SpringLibrary.Models
                 command.Parameters.Add("@publLiv", MySqlDbType.Int64).Value = livro.publLiv;
                 command.Parameters.Add("@pagLiv", MySqlDbType.Int64).Value = livro.pagLiv;
                 command.Parameters.Add("@anoLiv", MySqlDbType.Int64).Value = livro.anoLiv;
-                command.Parameters.Add("@FKeditLiv", MySqlDbType.Int64).Value = livro.editLiv.idEdit; // FOREIGN KEY DA tbEditora
-                command.Parameters.Add("@FKgenLiv", MySqlDbType.Int64).Value = livro.genLiv.idGen; // FOREIGN KEY DA tbGenero
+                command.Parameters.Add("@FKeditLiv", MySqlDbType.Int64).Value = livro.editLiv.idEdit; // ID da Editora
+                command.Parameters.Add("@FKgenLiv", MySqlDbType.Int64).Value = livro.genLiv.idGen; // ID do Genero
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();
 
             foreach (Autor autor in livro.autLiv)
             {
-                new Autor().cadAut(autor); // INSERIR tbAutor
                 cadAutLiv(autor, livro); // INSERIR tbLivro_Autor
             }
         }
@@ -204,11 +203,11 @@ namespace ASP_SpringLibrary.Models
                 command.ExecuteNonQuery();
             connection.Close();
 
-            new Autor().delAutsByLivId(livro.idLiv); // TIRAR TODOS RELACIONADOS E ADICIONAR TD DNV??
+            new Autor().delAutsLivByLivId(livro.idLiv); // TIRAR TODOS RELACIONADOS E ADICIONAR TD DNV??
 
             foreach (Autor autor in livro.autLiv)
             {
-                new Autor().cadAut(autor); // ALTERAR AUTOR COMO??
+                new Autor().cadAutIfNotExists(autor); // ALTERAR AUTOR COMO??
                 cadAutLiv(autor, livro);
             }
         }

@@ -19,10 +19,10 @@ namespace ASP_SpringLibrary.Models
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
-        public void cadAut(Autor autor)
+        public void cadAutIfNotExists(Autor autor)
         {
             connection.Open();
-            command.CommandText = "CALL spcadAut(@nomAut);"; // INSERIR tbAutor
+            command.CommandText = "CALL spcadAutIfNotExists(@nomAut);"; // INSERIR tbAutor
                 command.Parameters.Add("@nomAut", MySqlDbType.String).Value = autor.nomAut;
                 command.Connection = connection;
                 command.ExecuteNonQuery();
@@ -63,6 +63,28 @@ namespace ASP_SpringLibrary.Models
             connection.Close();
 
             return tempAutList;
+        }
+
+        public Autor checkAutById(int idAut)
+        {
+            connection.Open();
+            command.CommandText = "CALL spcheckAutById(@idAut);"; // SELECIONAR tbAutor PELO ID
+                command.Parameters.Add("@idAut", MySqlDbType.Int64).Value = idAut;
+                command.Connection = connection;
+
+            var readAut = command.ExecuteReader();
+            var tempAut = new Autor();
+
+            if (readAut.Read())
+            {
+                tempAut.idAut = int.Parse(readAut["idAut"].ToString());
+                tempAut.nomAut = readAut["nomAut"].ToString();
+            }
+
+            readAut.Close();
+            connection.Close();
+
+            return tempAut;
         }
 
         public List<Autor> checkAutListByLivId(int idLiv)
