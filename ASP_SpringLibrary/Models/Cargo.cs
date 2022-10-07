@@ -15,7 +15,7 @@ namespace ASP_SpringLibrary.Models
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
-        public void cadCarg(Cargo cargo)
+        /*public void cadCarg(Cargo cargo)
         {
             connection.Open();
             command.CommandText = "CALL spcadCarg(@nomCarg);";
@@ -31,6 +31,6 @@ namespace ASP_SpringLibrary.Models
                 command.Parameters.Add("@idCarg", MySqlDbType.Int64).Value = idCarg;
                 command.ExecuteNonQuery();
             connection.Close();
-        }
+        }*/
     }
 }
