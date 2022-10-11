@@ -1,0 +1,25 @@
+Ultima alteração 11/10/2022 ~ 17:09
+
+Tabelas revistas:
+-autor v
+-cargo 
+-cliente fis 
+-cliente jur 
+-delivery 
+-editora v
+-endereco 
+-funcionario 
+-genero 
+-itemvenda 
+-livro v
+-livro_autor v
+-notafiscal 
+-produto v
+-souvenir 
+
+Mudanças banco:
+
+
+Perguntas:
+- Procedure speditExists, spgenExists, spautExists, por que existem e para quê servem?
+- Por que não existem views?
