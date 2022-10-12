@@ -25,6 +25,10 @@ namespace ASP_SpringLibrary
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // Pacote NuGet jQuery InputMask
+            bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(
+            "~/Scripts/inputmask/jquery.inputmask.js"));
         }
     }
 }
