@@ -350,3 +350,147 @@ de Fausto o Evangelho de um decadentismo que acredita em uma vida de arte, praze
 século no qual a convenção e a moralidade corroíam qualquer prazer que a existência humana poderia desfrutar.',1,320,1,2021,1,4,9);
 
 call spcadLivIfNotExists('Frankenste-Darkside','link',300,40.00,'9869387875698','Frankenstein',null,'Sinopse',1,283,2,1991,3,4,7);
+
+-- =============================================== --
+-- == -- == -- == -- Endereço -- == -- == -- == -- ==
+-- =============================================== --
+create table tbEndereco(
+    CEP int(13) primary key
+);
+
+-- =============================================== --
+-- == -- == -- == -- Cliente -- == -- == -- == -- ==
+-- =============================================== --
+CREATE TABLE tbCliente (
+	idCli int primary key auto_increment,
+	nomUsuCli varchar(20) not null unique,
+    senhaCli varchar(260) not null
+    nomCli varchar(100) not null,
+    tipoCli boolean not null, -- FALSE para FÍSICO  ///  TRUE para JURÍDICO
+	celCli int(11),
+    emailCli varchar(125) not null,
+	CEP int(13),
+    foreign key (CEP) references tbEndereco(CEP),
+    numEndCli smallint not null,
+    compEndCli varchar(30)
+);
+
+-- vwSelectAllCli
+create view vwCheckAllCli as select
+	tbCliente.nomUsuCli as 'Nome de usuário',
+    tbCliente.senhaCli as 'Senha',
+	tbCliente.nomCli as 'Nome', 
+    tbCliente.celCli as 'Celular',
+    tbCliente.emailCli as 'Email', 
+    tbCliente.CEP as 'CEP',
+    tbCliente.numEndCli as 'Número do endereço', 
+    tbCliente.compEndCli as 'Complemento' 
+		from tbCliente;
+        
+select * from vwCheckAllCli;
+-- Retornará vazio até que clientes físicos ou jurídicos sejam cadastrados
+
+-- spCheckCliByUsername
+DELIMITER $$
+CREATE PROCEDURE spCheckCliByUsername($vnomUsuCli varchar(20))
+BEGIN
+	select * from tbCliente WHERE(nomUsuCli = $vnomUsuCli);
+END$$
+
+call spCheckCliByUsername("Kami");
+call spCheckCliByUsername("Tinowns");
+call spCheckCliByUsername("Thaiga");
+-- Retornará vazio até que clientes físicos ou jurídicos sejam cadastrados
+
+
+-- =============================================== --
+-- == -- == -- == -- Cliente Físico -- == -- == -- ==
+-- =============================================== --
+create table tbCliFis(
+	CPFCli int(11) primary key,
+	idCli int unique,
+    foreign key (idCli) references tbCliente (idCli),
+    dtNascCliF date not null
+);
+
+-- spInsertCliFis
+DELIMITER $$
+create procedure spInsertCliFis(
+vnomUsuCli varchar(20),
+vsenhaCli varchar(260),
+vnomCli varchar(100),
+vcelCli int,
+vemailCli varchar(125),
+vCEP varchar(13),
+vnumEndCli smallint,
+vcompEndCli varchar(30),
+vCPFCli int,
+vdtNascCliF date)
+begin
+	if not exists (select CPFCli from tbCliFis where vCPFCli = CPFCli) then
+		if not exists (select CEP from tbEndereco where CEP=vCEP) then
+			insert into tbEndereco (CEP) values (vCEP);
+		end if;
+    	insert into tbCliente (nomUsuCli, senhaCli, nomCli, tipoCli, celCli, emailCli, numEndCli, CEP, compEndCli) values 
+			(vnomUsuCli, vsenhaCli, vnomCli, false, vcelCli, vemailCli, vnumEndCli, vCEP, vcompEndCli);
+		insert into tbCliFis (CPFCli, dtNascCliF) values (vCPFCli, vdtNascCliF);
+    end if;
+end $$
+
+call spInsertCliFis('Jesus', 'senha', 'Jesus Youssef', 1199209832, 'jesuscristo@gmail.com', 06300187, 33, 'Casa', 459822213, '1990-12-25');
+call spInsertCliFis('Kami', 'senha', 'Gabriel Bohm Santos', 1199209882, 'kamikat@gmail.com', 06309687, 34, 'Casa', 459722213, '1996-04-02');
+call spInsertCliFis('Thaiga', 'senha', 'Bianca Lula', 1199309833, 'thaigaloud@gmail.com', 06200087, 22, 'Casa', 459893116, '1996-01-03');
+call spInsertCliFis('Tinowns', 'senha', 'Thiago Sartori', 1199340822, 'tinownsthiago@gmail.com', 06200087, 22, 'Casa', 459873176, '1999-05-06');
+
+-- spUpdateCliFis
+DELIMITER $$
+	create procedure spUpdateCliFis(
+    vidCli smallint,
+    vnomeUsuCli varchar(20),
+	vsenhaCli varchar(260),
+    vnomCli varchar(100),
+    vtipoCli boolean,
+    vcelCli int,
+    vemailCli varchar(125),
+    vCEP int(13),
+    vnumEndCli smallint,
+    vcompEndCli varchar(30),
+	vCPFCli int,
+	vdtNascCliF date)
+BEGIN
+	if not exists (select CEP from tbEndereco where CEP=vCEP) then
+		insert into tbEndereco (CEP) values (vCEP);
+	end if;
+	update tbCliFis set CPFCli=vCPFCli, dtNascCliF=vdtNascCliF where idCli=vidCli;
+
+	update tbCliente set nomUsuCli=vnomUsuCli, senhaCli=vsenhaCli, nomCli=vnomCli, tipoCli=vtipoCli, celCli=vcelCli, emailCli=vemailCli, 
+	CEP=vCEP, numEndCli=vnumEndCli, compEndCli=vcompEndCli where idCli=vidCli;
+END$$
+
+-- vwCheckCliFis
+create view vwCheckCliFis as select
+	tbCliente.idCli as 'ID',
+	tbCliente.nomUsuCli as 'Nome de usuário', 
+    tbCliente.senhaCli as 'Senha',
+	tbCliente.nomCli as 'Nome', 
+    tbCliente.celCli as 'Celular',
+    tbCliente.emailCli as 'Email', 
+    tbCliente.CEP as 'CEP',
+    tbCliente.numEndCli as 'Número do endereço', 
+    tbCliente.compEndCli as 'Complemento', 
+    tbCliFis.CPFCli as 'CPF', 
+    tbCliFis.dtNascCliF as 'Data de nascimento'
+		from Cliente 
+                inner join tbCliFis on tbCliente.idCli = tbCliFis.idCli;
+			
+
+-- =============================================== --
+-- == -- == -- == -- Cliente Jurídico -- == -- == -- 
+-- =============================================== --
+create table tbCliJur(
+	CNPJCli int(14) primary key, 
+	idCli int unique,
+    foreign key (IdCli) references Cliente (IdCli),
+    fantaCliJ varchar(50) not null,
+    represCliJ varchar(30) not null 
+);

@@ -1,25 +1,104 @@
 Ultima alteração 11/10/2022 ~ 17:09
 
 Tabelas revistas:
--autor v
+-autor
+-editora
+-livro
+-livro_autor
+-produto
+-genero 
+- cliente
+-cliente fis
+
+Tabelas faltantes:
 -cargo 
--cliente fis 
 -cliente jur 
 -delivery 
--editora v
 -endereco 
 -funcionario 
--genero 
 -itemvenda 
--livro v
--livro_autor v
 -notafiscal 
--produto v
 -souvenir 
 
 Mudanças banco:
+- Exclusão de procedures verificando se registros existem, visto
+que isso pode ser feito pelas procedures que retornam um registro
+baseado na pesquisa do ID;
+
+- Correção de nomes de tabelas e colunas, de acordo com o diagrama
+de classes e instruções no início da query;
+
+
+-- =============================================== --
+-- == -- == -- == -- Livro -- == -- == -- == -- == --
+-- =============================================== --
+
+- Remoção de inserções de editoras, autores e gêneros dentro da
+procedure de um livro, o que complicava o banco e atrapalhava na
+hora do back-end;
+
+- Remoção de "idLiv" para a tabela Livro, o ISBN é suficiente
+para ser qualificado como um identificador;
+
+- ISBN agora é um CHAR(13), visto que tem fixamente esse número
+de caracteres, com qualquer tipo de dado numérico consumindo uma
+quantidade absurda de bytes para armazenar um número deste tamanho;
+
+- a sinopse agora armazena 1500 caracteres;
+
+
+-- =============================================== --
+-- == -- == -- == -- Endereço -- == -- == -- == -- ==
+-- =============================================== --
+
+- não existe mais "idEnde", o CEP é suficientemente adequado
+para ser utilizado como uma chave primária
+
+
+-- =============================================== --
+-- == -- == -- == -- Cliente -- == -- == -- == -- ==
+-- =============================================== --
+
+- foi adicionado o atributo unique "nomeUsuCli" a entidade do 
+cliente, representando o nome de usuário que esse cliente utilizará
+para logar no sistema
+
+- nomCli agora suporta 100 caracteres
+
+
+-- =============================================== --
+-- == -- == -- == -- Cliente Físico -- == -- == -- ==
+-- =============================================== --
+
+- O idCli não é mais a primary key, visto que o CPF é o atributo
+que identifica esse cliente
+
+- idCli também não é mais auto incrementado, porque vejam a seguinte situação
+
+Cliente
+idCli |   nome  | Tipo
+________________________
+   1  | Paloma  | Físico
+   2  | TryCorp | Jurídio
+   3  | Hayley  | Físico
+
+Se o idCli específico das entidades cli físico e cli jurídico continuasse sendo auto incrementado, o idCli de Hayley seria 2, e não 3, visto que a contagem do idcli do físico independe do jurídico. Deixaremos a auto incrementação apenas para a entidade mestra cliente, que então cadastrará na entidade do tipo específico do cliente (físico ou jurídico) a partir do último idCli cadastrado, ficando assim:
+
+Cliente Físico
+idCli |   nome  | Tipo
+________________________
+   1  | Paloma  | Físico
+   3  | Hayley  | Físico
+
+Cliente Júridico
+idCli |   nome  | Tipo
+________________________
+   2  | TryCorp | Jurídio
+
+Sim, com o idCli fora de ordem dentro das entidades específicas, mas ordenado dentro da entidade mestra.
+
+- O idCli específico das entidades de cada tipo agora é unique, visto que não pode ter um cliente tanto físico quanto jurídico.
+
 
 
 Perguntas:
-- Procedure speditExists, spgenExists, spautExists, por que existem e para quê servem?
-- Por que não existem views?
