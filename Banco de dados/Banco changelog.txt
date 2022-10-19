@@ -3,24 +3,37 @@ Ultima alteração 11/10/2022 ~ 17:09
 Tabelas revistas:
 -autor
 -editora
--livro
+-livro *
 -livro_autor
 -produto
+-souvenir 
 -genero 
-- cliente
+-endereco 
+-cliente
 -cliente fis
+-cliente jur 
+-funcionario
+-cargo  
 
 Tabelas faltantes:
--cargo 
--cliente jur 
--delivery 
--endereco 
--funcionario 
--itemvenda 
--notafiscal 
--souvenir 
 
-Mudanças banco:
+-delivery 
+-itemvenda 
+-notafiscal
+-trigger livro estoque
+
+
+-- =============================================== --
+-- == -- == -- == -- Tabelas cortadas  -- == -- == --
+-- =============================================== --
+
+- Souvenier -> x
+- Cargo -> Funcionário
+- Produto -> Livro
+
+-- =============================================== --
+-- == -- == -- == -- Mudanças no banco -- == -- == --
+-- =============================================== --
 
 - Exclusão de procedures verificando se registros existem, visto
 que isso pode ser feito pelas procedures que retornam um registro
@@ -36,6 +49,10 @@ de classes e instruções no início da query;
 - Removido "if not exists" desnecessário do nome de procedures, o que poluía o código e tornava sua invocação complicada e pouco prática;
 
 - Remoção de nomes de tabelas em frente a nome de atributos desnecessários de views;
+
+- Todos os parâmetros de procedure tiveram seus identificadores de parâmetro (letra ou símbolo que os diferencia do nome dos campos) modificados para "$"
+
+- Os recuos dos argumentos das procedures agora estão uniformes
 
 -- =============================================== --
 -- == -- == -- == -- Livro -- == -- == -- == -- == --

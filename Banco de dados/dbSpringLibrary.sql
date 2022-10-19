@@ -223,56 +223,6 @@ END$$
 
 CALL spcheckAutById(1);
 
--- =============================================== --
--- == -- == -- == -- Produto  == -- == -- == -- == --
--- =============================================== --
-create table tbProduto(
-	idProd int primary key auto_increment,
-    apelidProd varchar(50) not null unique,
-    imgProd varchar(500) not null,
-    qtdProd smallint not null,
-    precoProd float(10,2) not null
-);
-
--- Não existe sp que cadastra produtos, pois estes são cadastrados a partir de sp's de tabelas derivadas da tabela produto,
--- dependência esta que apenas permite sua criação posterior à da tabela produto;
-
--- checkAllProd
-DELIMITER $$
-CREATE PROCEDURE spcheckAllProd()
-BEGIN
-	SELECT * FROM tbProduto;
-END$$
-
-CALL spcheckAllProd();
--- Retornará vazio até que produtos seja cadastrados (ver linhas 233~234)
-
--- altProd
-DELIMITER $$
-CREATE PROCEDURE spaltProd(
-	$idProd int,
-	$apelidProd varchar(50),
-    $imgProd varchar(100),
-    $qtdProd smallint,
-    $precoProd float(10,2)
-)
-BEGIN
-	UPDATE tbProduto SET apelidProd = $apelidProd, imgProd = $imgProd, qtdProd = $qtdProd, precoProd = $precoProd WHERE idProd = $idProd;
-END$$
-
--- Call não pode ser executado por não existirem produtos cadastrados (ver linhas 233~234)
-
--- checkProdById
-DELIMITER $$
-CREATE PROCEDURE spcheckProdById(
-	$idProd int
-)
-BEGIN
-	SELECT * FROM tbProduto WHERE idProd = $idProd;
-END$$
-
-CALL spcheckProdById(1);
--- Retornará vazio até que produtos seja cadastrados (ver linhas 233~234)
 
 -- =============================================== --
 -- == -- == -- == -- Livro -- == -- == -- == -- == --
@@ -282,19 +232,19 @@ CREATE TABLE tbLivro (
     titLivro VARCHAR(100) NOT NULL,
     titOriLiv VARCHAR(100),
     sinopLiv VARCHAR(1500) NOT NULL,
-    pratLiv SMALLINT NOT NULL,
+    imgLiv VARCHAR(500) NOT NULL,
+	pratLiv SMALLINT NOT NULL,
 	numPagLiv SMALLINT NOT NULL,
-    numImpresLiv SMALLINT NOT NULL,
+    numEdicaoLiv SMALLINT NOT NULL,
     anoLiv SMALLINT NOT NULL,
+    precoLiv FLOAT(10,2) NOT NULL,
+    qtdLiv INT DEFAULT(0),
     idEdit INT NOT NULL,
     FOREIGN KEY (idEdit)
         REFERENCES tbEditora (idEdit),
     idGen INT NOT NULL,
     FOREIGN KEY (idGen)
-        REFERENCES tbGenero (idGen),
-    idProd INT NOT NULL,
-    FOREIGN KEY (idProd)
-        REFERENCES tbProduto (idProd)
+        REFERENCES tbGenero (idGen)
 );
 
 -- Tabela necessária para intermediar a relação entre livros e seu(s) atore(s)
@@ -310,36 +260,32 @@ CREATE TABLE tbLivroAutor (
 -- cadLivIfNotExists
 DELIMITER $$
 CREATE PROCEDURE spcadLiv(
-    $apelidProd varchar(50),
-    $imgProd varchar(500),
-	$qtdProd smallint,
-	$precoProd float(10,2),
 	$ISBNLiv char(13),
 	$titLivro varchar(100),
 	$titOriLiv varchar(100), 
 	$sinopLiv varchar(1500), 
+    $imgLiv varchar(500),
 	$pratLiv smallint, 
 	$numPagLiv smallint, 
-	$numImpresLiv smallint, 
+	$numEdicaoLiv smallint, 
 	$anoLiv smallint, 
+    $precoLiv float(10,2),
+    $qtdLiv int,
     $idAut int, 
 	$idEdit int, 
 	$idGen int
 )
 BEGIN
-	IF NOT EXISTS (SELECT apelidProd FROM tbProduto WHERE apelidProd = $apelidProd) THEN
-		INSERT INTO tbProduto(apelidProd, imgProd, qtdProd, precoProd) 
-			VALUES ($apelidProd, $apelidProd, $qtdProd, $precoProd);
-		INSERT INTO tbLivro
-			VALUES ($ISBNLiv, $titLivro, $titOriLiv, $sinopLiv, $pratLiv, $numPagLiv, $numImpresLiv, $anoLiv, $idEdit, $idGen,
-            (SELECT idProd from tbProduto ORDER BY idProd DESC LIMIT 1));
+	IF NOT EXISTS (SELECT ISBNLiv FROM tbLivro WHERE ISBNLiv = $ISBNLiv) THEN
+		INSERT INTO tbLivro VALUES
+        ($ISBNLiv, $titLivro, $titOriLiv, $sinopLiv, $imgLiv, $pratLiv, $numPagLiv, $numEdicaoLiv, $anoLiv, $precoLiv, $qtdLiv, $idEdit, $idGen);
 		INSERT INTO tbLivroAutor
 			VALUES ((SELECT ISBNLiv from tbLivro ORDER BY ISBNLiv DESC LIMIT 1),$idAut);
 	END IF;
 END$$
 
-call spcadLiv('O Retratat-Darkside',
-'https://darkside.vteximg.com.br/arquivos/ids/176889-519-519/o-retrato-de-dorian-gray-0.png?v=637655004666100000',200,30.00,9786555980004,
+call spcadLiv(
+9786555980004,
 'O Retrato de Dorian Gray', 'The Picture of Dorian Gray',
 'Único romance de Oscar Wilde, O Retrato de Dorian Gray combina o apuro literário e estético de seu autor com uma trama sombria, 
 pontuada por paixões, crimes e a brilhante e sarcástica verve wildeana. Publicado em 1890 na revista norte-americana Lippincott’s, 
@@ -347,9 +293,11 @@ o romance foi relançado em livro um ano depois em uma edição que censurou div
 uma geração vitoriana que encontrou na relação entre os amigos Dorian, o jovem retratado, Basil, o pintor apaixonado, e Henry, o lorde 
 cínico, “o amor que não ousava dizer o seu nome”. Depois, fascinou leitores, críticos e artistas, que viram no enredo que remete ao mito 
 de Fausto o Evangelho de um decadentismo que acredita em uma vida de arte, prazer e fascínio sensorial. Tudo isso em meio a um fim de 
-século no qual a convenção e a moralidade corroíam qualquer prazer que a existência humana poderia desfrutar.',1,320,1,2021,1,4,9);
+século no qual a convenção e a moralidade corroíam qualquer prazer que a existência humana poderia desfrutar.',
+'https://darkside.vteximg.com.br/arquivos/ids/176889-519-519/o-retrato-de-dorian-gray-0.png?v=637655004666100000',1,320,1,2021,30.00,200,
+1,4,9);
 
-call spcadLiv('Frankenste-Darkside','link',300,40.00,'9869387875698','Frankenstein',null,'Sinopse',1,283,2,1991,3,4,7);
+call spcadLiv('9869387875698','Frankenstein',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,3,4,7);
 
 -- =============================================== --
 -- == -- == -- == -- Endereço -- == -- == -- == -- ==
@@ -417,24 +365,24 @@ create table tbCliFis(
 -- spInsertCliFis
 DELIMITER $$
 create procedure spcadCliFis(
-vnomCli varchar(100),
-vcelCli varchar(11),
-vemailCli varchar(125),
-vsenhaCli varchar(260),
-vCEP varchar(13),
-vnumEndCli smallint,
-vcompEndCli varchar(30),
-vCPFCli int,
-vdtNascCliF date)
+	$nomCli varchar(100),
+	$celCli varchar(11),
+	$emailCli varchar(125),
+	$senhaCli varchar(260),
+	$CEP varchar(13),
+	$numEndCli smallint,
+	$compEndCli varchar(30),
+	$CPFCli int,
+	$dtNascCliF date)
 begin
-	if not exists (select CPFCli from tbCliFis where vCPFCli = CPFCli) then
-		if not exists (select CEP from tbEndereco where CEP=vCEP) then
-			insert into tbEndereco (CEP) values (vCEP);
+	if not exists (select CPFCli from tbCliFis where CPFCli = $CPFCli) then
+		if not exists (select CEP from tbEndereco where CEP=$CEP) then
+			insert into tbEndereco (CEP) values ($CEP);
 		end if;
     	insert into tbCliente (nomCli, tipoCli, celCli, emailCli, senhaCli, CEP, numEndCli, compEndCli) values 
-			 (vnomCli, false, vcelCli, vemailCli, vsenhaCli, vCEP, vnumEndCli, vcompEndCli);
+			 ($nomCli, false, $celCli, $emailCli, $senhaCli, $CEP, $numEndCli, $compEndCli);
 		insert into tbCliFis (CPFCli, idCli, dtNascCliF) values
-			(vCPFCli, (select idCli from tbCliente order by idCli desc limit 1), vdtNascCliF);
+			($CPFCli, (select idCli from tbCliente order by idCli desc limit 1), $dtNascCliF);
     end if;
 end $$
 
@@ -445,25 +393,23 @@ call spcadCliFis('Thiago Sartori', '1199340822', 'tinownsthiago@gmail.com', 'sen
 
 -- spUpdateCliFis
 DELIMITER $$
-	create procedure spaltCliFis(
-    vidCli smallint,
-    vnomCli varchar(100),
-    vcelCli varchar(11),
-    vemailCli varchar(125),
-	vsenhaCli varchar(260),
-    vCEP int(13),
-    vnumEndCli smallint,
-    vcompEndCli varchar(30),
-	vCPFCli int(11),
-	vdtNascCliF date)
+create procedure spaltCliFis(
+	$idCli smallint,
+	$nomCli varchar(100),
+	$celCli varchar(11),
+	$emailCli varchar(125),
+	$senhaCli varchar(260),
+	$CEP varchar(13),
+	$numEndCli smallint,
+	$compEndCli varchar(30),
+	$dtNascCliF date)
 BEGIN
-	if not exists (select CEP from tbEndereco where CEP=vCEP) then
-		insert into tbEndereco (CEP) values (vCEP);
+	if not exists (select CEP from tbEndereco where CEP=$CEP) then
+		insert into tbEndereco (CEP) values ($CEP);
 	end if;
-	update tbCliFis set CPFCli=vCPFCli, dtNascCliF=vdtNascCliF where idCli=vidCli;
-
-	update tbCliente set nomCli=vnomCli, celCli=vcelCli, emailCli=vemailCli, senhaCli=vsenhaCli,  
-	CEP=vCEP, numEndCli=vnumEndCli, compEndCli=vcompEndCli where idCli=vidCli;
+	update tbCliFis set CPFCli=$CPFCli, dtNascCliF=$dtNascCliF where idCli=$idCli;
+	update tbCliente set nomCli=$nomCli, celCli=$celCli, emailCli=$emailCli, senhaCli=$senhaCli, 
+	CEP=$CEP, numEndCli=$numEndCli, compEndCli=$compEndCli where idCli=$idCli;
 END$$
 
 call spaltCliFis(2, 'Gus Rodrigues', '1194320943', 'gusthienx@gmail.com', 'senha', 06300187, 33, 'Casa', 93872213, '1990-12-25');
@@ -499,25 +445,25 @@ create table tbCliJur(
 -- spInsertCliJur
 DELIMITER $$
 create procedure spcadCliJur(
-vnomCli varchar(100),
-vcelCli varchar(11),
-vemailCli varchar(125),
-vsenhaCli varchar(260),
-vCEP varchar(13),
-vnumEndCli smallint,
-vcompEndCli varchar(30),
-vCNPJCli int(14),
-vfantaCliJ varchar(100),
-vrepresCliJ varchar(50))
+	$nomCli varchar(100),
+	$celCli varchar(11),
+	$emailCli varchar(125),
+	$senhaCli varchar(260),
+	$CEP varchar(13),
+	$numEndCli smallint,
+	$compEndCli varchar(30),
+	$CNPJCli int(14),
+	$fantaCliJ varchar(100),
+	$represCliJ varchar(50))
 begin
-	if not exists (select CNPJCli from tbCliJur where vCNPJCli = CNPJCli) then
-		if not exists (select CEP from tbEndereco where CEP=vCEP) then
-			insert into tbEndereco (CEP) values (vCEP);
+	if not exists (select CNPJCli from tbCliJur where CNPJCli = $CNPJCli) then
+		if not exists (select CEP from tbEndereco where CEP=$CEP) then
+			insert into tbEndereco (CEP) values ($CEP);
 		end if;
     	insert into tbCliente (nomCli, tipoCli, celCli, emailCli, senhaCli, numEndCli, CEP, compEndCli) values 
-			(vnomCli, true, vcelCli, vemailCli, vsenhaCli, vnumEndCli, vCEP, vcompEndCli);
+			($nomCli, true, $celCli, $emailCli, $senhaCli, $numEndCli, $CEP, $compEndCli);
 		insert into tbCliJur (CNPJCli, idCli, fantaCliJ, represCliJ) values
-			(vCNPJCli, (select idCli from tbCliente order by idCli desc limit 1), vfantaCliJ,  vrepresCliJ);
+			($CNPJCli, (select idCli from tbCliente order by idCli desc limit 1), $fantaCliJ,  $represCliJ);
     end if;
 end $$
 
@@ -528,25 +474,25 @@ call spcadCliJur
 -- spUpdateCliJur
 DELIMITER $$
 	create procedure spautCliJur(
-    vidCli smallint,
-    vnomCli varchar(100),
-    vcelCli int,
-    vemailCli varchar(125),
-	vsenhaCli varchar(260),
-    vCEP int(13),
-    vnumEndCli smallint,
-    vcompEndCli varchar(30),
-	vCNPJCli int(14),
-	vfantaCliJ varchar(100),
-    vrepresCliJ varchar(50))
+    $idCli smallint,
+    $nomCli varchar(100),
+    $celCli int,
+    $emailCli varchar(125),
+	$senhaCli varchar(260),
+    $CEP int(13),
+    $numEndCli smallint,
+    $compEndCli varchar(30),
+	$CNPJCli int(14),
+	$fantaCliJ varchar(100),
+    $represCliJ varchar(50))
 BEGIN
-	if not exists (select CEP from tbEndereco where CEP=vCEP) then
-		insert into tbEndereco (CEP) values (vCEP);
+	if not exists (select CEP from tbEndereco where CEP=$CEP) then
+		insert into tbEndereco (CEP) values ($CEP);
 	end if;
-	update tbCliJur set CNPJCli=vCNPJCli, fantaCliJ=vfantaCliJ, represCliJ = vrepresCliJ where idCli=vidCli;
+	update tbCliJur set CNPJCli=$CNPJCli, fantaCliJ=$fantaCliJ, represCliJ = $represCliJ where idCli=$idCli;
 
-	update tbCliente set nomCli=vnomCli, celCli=vcelCli, emailCli=vemailCli, senhaCli=vsenhaCli, 
-	CEP=vCEP, numEndCli=vnumEndCli, compEndCli=vcompEndCli where idCli=vidCli;
+	update tbCliente set nomCli=$nomCli, celCli=$celCli, emailCli=$emailCli, senhaCli=$senhaCli, 
+	CEP=$CEP, numEndCli=$numEndCli, compEndCli=$compEndCli where idCli=$idCli;
 END$$
 
 call spautCliJur(5, 'Loud e-sports', '1136570927', 'loud@suporte.com.br', 'senha', '06239487', 124, 'Casa', 463650010, 'LOUD GG', 'Playhard');
@@ -568,3 +514,83 @@ create view vwcheckCliJur as select
                 inner join tbCliJur on tbCliente.idCli = tbCliJur.idCli;
                 
 select * from vwcheckCliJur;
+
+
+
+-- =============================================== --
+-- == -- == -- == -- Funcionário -- == -- == -- == -- 
+-- =============================================== --
+create table tbFuncionario(
+	idFunc int primary key auto_increment,
+    nomFunc varchar(50) not null,
+    CPFFunc int(11) not null,
+    imgFunc varchar(256),
+	cargoFunc varchar(30) not null,
+    celFunc varchar(11) not null,
+    emailFunc varchar(125) not null,
+    senhaFunc varchar(260) not null
+);
+
+DELIMITER $$
+create procedure spcadFunc(
+	$nomFunc varchar(50),
+	$CPFFunc int(11),
+	$imgFunc varchar(256),
+	$cargoFunc varchar(30),
+	$celFunc varchar(11),
+	$emailFunc varchar(125),
+	$senhaFunc varchar(260))
+BEGIN
+	insert into tbFuncionario (nomFunc, CPFFunc, imgFunc, cargoFunc, celFunc, emailFunc, senhaFunc)
+    values ($NomFunc, $CPFFunc, $imgFunc, $cargoFunc, $celFunc, $emailFunc, $senhaFunc);
+END $$
+
+call spcadFunc("Leticia", 1234567, "let.png", 'Gerente', 11987643239, "leticiaresina@email.com", "1234567");
+call spcadFunc("Larissa", 3458759, "lari.png", 'Gerente', 11987643819, "larii@email.com", "1234567");
+call spcadFunc("Gustavo", 4838712, "gus.png", 'Bibliotecário', 11958694851, "pearGus@email.com", "1234567");
+call spcadFunc("Taveira", 3259382, "tavs.png", 'Logístico', 11987642312, "taveira.mateus@email.com", "1234567");
+call spcadFunc("Erin", 1231382, "eri.png", 'Logístico', 11987643819, "eriin@email.com", "1234567");
+call spcadFunc("Wesley", 232382, "wes.png", 'Caixa', 11987643819, "wes@email.com", "1234567");
+
+-- spaltFunc
+DELIMITER $$
+create procedure spaltFunc(
+    $idFunc int,
+    $nomFunc varchar(50),
+    $CPFFunc int,
+    $imgFunc varchar(256),
+    $cargoFunc varchar(30),
+    $celFunc varchar(11),
+    $emailFunc varchar(125),
+    $senhaFunc varchar(260))
+    BEGIN
+         update tbFuncionario set nomFunc=$nomFunc, CPFFunc=$CPFFunc, imgFunc=$imgFunc, 
+         cargoFunc=$cargoFunc, celFunc=$celFunc, emailFunc=$emailFunc, senhaFunc=$senhaFunc where idFunc=$idFunc;
+    END
+$$
+
+call spaltFunc(3, "Gus", 4838712, "gus.png", 'Bibliotecário', 11958694851, "novoEmaildoGus@email.com", "1234567");
+call spaltFunc(5, "Erin", 1231382, "eri.png", 'Bibliotecário', 11987643819, "eriin@email.com", "1234567");
+
+-- checkFuncById
+DELIMITER $$
+CREATE PROCEDURE checkFuncById(
+	$idFunc int
+)
+BEGIN
+	SELECT * FROM tbFuncionario WHERE idFunc = $idFunc;
+END$$
+
+-- vwCheckAllFuncs
+create view vwCheckAllFuncs as select 
+	IdFunc as 'ID', 
+    nomFunc as 'Nome',
+    CPFFunc as 'CPF',
+    imgFunc as 'Imagem',
+    celFunc 'Telefone Celular',
+	cargoFunc as 'Cargo',
+    emailFunc as 'Email',
+    senhaFunc as 'Senha'
+		from tbFuncionario;
+
+select * from vwCheckAllFuncs;
