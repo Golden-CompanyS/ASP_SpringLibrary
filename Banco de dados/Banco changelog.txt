@@ -21,6 +21,7 @@ Tabelas faltantes:
 -souvenir 
 
 Mudanças banco:
+
 - Exclusão de procedures verificando se registros existem, visto
 que isso pode ser feito pelas procedures que retornam um registro
 baseado na pesquisa do ID;
@@ -28,6 +29,13 @@ baseado na pesquisa do ID;
 - Correção de nomes de tabelas e colunas, de acordo com o diagrama
 de classes e instruções no início da query;
 
+- Remoção de redundâncias no nome de alias de views. Uma tabela de clientes não precisa informar colunas como 'ID do cliente', 'Nome do cliente', 'X do cliente'; mas sim 'ID', 'Nome' e 'X', por exemplo. O programador que utilizará a view saberá que dados ela retornará pelo nome e, caso o usuário não consiga identificar sobre o que dados mostrados a ele se referem, o problema é de front-end, não de banco;
+
+- Adequação de nomes que seguiam regras de nomenclatura diferentes no mesmo contexto;
+
+- Removido "if not exists" desnecessário do nome de procedures, o que poluía o código e tornava sua invocação complicada e pouco prática;
+
+- Remoção de nomes de tabelas em frente a nome de atributos desnecessários de views;
 
 -- =============================================== --
 -- == -- == -- == -- Livro -- == -- == -- == -- == --
@@ -59,12 +67,11 @@ para ser utilizado como uma chave primária
 -- == -- == -- == -- Cliente -- == -- == -- == -- ==
 -- =============================================== --
 
-- foi adicionado o atributo unique "nomeUsuCli" a entidade do 
-cliente, representando o nome de usuário que esse cliente utilizará
-para logar no sistema
-
 - nomCli agora suporta 100 caracteres
 
+- foi adicionado o atributo "senhaCli", que determina a senha que o cliente utilizará para logar no sistema
+
+- não é requisitado o tipo do cliente na alteração, visto que um cliente físico não pode se tornar jurídico, e vice-versa
 
 -- =============================================== --
 -- == -- == -- == -- Cliente Físico -- == -- == -- ==
@@ -99,6 +106,12 @@ Sim, com o idCli fora de ordem dentro das entidades específicas, mas ordenado d
 
 - O idCli específico das entidades de cada tipo agora é unique, visto que não pode ter um cliente tanto físico quanto jurídico.
 
+-- =============================================== --
+-- == -- == -- == -- Cliente Jurídico  == -- == -- ==
+-- =============================================== --
 
+- Alterações no idCli (Ver linhas 73 e 76)
+
+- O atributo que representa o nome fantasia da empresa e o nome do principal representante tiveras seu limite de caracters aumentados (100 e 50)
 
 Perguntas:

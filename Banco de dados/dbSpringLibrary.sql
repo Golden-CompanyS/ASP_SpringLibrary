@@ -28,7 +28,7 @@ CREATE TABLE tbEditora(
 
 -- cadEditIfNotExists
 DELIMITER $$
-CREATE PROCEDURE spcadEditIfNotExists(
+CREATE PROCEDURE spcadEdit(
 	$nomEdit varchar(30),
     $celEdit bigint(11),
     $emailEdit varchar(30)
@@ -40,11 +40,11 @@ BEGIN
 	END IF;
 END$$
 
-CALL spcadEditIfNotExists("Seguinte", 1137073500, 'contato@seguinte.com.br');
-CALL spcadEditIfNotExists("BooKsa", 99999999999, "contato@booksa.com");
-CALL spcadEditIfNotExists("Primier", 45944886612, "primier.contato@gmail.com");
-CALL spcadEditIfNotExists("Darkside", 1136189809, 'vc@darksidebooks.com');
-CALL spcadEditIfNotExists("Intrínseca", 2132067400, 'contato@intrinseca.com.br');
+CALL spcadEdit("Seguinte", 1137073500, 'contato@seguinte.com.br');
+CALL spcadEdit("BooKsa", 99999999999, "contato@booksa.com");
+CALL spcadEdit("Primier", 45944886612, "primier.contato@gmail.com");
+CALL spcadEdit("Darkside", 1136189809, 'vc@darksidebooks.com');
+CALL spcadEdit("Intrínseca", 2132067400, 'contato@intrinseca.com.br');
 
 -- checkAllEdit
 DELIMITER $$
@@ -91,7 +91,7 @@ CREATE TABLE tbGenero(
 
 -- cadGenIfNotExists
 DELIMITER $$
-CREATE PROCEDURE spcadGenIfNotExists(
+CREATE PROCEDURE spcadGen(
 	$nomGen varchar(30)
 )
 BEGIN
@@ -101,38 +101,38 @@ BEGIN
 	END IF;
 END$$
 
-CALL spcadGenIfNotExists("Fantasia");
-CALL spcadGenIfNotExists("Fikisão-Cientifika");
-CALL spcadGenIfNotExists("Distopia");
-CALL spcadGenIfNotExists("Ação e Aventura");
-CALL spcadGenIfNotExists("Ficção Policial");
-CALL spcadGenIfNotExists("Horror");
-CALL spcadGenIfNotExists("Thriller e Suspense");
-CALL spcadGenIfNotExists("Ficção Histórica");
-CALL spcadGenIfNotExists("Romance");
-CALL spcadGenIfNotExists("Ficção feminina");
-CALL spcadGenIfNotExists("LGBTQ+");
-CALL spcadGenIfNotExists("Ficção Comtemporânea");
-CALL spcadGenIfNotExists("Realismo Mágico");
-CALL spcadGenIfNotExists("Graphic Novel");
-CALL spcadGenIfNotExists("Conto");
-CALL spcadGenIfNotExists("Young Adult");
-CALL spcadGenIfNotExists("New Adult");
-CALL spcadGenIfNotExists("Infantil");
-CALL spcadGenIfNotExists("Memórias e Autobiografia");
-CALL spcadGenIfNotExists("Biografia");
-CALL spcadGenIfNotExists("Gastronomia");
-CALL spcadGenIfNotExists("Arte e Fotografia");
-CALL spcadGenIfNotExists("Autoajuda");
-CALL spcadGenIfNotExists("História");
-CALL spcadGenIfNotExists("Viajem");
-CALL spcadGenIfNotExists("Crimes Reais");
-CALL spcadGenIfNotExists("Humor");
-CALL spcadGenIfNotExists("Ensaios");
-CALL spcadGenIfNotExists("Guias");
-CALL spcadGenIfNotExists("Religião e Espiritualidade");
-CALL spcadGenIfNotExists("Humanidades e Ciências Sociais");
-CALL spcadGenIfNotExists("Paternidade e Família");
+CALL spcadGen("Fantasia");
+CALL spcadGen("Fikisão-Cientifika");
+CALL spcadGen("Distopia");
+CALL spcadGen("Ação e Aventura");
+CALL spcadGen("Ficção Policial");
+CALL spcadGen("Horror");
+CALL spcadGen("Thriller e Suspense");
+CALL spcadGen("Ficção Histórica");
+CALL spcadGen("Romance");
+CALL spcadGen("Ficção feminina");
+CALL spcadGen("LGBTQ+");
+CALL spcadGen("Ficção Comtemporânea");
+CALL spcadGen("Realismo Mágico");
+CALL spcadGen("Graphic Novel");
+CALL spcadGen("Conto");
+CALL spcadGen("Young Adult");
+CALL spcadGen("New Adult");
+CALL spcadGen("Infantil");
+CALL spcadGen("Memórias e Autobiografia");
+CALL spcadGen("Biografia");
+CALL spcadGen("Gastronomia");
+CALL spcadGen("Arte e Fotografia");
+CALL spcadGen("Autoajuda");
+CALL spcadGen("História");
+CALL spcadGen("Viajem");
+CALL spcadGen("Crimes Reais");
+CALL spcadGen("Humor");
+CALL spcadGen("Ensaios");
+CALL spcadGen("Guias");
+CALL spcadGen("Religião e Espiritualidade");
+CALL spcadGen("Humanidades e Ciências Sociais");
+CALL spcadGen("Paternidade e Família");
 
 -- checkAllGen
 DELIMITER $$
@@ -177,7 +177,7 @@ CREATE TABLE tbAutor(
 
 -- cadAutIfNotExists
 DELIMITER $$
-CREATE PROCEDURE spcadAutIfNotExists(
+CREATE PROCEDURE spcadAut(
 	$nomAut varchar(30)
 )
 BEGIN
@@ -187,9 +187,9 @@ BEGIN
 	END IF;
 END$$
 
-CALL spcadAutIfNotExists("Ozcar Wailde");
-CALL spcadAutIfNotExists("Lucy Foley");
-CALL spcadAutIfNotExists("Mary Shelley");
+CALL spcadAut("Ozcar Wailde");
+CALL spcadAut("Lucy Foley");
+CALL spcadAut("Mary Shelley");
 
 -- checkAllAut
 DELIMITER $$
@@ -309,7 +309,7 @@ CREATE TABLE tbLivroAutor (
 
 -- cadLivIfNotExists
 DELIMITER $$
-CREATE PROCEDURE spcadLivIfNotExists(
+CREATE PROCEDURE spcadLiv(
     $apelidProd varchar(50),
     $imgProd varchar(500),
 	$qtdProd smallint,
@@ -338,7 +338,7 @@ BEGIN
 	END IF;
 END$$
 
-call spcadLivIfNotExists('O Retratat-Darkside',
+call spcadLiv('O Retratat-Darkside',
 'https://darkside.vteximg.com.br/arquivos/ids/176889-519-519/o-retrato-de-dorian-gray-0.png?v=637655004666100000',200,30.00,9786555980004,
 'O Retrato de Dorian Gray', 'The Picture of Dorian Gray',
 'Único romance de Oscar Wilde, O Retrato de Dorian Gray combina o apuro literário e estético de seu autor com uma trama sombria, 
@@ -349,7 +349,7 @@ cínico, “o amor que não ousava dizer o seu nome”. Depois, fascinou leitore
 de Fausto o Evangelho de um decadentismo que acredita em uma vida de arte, prazer e fascínio sensorial. Tudo isso em meio a um fim de 
 século no qual a convenção e a moralidade corroíam qualquer prazer que a existência humana poderia desfrutar.',1,320,1,2021,1,4,9);
 
-call spcadLivIfNotExists('Frankenste-Darkside','link',300,40.00,'9869387875698','Frankenstein',null,'Sinopse',1,283,2,1991,3,4,7);
+call spcadLiv('Frankenste-Darkside','link',300,40.00,'9869387875698','Frankenstein',null,'Sinopse',1,283,2,1991,3,4,7);
 
 -- =============================================== --
 -- == -- == -- == -- Endereço -- == -- == -- == -- ==
@@ -357,18 +357,18 @@ call spcadLivIfNotExists('Frankenste-Darkside','link',300,40.00,'9869387875698',
 create table tbEndereco(
     CEP int(13) primary key
 );
+-- A tabela endereço não terá qualquer atividade de CRUD por si só, sendo 100% manipulada por operações vinculadas às telas de cliente
 
 -- =============================================== --
 -- == -- == -- == -- Cliente -- == -- == -- == -- ==
 -- =============================================== --
 CREATE TABLE tbCliente (
 	idCli int primary key auto_increment,
-	nomUsuCli varchar(20) not null unique,
-    senhaCli varchar(260) not null
     nomCli varchar(100) not null,
     tipoCli boolean not null, -- FALSE para FÍSICO  ///  TRUE para JURÍDICO
-	celCli int(11),
+	celCli varchar(11),
     emailCli varchar(125) not null,
+    senhaCli varchar(260) not null,
 	CEP int(13),
     foreign key (CEP) references tbEndereco(CEP),
     numEndCli smallint not null,
@@ -376,30 +376,31 @@ CREATE TABLE tbCliente (
 );
 
 -- vwSelectAllCli
-create view vwCheckAllCli as select
-	tbCliente.nomUsuCli as 'Nome de usuário',
-    tbCliente.senhaCli as 'Senha',
-	tbCliente.nomCli as 'Nome', 
-    tbCliente.celCli as 'Celular',
-    tbCliente.emailCli as 'Email', 
-    tbCliente.CEP as 'CEP',
-    tbCliente.numEndCli as 'Número do endereço', 
-    tbCliente.compEndCli as 'Complemento' 
+create view vwcheckAllCli as select
+	idCli as 'ID',
+	nomCli as 'Nome', 
+    celCli as 'Celular',
+    emailCli as 'Email', 
+	senhaCli as 'Senha',
+    CEP as 'CEP',
+    numEndCli as 'Número do endereço', 
+    compEndCli as 'Complemento' 
 		from tbCliente;
         
-select * from vwCheckAllCli;
+select * from vwcheckAllCli;
 -- Retornará vazio até que clientes físicos ou jurídicos sejam cadastrados
 
 -- spCheckCliByUsername
 DELIMITER $$
-CREATE PROCEDURE spCheckCliByUsername($vnomUsuCli varchar(20))
+CREATE PROCEDURE spcheckCliByName($vnomCli varchar(20))
 BEGIN
-	select * from tbCliente WHERE(nomUsuCli = $vnomUsuCli);
+	select * from tbCliente WHERE(nomCli = $vnomCli);
 END$$
 
-call spCheckCliByUsername("Kami");
-call spCheckCliByUsername("Tinowns");
-call spCheckCliByUsername("Thaiga");
+call spcheckCliByName("Gabriel Bohm Santos");
+call spcheckCliByName("Gus Rodrigues");
+call spcheckCliByName("Bianca Lula");
+call spcheckCliByName("Thiago Sartori");
 -- Retornará vazio até que clientes físicos ou jurídicos sejam cadastrados
 
 
@@ -415,12 +416,11 @@ create table tbCliFis(
 
 -- spInsertCliFis
 DELIMITER $$
-create procedure spInsertCliFis(
-vnomUsuCli varchar(20),
-vsenhaCli varchar(260),
+create procedure spcadCliFis(
 vnomCli varchar(100),
-vcelCli int,
+vcelCli varchar(11),
 vemailCli varchar(125),
+vsenhaCli varchar(260),
 vCEP varchar(13),
 vnumEndCli smallint,
 vcompEndCli varchar(30),
@@ -431,31 +431,30 @@ begin
 		if not exists (select CEP from tbEndereco where CEP=vCEP) then
 			insert into tbEndereco (CEP) values (vCEP);
 		end if;
-    	insert into tbCliente (nomUsuCli, senhaCli, nomCli, tipoCli, celCli, emailCli, numEndCli, CEP, compEndCli) values 
-			(vnomUsuCli, vsenhaCli, vnomCli, false, vcelCli, vemailCli, vnumEndCli, vCEP, vcompEndCli);
-		insert into tbCliFis (CPFCli, dtNascCliF) values (vCPFCli, vdtNascCliF);
+    	insert into tbCliente (nomCli, tipoCli, celCli, emailCli, senhaCli, CEP, numEndCli, compEndCli) values 
+			 (vnomCli, false, vcelCli, vemailCli, vsenhaCli, vCEP, vnumEndCli, vcompEndCli);
+		insert into tbCliFis (CPFCli, idCli, dtNascCliF) values
+			(vCPFCli, (select idCli from tbCliente order by idCli desc limit 1), vdtNascCliF);
     end if;
 end $$
 
-call spInsertCliFis('Jesus', 'senha', 'Jesus Youssef', 1199209832, 'jesuscristo@gmail.com', 06300187, 33, 'Casa', 459822213, '1990-12-25');
-call spInsertCliFis('Kami', 'senha', 'Gabriel Bohm Santos', 1199209882, 'kamikat@gmail.com', 06309687, 34, 'Casa', 459722213, '1996-04-02');
-call spInsertCliFis('Thaiga', 'senha', 'Bianca Lula', 1199309833, 'thaigaloud@gmail.com', 06200087, 22, 'Casa', 459893116, '1996-01-03');
-call spInsertCliFis('Tinowns', 'senha', 'Thiago Sartori', 1199340822, 'tinownsthiago@gmail.com', 06200087, 22, 'Casa', 459873176, '1999-05-06');
+call spcadCliFis('Jesus Youssef', '1199209832', 'jesuscristo@gmail.com', 'senha', 06300187, 33, 'Casa', 459822213, '1990-12-25');
+call spcadCliFis('Gabriel Bohm Santos', '1199209882', 'kamikat@gmail.com', 'senha', 06309687, 34, 'Casa', 459722213, '1996-04-02');
+call spcadCliFis('Bianca Lula', '1199309833', 'thaigaloud@gmail.com', 'senha', 06200087, 22, 'Casa', 459893116, '1996-01-03');
+call spcadCliFis('Thiago Sartori', '1199340822', 'tinownsthiago@gmail.com', 'senha', 06200087, 22, 'Casa', 459873176, '1999-05-06');
 
 -- spUpdateCliFis
 DELIMITER $$
-	create procedure spUpdateCliFis(
+	create procedure spaltCliFis(
     vidCli smallint,
-    vnomeUsuCli varchar(20),
-	vsenhaCli varchar(260),
     vnomCli varchar(100),
-    vtipoCli boolean,
-    vcelCli int,
+    vcelCli varchar(11),
     vemailCli varchar(125),
+	vsenhaCli varchar(260),
     vCEP int(13),
     vnumEndCli smallint,
     vcompEndCli varchar(30),
-	vCPFCli int,
+	vCPFCli int(11),
 	vdtNascCliF date)
 BEGIN
 	if not exists (select CEP from tbEndereco where CEP=vCEP) then
@@ -463,26 +462,28 @@ BEGIN
 	end if;
 	update tbCliFis set CPFCli=vCPFCli, dtNascCliF=vdtNascCliF where idCli=vidCli;
 
-	update tbCliente set nomUsuCli=vnomUsuCli, senhaCli=vsenhaCli, nomCli=vnomCli, tipoCli=vtipoCli, celCli=vcelCli, emailCli=vemailCli, 
+	update tbCliente set nomCli=vnomCli, celCli=vcelCli, emailCli=vemailCli, senhaCli=vsenhaCli,  
 	CEP=vCEP, numEndCli=vnumEndCli, compEndCli=vcompEndCli where idCli=vidCli;
 END$$
 
+call spaltCliFis(2, 'Gus Rodrigues', '1194320943', 'gusthienx@gmail.com', 'senha', 06300187, 33, 'Casa', 93872213, '1990-12-25');
+
 -- vwCheckCliFis
-create view vwCheckCliFis as select
+create view vwcheckCliFis as select
 	tbCliente.idCli as 'ID',
-	tbCliente.nomUsuCli as 'Nome de usuário', 
-    tbCliente.senhaCli as 'Senha',
-	tbCliente.nomCli as 'Nome', 
-    tbCliente.celCli as 'Celular',
-    tbCliente.emailCli as 'Email', 
-    tbCliente.CEP as 'CEP',
-    tbCliente.numEndCli as 'Número do endereço', 
-    tbCliente.compEndCli as 'Complemento', 
-    tbCliFis.CPFCli as 'CPF', 
-    tbCliFis.dtNascCliF as 'Data de nascimento'
-		from Cliente 
+	nomCli as 'Nome', 
+    celCli as 'Celular',
+    emailCli as 'Email', 
+	senhaCli as 'Senha',
+    CEP as 'CEP',
+    numEndCli as 'Número do endereço', 
+    compEndCli as 'Complemento', 
+    CPFCli as 'CPF', 
+    dtNascCliF as 'Data de nascimento'
+		from tbCliente 
                 inner join tbCliFis on tbCliente.idCli = tbCliFis.idCli;
-			
+
+select * from vwcheckCliFis;
 
 -- =============================================== --
 -- == -- == -- == -- Cliente Jurídico -- == -- == -- 
@@ -490,7 +491,80 @@ create view vwCheckCliFis as select
 create table tbCliJur(
 	CNPJCli int(14) primary key, 
 	idCli int unique,
-    foreign key (IdCli) references Cliente (IdCli),
-    fantaCliJ varchar(50) not null,
-    represCliJ varchar(30) not null 
+    foreign key (idCli) references tbCliente (idCli),
+    fantaCliJ varchar(100) not null,
+    represCliJ varchar(50) not null 
 );
+
+-- spInsertCliJur
+DELIMITER $$
+create procedure spcadCliJur(
+vnomCli varchar(100),
+vcelCli varchar(11),
+vemailCli varchar(125),
+vsenhaCli varchar(260),
+vCEP varchar(13),
+vnumEndCli smallint,
+vcompEndCli varchar(30),
+vCNPJCli int(14),
+vfantaCliJ varchar(100),
+vrepresCliJ varchar(50))
+begin
+	if not exists (select CNPJCli from tbCliJur where vCNPJCli = CNPJCli) then
+		if not exists (select CEP from tbEndereco where CEP=vCEP) then
+			insert into tbEndereco (CEP) values (vCEP);
+		end if;
+    	insert into tbCliente (nomCli, tipoCli, celCli, emailCli, senhaCli, numEndCli, CEP, compEndCli) values 
+			(vnomCli, true, vcelCli, vemailCli, vsenhaCli, vnumEndCli, vCEP, vcompEndCli);
+		insert into tbCliJur (CNPJCli, idCli, fantaCliJ, represCliJ) values
+			(vCNPJCli, (select idCli from tbCliente order by idCli desc limit 1), vfantaCliJ,  vrepresCliJ);
+    end if;
+end $$
+
+call spcadCliJur('Loud', '1136570927', 'loud@suporte.com.br', 'senha', '06210027', 10, 'Bloco 10', 463650010, 'LOUD GG', 'Thaiga');
+call spcadCliJur
+('Jornal BG News', '11958424397', 'bgnews@gmail.com', 'senha', '05089000', 678 , null, 233980686, 'MIDIAS BGNEWS', 'Madu Gaspar');
+
+-- spUpdateCliJur
+DELIMITER $$
+	create procedure spautCliJur(
+    vidCli smallint,
+    vnomCli varchar(100),
+    vcelCli int,
+    vemailCli varchar(125),
+	vsenhaCli varchar(260),
+    vCEP int(13),
+    vnumEndCli smallint,
+    vcompEndCli varchar(30),
+	vCNPJCli int(14),
+	vfantaCliJ varchar(100),
+    vrepresCliJ varchar(50))
+BEGIN
+	if not exists (select CEP from tbEndereco where CEP=vCEP) then
+		insert into tbEndereco (CEP) values (vCEP);
+	end if;
+	update tbCliJur set CNPJCli=vCNPJCli, fantaCliJ=vfantaCliJ, represCliJ = vrepresCliJ where idCli=vidCli;
+
+	update tbCliente set nomCli=vnomCli, celCli=vcelCli, emailCli=vemailCli, senhaCli=vsenhaCli, 
+	CEP=vCEP, numEndCli=vnumEndCli, compEndCli=vcompEndCli where idCli=vidCli;
+END$$
+
+call spautCliJur(5, 'Loud e-sports', '1136570927', 'loud@suporte.com.br', 'senha', '06239487', 124, 'Casa', 463650010, 'LOUD GG', 'Playhard');
+
+-- vwCheckCliFis
+create view vwcheckCliJur as select
+	tbCliente.idCli as 'ID',
+	nomCli as 'Nome', 
+    celCli as 'Celular',
+    emailCli as 'Email', 
+	senhaCli as 'Senha',
+    CEP as 'CEP',
+    numEndCli as 'Número do endereço', 
+    compEndCli as 'Complemento', 
+    CNPJCli as 'CNPJ', 
+    fantaCliJ as 'Data de nascimento',
+    represCliJ as 'Nome do representante'
+		from tbCliente 
+                inner join tbCliJur on tbCliente.idCli = tbCliJur.idCli;
+                
+select * from vwcheckCliJur;
