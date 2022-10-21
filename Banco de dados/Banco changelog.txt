@@ -1,25 +1,139 @@
-Ultima alteração 11/10/2022 ~ 17:09
+Ultima alteração 20/10/2022 ~ 23:28
 
 Tabelas revistas:
--autor v
--cargo 
--cliente fis 
--cliente jur 
--delivery 
--editora v
--endereco 
--funcionario 
--genero 
--itemvenda 
--livro v
--livro_autor v
--notafiscal 
--produto v
+-autor
+-editora
+-livro
+-livro_autor
+-produto
 -souvenir 
+-genero 
+-endereco 
+-cliente
+-cliente fis
+-cliente jur 
+-funcionario
+-cargo  
+-delivery 
+-itemvenda 
+-notafiscal
+-trigger livro estoque
 
-Mudanças banco:
 
+-- =============================================== --
+-- == -- == -- == -- Tabelas cortadas  -- == -- == --
+-- =============================================== --
+
+- Souvenier -> x
+- Cargo -> Funcionário
+- Produto -> Livro
+
+-- =============================================== --
+-- == -- == -- == -- Mudanças no banco -- == -- == --
+-- =============================================== --
+
+- Exclusão de procedures verificando se registros existem, visto
+que isso pode ser feito pelas procedures que retornam um registro
+baseado na pesquisa do ID;
+
+- Correção de nomes de tabelas e colunas, de acordo com o diagrama
+de classes e instruções no início da query;
+
+- Remoção de redundâncias no nome de alias de views. Uma tabela de clientes não precisa informar colunas como 'ID do cliente', 'Nome do cliente', 'X do cliente'; mas sim 'ID', 'Nome' e 'X', por exemplo. O programador que utilizará a view saberá que dados ela retornará pelo nome e, caso o usuário não consiga identificar sobre o que dados mostrados a ele se referem, o problema é de front-end, não de banco;
+
+- Adequação de nomes que seguiam regras de nomenclatura diferentes no mesmo contexto;
+
+- Removido "if not exists" desnecessário do nome de procedures, o que poluía o código e tornava sua invocação complicada e pouco prática;
+
+- Remoção de nomes de tabelas em frente a nome de atributos desnecessários de views;
+
+- Todos os parâmetros de procedure tiveram seus identificadores de parâmetro (letra ou símbolo que os diferencia do nome dos campos) modificados para "$"
+
+- Os recuos dos argumentos das procedures agora estão uniformes
+
+-- =============================================== --
+-- == -- == -- == -- Livro -- == -- == -- == -- == --
+-- =============================================== --
+
+- Remoção de inserções de editoras, autores e gêneros dentro da
+procedure de um livro, o que complicava o banco e atrapalhava na
+hora do back-end;
+
+- Remoção de "idLiv" para a tabela Livro, o ISBN é suficiente
+para ser qualificado como um identificador;
+
+- ISBN agora é um CHAR(13), visto que tem fixamente esse número
+de caracteres, com qualquer tipo de dado numérico consumindo uma
+quantidade absurda de bytes para armazenar um número deste tamanho;
+
+- a sinopse agora armazena 1500 caracteres;
+
+
+-- =============================================== --
+-- == -- == -- == -- Endereço -- == -- == -- == -- ==
+-- =============================================== --
+
+- não existe mais "idEnde", o CEP é suficientemente adequado
+para ser utilizado como uma chave primária
+
+
+-- =============================================== --
+-- == -- == -- == -- Cliente -- == -- == -- == -- ==
+-- =============================================== --
+
+- nomCli agora suporta 100 caracteres
+
+- foi adicionado o atributo "senhaCli", que determina a senha que o cliente utilizará para logar no sistema
+
+- não é requisitado o tipo do cliente na alteração, visto que um cliente físico não pode se tornar jurídico, e vice-versa
+
+-- =============================================== --
+-- == -- == -- == -- Cliente Físico -- == -- == -- ==
+-- =============================================== --
+
+- O idCli não é mais a primary key, visto que o CPF é o atributo
+que identifica esse cliente
+
+- idCli também não é mais auto incrementado, porque vejam a seguinte situação
+
+Cliente
+idCli |   nome  | Tipo
+________________________
+   1  | Paloma  | Físico
+   2  | TryCorp | Jurídio
+   3  | Hayley  | Físico
+
+Se o idCli específico das entidades cli físico e cli jurídico continuasse sendo auto incrementado, o idCli de Hayley seria 2, e não 3, visto que a contagem do idcli do físico independe do jurídico. Deixaremos a auto incrementação apenas para a entidade mestra cliente, que então cadastrará na entidade do tipo específico do cliente (físico ou jurídico) a partir do último idCli cadastrado, ficando assim:
+
+Cliente Físico
+idCli |   nome  | Tipo
+________________________
+   1  | Paloma  | Físico
+   3  | Hayley  | Físico
+
+Cliente Júridico
+idCli |   nome  | Tipo
+________________________
+   2  | TryCorp | Jurídio
+
+Sim, com o idCli fora de ordem dentro das entidades específicas, mas ordenado dentro da entidade mestra.
+
+- O idCli específico das entidades de cada tipo agora é unique, visto que não pode ter um cliente tanto físico quanto jurídico.
+
+-- =============================================== --
+-- == -- == -- == -- Cliente Jurídico  == -- == -- ==
+-- =============================================== --
+
+- Alterações no idCli (Ver linhas 73 e 76)
+
+- O atributo que representa o nome fantasia da empresa e o nome do principal representante tiveras seu limite de caracters aumentados (100 e 50)
+
+-- =============================================== --
+-- == -- == -- == -- Venda -- == -- == -- == -- == --
+-- =============================================== --
+
+- Tabela "Nota Fiscal" e seus atributos renomeados para venda.
+
+- Seperação da procedure "venda" em duas, uma que abre uma venda e outra que insere produtos nela
 
 Perguntas:
-- Procedure speditExists, spgenExists, spautExists, por que existem e para quê servem?
-- Por que não existem views?
