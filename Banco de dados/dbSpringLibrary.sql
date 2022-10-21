@@ -681,7 +681,6 @@ select * from vwCheckAllFuncs;
 -- =============================================== --
 -- == -- == -- == -- Venda -- == -- == -- == -- ==
 -- =============================================== --
-
 create table tbVenda(
 	idVen int primary key auto_increment,
     valTotVen float(10,2),
@@ -713,16 +712,6 @@ create table tbDelivery(
     dtFinDel datetime
 );
 
--- traltEstoqueLiv - Altera o estoque de livros com base no que foi vendido
-DELIMITER $$
-	create trigger traltEstoqueLiv before insert 
-    on tbItemVenda for each row
-    BEGIN
-		update tbLivro set qtdLiv = old.qtdLiv - new.qtdIV
-			where ISBNLiv = new.ISBNLiv;
-    END
-$$
-
 -- spcomecVenda - Abre a venda.
 DELIMITER $$
 create procedure spcomecVenda(
@@ -747,6 +736,8 @@ create procedure spputLivVenda(
 	$ISBNLiv char(13),
     $qtdIV int)
 begin
+	update tbLivro set qtdLiv = qtdLiv - $qtdIV
+			where ISBNLiv = $ISBNLiv;
 	if not exists (select ISBNLiv from tbItemVenda where ISBNLiv = $ISBNLiv and idVen = $idVen) then
 		insert into tbItemVenda values
 			($ISBNLiv, $idVen, $qtdIV,
@@ -771,6 +762,8 @@ create procedure spdelLivVenda(
 	$ISBNLiv char(13))
 begin
 	if exists (select ISBNLiv from tbItemVenda where ISBNLiv = $ISBNLiv and idVen = $idVen) then
+		update tbLivro set qtdLiv = qtdLiv - (select qtdIV from tbItemVenda where ISBNLiv = $ISBNLiv and idVen = $idVen)
+			where ISBNLiv = $ISBNLiv;
 		delete from tbItemVenda where idVen = $idVen and ISBNLiv = $ISBNLiv;
 	end if;
     
