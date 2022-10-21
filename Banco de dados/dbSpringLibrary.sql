@@ -8,6 +8,7 @@
 */
 
 SET SQL_SAFE_UPDATES = 0;
+SET FOREIGN_KEY_CHECKS=0;
 
 create user if not exists 'SpringLibrary'@'localhost' identified with mysql_native_password BY '12345678';
 grant all privileges on dbSpringLibrary.* TO 'SpringLibrary'@'localhost' with grant option;
@@ -45,6 +46,7 @@ CALL spcadEdit("BooKsa", 99999999999, "contato@booksa.com");
 CALL spcadEdit("Primier", 45944886612, "primier.contato@gmail.com");
 CALL spcadEdit("Darkside", 1136189809, 'vc@darksidebooks.com');
 CALL spcadEdit("Intrínseca", 2132067400, 'contato@intrinseca.com.br');
+call spcadEdit('Arqueiro', 1134560987, 'arqueiro@contato.com.br');
 
 -- checkAllEdit
 DELIMITER $$
@@ -190,6 +192,7 @@ END$$
 CALL spcadAut("Ozcar Wailde");
 CALL spcadAut("Lucy Foley");
 CALL spcadAut("Mary Shelley");
+CALL spcadAut('Lucinda Riley');
 
 -- checkAllAut
 DELIMITER $$
@@ -279,8 +282,10 @@ BEGIN
 	IF NOT EXISTS (SELECT ISBNLiv FROM tbLivro WHERE ISBNLiv = $ISBNLiv) THEN
 		INSERT INTO tbLivro VALUES
         ($ISBNLiv, $titLivro, $titOriLiv, $sinopLiv, $imgLiv, $pratLiv, $numPagLiv, $numEdicaoLiv, $anoLiv, $precoLiv, $qtdLiv, $idEdit, $idGen);
-		INSERT INTO tbLivroAutor
-			VALUES ((SELECT ISBNLiv from tbLivro ORDER BY ISBNLiv DESC LIMIT 1),$idAut);
+	END IF;
+    IF NOT EXISTS (SELECT ISBNLiv FROM tbLivroAutor WHERE idAut = $idAut) THEN
+        INSERT INTO tbLivroAutor
+			VALUES ($ISBNLiv,$idAut);
 	END IF;
 END$$
 
@@ -296,8 +301,81 @@ de Fausto o Evangelho de um decadentismo que acredita em uma vida de arte, praze
 século no qual a convenção e a moralidade corroíam qualquer prazer que a existência humana poderia desfrutar.',
 'https://darkside.vteximg.com.br/arquivos/ids/176889-519-519/o-retrato-de-dorian-gray-0.png?v=637655004666100000',1,320,1,2021,30.00,200,
 1,4,9);
+call spcadLiv('9788594540188','Frankenstin',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,3,4,7);
+call spcadLiv('9788594540188','Frankenstin',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,2,4,7);
+-- Adicionando duas autoras em um livro;
+call spCadLiv('9786555652956','Morte no internato','The Murders at Fleat House',
+'Obra inédita da aclamada Lucinda Riley, Morte no internato é um romance policial com uma 
+trama instigante e a escrita envolvente que se tornaram marca registrada da autora.',
+'https://www.editoraarqueiro.com.br/media/livros_livro/9786555652956.png.200x300_q85_upscale.jpg',
+4,384,1,2022,39.99,29,4,6,7);
 
-call spcadLiv('9869387875698','Frankenstein',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,3,4,7);
+DELIMITER $$
+create procedure spaltLivro(
+	$ISBNLiv char(13),
+	$titLivro varchar(100),
+	$titOriLiv varchar(100), 
+	$sinopLiv varchar(1500), 
+    $imgLiv varchar(500),
+	$pratLiv smallint, 
+	$numPagLiv smallint, 
+	$numEdicaoLiv smallint, 
+	$anoLiv smallint, 
+    $precoLiv float(10,2),
+    $qtdLiv int,
+	$idAut int, 
+	$idEdit int, 
+	$idGen int)
+	BEGIN
+		UPDATE tbLivro SET
+			titLivro = $titLivro, titOriLiv = $titOriLiv, sinopLiv = $sinopLiv, imgLiv = $imgLiv, pratLiv = $pratLiv,
+            numPagLiv = $numPagLiv, numEdicaoLiv = $numEdicaoLiv, anoLiv = $anoLiv, precoLiv = $precoLiv, qtdLiv = $qtdLiv
+            WHERE (ISBNLiv = $ISBNLiv);
+		IF EXISTS(SELECT idAut FROM tbLivroAutor WHERE ISBNLiv = $ISBNLiv AND idAut = $idAut) THEN
+			DELETE FROM tbLivroAutor WHERE(idAut = $idAut AND ISBNLiv = $ISBNLiv);
+        ELSE
+			INSERT INTO tbLivroAutor VALUES($ISBNLiv, $idAut);
+        END IF;
+    END
+$$
+
+call spaltLivro('9788594540188','Frankenstein',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,2,4,7);
+-- Retificando o nome do livro e retirando/recolocando a autora de ID 2
+
+-- vwcheckAllLiv
+create view vwcheckAllLiv as select
+	lv.ISBNLiv as 'ISBN',
+	titLivro as 'Título', 
+    titOriLiv as 'Título original',
+    sinopLiv as 'Sinopse',
+    imgLiv as 'Link da imagem da capa',
+    pratLiv as 'Prateleira',
+    numPagLiv as 'Número de páginas',
+    numEdicaoLiv as 'Número da edição',
+    anoLiv as 'Ano de publicação',
+	precoLiv as 'Preço',
+    qtdLiv as 'Quantidade no estoque',
+    nomGen as 'Gênero do livro',
+	nomEdit as 'Nome da editora',
+    celEdit as 'Telefone da editora',
+    emailEdit as 'Email da editora'
+    from tbLivro as lv
+			inner join tbGenero as gen on lv.IdGen = gen.IdGen
+            inner join tbEditora as edit on lv.IdEdit = edit.IdEdit;
+            
+select * from vwcheckAllLiv;
+
+-- vwcheckAllAutInLiv - Ver livros e todos os seus autores
+create view vwcheckAllAutInLiv as select
+	lv.ISBNLiv as 'ISBN',
+	titLivro as 'Título', 
+	nomAut as 'Nome do autor'
+    from tbAutor as aut
+            inner join tbLivroAutor as lva on aut.idAut = lva.idAut
+            inner join tbLivro as lv on lva.ISBNLiv = lv.ISBNLiv
+
+select * from vwcheckAllAutInLiv;
+
 
 -- =============================================== --
 -- == -- == -- == -- Endereço -- == -- == -- == -- ==
@@ -350,6 +428,8 @@ call spcheckCliByName("Gus Rodrigues");
 call spcheckCliByName("Bianca Lula");
 call spcheckCliByName("Thiago Sartori");
 -- Retornará vazio até que clientes físicos ou jurídicos sejam cadastrados
+/* Como a tabela tbLivroAutor é composta por foreign keys, FOREIGN_KEY_CHECKS deve ser
+mudado para 0, desativando proibição quanto à alteração/exclusão destas */
 
 
 -- =============================================== --
@@ -402,6 +482,7 @@ create procedure spaltCliFis(
 	$CEP varchar(13),
 	$numEndCli smallint,
 	$compEndCli varchar(30),
+	$CPFCli int,
 	$dtNascCliF date)
 BEGIN
 	if not exists (select CEP from tbEndereco where CEP=$CEP) then
@@ -516,7 +597,6 @@ create view vwcheckCliJur as select
 select * from vwcheckCliJur;
 
 
-
 -- =============================================== --
 -- == -- == -- == -- Funcionário -- == -- == -- == -- 
 -- =============================================== --
@@ -581,6 +661,8 @@ BEGIN
 	SELECT * FROM tbFuncionario WHERE idFunc = $idFunc;
 END$$
 
+call checkFuncById(3);
+
 -- vwCheckAllFuncs
 create view vwCheckAllFuncs as select 
 	IdFunc as 'ID', 
@@ -594,3 +676,190 @@ create view vwCheckAllFuncs as select
 		from tbFuncionario;
 
 select * from vwCheckAllFuncs;
+
+
+-- =============================================== --
+-- == -- == -- == -- Venda -- == -- == -- == -- ==
+-- =============================================== --
+
+create table tbVenda(
+	idVen int primary key auto_increment,
+    valTotVen float(10,2),
+    delivVen boolean not null,
+    dtHoraVen datetime default(current_timestamp()),
+    tipoPgtVen varchar(20) not null,
+    idFunc int not null,
+    foreign key (idFunc) references tbFuncionario(idFunc),
+    IdCli int not null,
+    foreign key (idCli) references tbCliente(idCli)
+);
+
+-- Tabela intermediária necessária para representar itens de uma venda
+create table tbItemVenda(
+    ISBNLiv char(13) not null,
+	idVen int not null,
+    qtdIV int not null,
+    valTotIV float(10,2) not null,
+    foreign key (ISBNLiv) references tbLivro(ISBNLiv),
+    foreign key (idVen) references tbVenda(idVen)
+);
+
+create table tbDelivery(
+	idDel int primary key auto_increment,
+    idVen int not null,
+    foreign key (idVen) references tbVenda (idVen),
+    statDel boolean not null,
+    dtPrevDel date not null,
+    dtFinDel datetime
+);
+
+-- traltEstoqueLiv - Altera o estoque de livros com base no que foi vendido
+DELIMITER $$
+	create trigger traltEstoqueLiv before insert 
+    on tbItemVenda for each row
+    BEGIN
+		update tbLivro set qtdLiv = old.qtdLiv - new.qtdIV
+			where ISBNLiv = new.ISBNLiv;
+    END
+$$
+
+-- spcomecVenda - Abre a venda.
+DELIMITER $$
+create procedure spcomecVenda(
+    $tipoPgtVen varchar(20), 
+    $idCli int,
+    $idFunc int,
+    $delivVen boolean,
+    $dtPrevDel date)
+begin
+	insert into tbVenda (valTotVen, delivVen, dtHoraVen, tipoPgtVen, idFunc, idCli) values
+		(null, $delivVen, default, $tipoPgtVen, $idFunc, $idCli);
+	if $delivVen = true then
+		insert into tbDelivery(idVen, statDel, dtPrevDel, dtFinDel) values
+			((select idVen from tbVenda order by idVen desc limit 1), 0, $dtPrevDel, null);
+		end if;
+end$$
+
+-- spputLivVenda - Coloca livros numa venda.
+DELIMITER $$
+create procedure spputLivVenda(
+	$idVen int,
+	$ISBNLiv char(13),
+    $qtdIV int)
+begin
+	if not exists (select ISBNLiv from tbItemVenda where ISBNLiv = $ISBNLiv and idVen = $idVen) then
+		insert into tbItemVenda values
+			($ISBNLiv, $idVen, $qtdIV,
+			(select precoLiv * $qtdIV from tbLivro where (ISBNLiv = $ISBNLiv)));
+	else
+		update tbItemVenda set qtdIV = qtdIV + $qtdIV,
+			valTotIV = (select precoLiv * $qtdIV + valTotIV from tbLivro where (ISBNLiv = $ISBNLiv)) 
+        where (ISBNLiv = $ISBNLiv and idVen = $idVen);
+	end if;
+    
+	update tbVenda
+		set valTotVen = 
+        (select sum(valTotIV) from tbItemVenda where
+				(idVen = $idVen))
+		where idVen = $idVen;
+end $$
+
+-- spdelLivVenda - Retira livros de uma venda.
+DELIMITER $$
+create procedure spdelLivVenda(
+	$idVen int,
+	$ISBNLiv char(13))
+begin
+	if exists (select ISBNLiv from tbItemVenda where ISBNLiv = $ISBNLiv and idVen = $idVen) then
+		delete from tbItemVenda where idVen = $idVen and ISBNLiv = $ISBNLiv;
+	end if;
+    
+	update tbVenda
+		set valTotVen = 
+        (select sum(valTotIV) from tbItemVenda where
+				(idVen = $idVen))
+		where idVen = $idVen;
+end $$
+
+-- spaltStatusDeliv - Altera o status do delivery
+DELIMITER $$
+create procedure spaltStatusDeliv(
+	$idDel int,
+	$statDel tinyint(1))
+begin
+	if $statDel = 2 then
+		update tbDelivery set statDel = $statDel, dtFinDel = current_timestamp where idDel = $idDel;
+	else
+		update tbDelivery set statDel = $statDel where idDel = $idDel;
+    end if;
+end $$
+
+/* Abrindo vendas, colocando, tirando produtos e alterando o status de delivery delas
+---=== SEMPRE SETAR SET FOREIGN_KEY_CHECKS=0 ANTES DE RODAR OS TESTES ===---*/
+call spcomecVenda("Dinheiro", 1, 3, false, null);
+call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555652956",1);
+
+call spcomecVenda("Transferência", 2, 3, true, '2022-10-24');
+call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555980004",1);
+call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555980004",1);
+call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555652956",1);
+call spaltStatusDeliv((select idDel from tbDelivery order by idVen desc limit 1),2)
+
+call spcomecVenda("Crédito", 3, 6, true, '2022-10-26');
+call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555980004",1);
+call spdelLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555980004");
+call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9788594540188",1);
+call spaltStatusDeliv((select idDel from tbDelivery order by idVen desc limit 1),1);
+
+-- vwcheckAllVenda - Ver todas as vendas
+create view vwcheckAllVenda as select 
+	idVen as 'ID',
+    dtHoraVen as 'Data e hora',
+	tbCliente.NomCli as 'Nome do cliente',
+    tbFuncionario.NomFunc as 'Funcionário responsável',
+    tipoPgtVen as 'Situação de pagamento', 
+    valTotVen as 'Valor total',
+	delivVen as 'É Delivery?'
+		From tbVenda
+			inner join tbFuncionario on tbVenda.idFunc = tbFuncionario.idFunc
+            inner join tbCliente on tbVenda.idCli = tbCliente.idCli;
+     
+select * from vwcheckAllVenda;
+
+-- spcheckAllItemVenda - Ver todas os itens de uma venda
+DELIMITER $$
+create procedure spcheckAllItemVenda($idVen int)
+begin
+	select 
+	tbVenda.idVen as 'ID da venda',
+	tbVenda.idVen as 'ID do produto',
+	tbLivro.ISBNLiv as 'ISBN',
+	tbLivro.titLivro as 'Título',
+    tbLivro.precoLiv as 'Preço unitário',
+    tbItemVenda.qtdIV as 'Quantidade',
+    tbItemVenda.valTotIV as 'Preço'
+		from tbVenda
+			inner join tbItemVenda on tbVenda.idVen = tbItemVenda.idVen
+            inner join tbLivro on tbItemVenda.ISBNLiv = tbLivro.ISBNLiv
+		where(tbVenda.idVen = $idVen);
+end$$
+     
+call spcheckAllItemVenda(2);
+
+-- vwcheckAllDeliv - Ver todas as vendas com delivery e sua situação
+create view vwcheckAllDeliv as select 
+	tbVenda.idVen as 'ID',
+    dtHoraVen as 'Data e hora',
+	tbCliente.NomCli as 'Nome do cliente',
+    tbFuncionario.NomFunc as 'Funcionário responsável',
+    tipoPgtVen as 'Situação de pagamento', 
+    valTotVen as 'Valor total',
+    statDel as 'Status do delivery',
+    dtPrevDel as 'Previsão de entrega',
+    dtFinDel as 'Data de entrega'
+		From tbVenda
+			inner join tbFuncionario on tbVenda.idFunc = tbFuncionario.idFunc
+            inner join tbCliente on tbVenda.idCli = tbCliente.idCli
+            inner join tbDelivery on tbVenda.idVen = tbDelivery.idVen;
+            
+select * from vwcheckAllDeliv;

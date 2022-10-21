@@ -1,9 +1,9 @@
-Ultima alteração 19/10/2022 ~ 20:40
+Ultima alteração 20/10/2022 ~ 23:28
 
 Tabelas revistas:
 -autor
 -editora
--livro *
+-livro
 -livro_autor
 -produto
 -souvenir 
@@ -14,9 +14,6 @@ Tabelas revistas:
 -cliente jur 
 -funcionario
 -cargo  
-
-Tabelas faltantes:
-
 -delivery 
 -itemvenda 
 -notafiscal
@@ -130,5 +127,13 @@ Sim, com o idCli fora de ordem dentro das entidades específicas, mas ordenado d
 - Alterações no idCli (Ver linhas 73 e 76)
 
 - O atributo que representa o nome fantasia da empresa e o nome do principal representante tiveras seu limite de caracters aumentados (100 e 50)
+
+-- =============================================== --
+-- == -- == -- == -- Venda -- == -- == -- == -- == --
+-- =============================================== --
+
+- Tabela "Nota Fiscal" e seus atributos renomeados para venda.
+
+- Seperação da procedure "venda" em duas, uma que abre uma venda e outra que insere produtos nela
 
 Perguntas:
