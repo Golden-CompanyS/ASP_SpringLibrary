@@ -18,7 +18,7 @@ namespace ASP_SpringLibrary.Models
         [Display(Name = "Nome da Editora")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [MaxLength(30, ErrorMessage = "O nome da editora deve ter até 30 caracteres")]
-        [Remote("EditExists", "Editora", "Dashboard", AdditionalFields = "idEdit", ErrorMessage = "A Editora já existe!")]
+        [Remote("EditExists", "Editora", "Dashboard", AdditionalFields = "idEdit", ErrorMessage = "A editora já existe!")]
         public string nomEdit { get; set; }
 
         [Display(Name = "Celular de Contato")]

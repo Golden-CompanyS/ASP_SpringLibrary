@@ -38,9 +38,9 @@ namespace ASP_SpringLibrary.Models
         {
             connection.Open();
             command.CommandText = "SELECT nomGen FROM tbGenero WHERE idGen != @idGen and nomGen = @nomGen;";
-            command.Parameters.Add("@idGen", MySqlDbType.Int64).Value = idGen;
-            command.Parameters.Add("@nomGen", MySqlDbType.VarChar).Value = nomGen;
-            command.Connection = connection;
+                command.Parameters.Add("@idGen", MySqlDbType.Int64).Value = idGen;
+                command.Parameters.Add("@nomGen", MySqlDbType.VarChar).Value = nomGen;
+                command.Connection = connection;
             string gen = (string) command.ExecuteScalar(); // ExecuteScalar: RETORNAR APENAS 1 VALOR
             connection.Close();
 

@@ -81,7 +81,7 @@ namespace ASP_SpringLibrary.Models
                 tempLiv.pagLiv = int.Parse(readLiv["pagLiv"].ToString());
                 tempLiv.anoLiv = int.Parse(readLiv["anoLiv"].ToString());
                 tempLiv.editLiv = new Editora().checkEditById(int.Parse(readLiv["editLiv"].ToString()));
-                tempLiv.autLiv = new Autor().checkAutListByLivId(int.Parse(readLiv["idLiv"].ToString()));
+                tempLiv.autLiv = checkAutListByLivId(int.Parse(readLiv["idLiv"].ToString()));
                 tempLiv.genLiv = new Genero().checkGenById(int.Parse(readLiv["genLiv"].ToString()));
             }
 
@@ -113,7 +113,7 @@ namespace ASP_SpringLibrary.Models
                 tempLiv.pagLiv = int.Parse(readLiv["pagLiv"].ToString());
                 tempLiv.anoLiv = int.Parse(readLiv["anoLiv"].ToString());
                 tempLiv.editLiv = new Editora().checkEditById(int.Parse(readLiv["editLiv"].ToString()));
-                tempLiv.autLiv = new Autor().checkAutListByLivId(int.Parse(readLiv["idLiv"].ToString()));
+                tempLiv.autLiv = checkAutListByLivId(int.Parse(readLiv["idLiv"].ToString()));
                 tempLiv.genLiv = new Genero().checkGenById(int.Parse(readLiv["genLiv"].ToString()));
 
                 tempLivList.Add(tempLiv);
@@ -166,7 +166,7 @@ namespace ASP_SpringLibrary.Models
                     tempLiv.pagLiv = int.Parse(readLiv["pagLiv"].ToString());
                     tempLiv.anoLiv = int.Parse(readLiv["anoLiv"].ToString());
                     tempLiv.editLiv = new Editora().checkEditById(int.Parse(readLiv["editLiv"].ToString()));
-                    tempLiv.autLiv = new Autor().checkAutListByLivId(int.Parse(readLiv["idLiv"].ToString()));
+                    tempLiv.autLiv = checkAutListByLivId(int.Parse(readLiv["idLiv"].ToString()));
                     tempLiv.genLiv = new Genero().checkGenById(int.Parse(readLiv["genLiv"].ToString()));
 
                     tempLivList.Add(tempLiv);
@@ -219,6 +219,32 @@ namespace ASP_SpringLibrary.Models
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();
+        }
+
+        public List<Autor> checkAutListByLivId(int idLiv)
+        {
+            connection.Open();
+            command.CommandText = "CALL spcheckAutListByLivId(@idLiv);"; // SELECIONAR TUDO DA tbAutor PELO ID DO LIVRO
+            command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = idLiv;
+            command.Connection = connection;
+
+            var readAut = command.ExecuteReader();
+            List<Autor> tempAutList = new List<Autor>();
+
+            while (readAut.Read())
+            {
+                var tempAut = new Autor();
+
+                tempAut.idAut = int.Parse(readAut["idAut"].ToString());
+                tempAut.nomAut = readAut["nomAut"].ToString();
+
+                tempAutList.Add(tempAut);
+            }
+
+            readAut.Close();
+            connection.Close();
+
+            return tempAutList;
         }
     }
 }
