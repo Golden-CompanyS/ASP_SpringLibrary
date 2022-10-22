@@ -174,13 +174,13 @@ CALL spcheckGenById(2);
 -- ========================================= --
 CREATE TABLE tbAutor(
 	idAut int primary key auto_increment,
-    nomAut varchar(30) not null
+    nomAut varchar(100) not null
 );
 
 -- cadAutIfNotExists
 DELIMITER $$
 CREATE PROCEDURE spcadAut(
-	$nomAut varchar(30)
+	$nomAut varchar(100)
 )
 BEGIN
 	IF NOT EXISTS (SELECT nomAut FROM tbAutor WHERE nomAut = $nomAut) THEN
@@ -207,7 +207,7 @@ CALL spcheckAllAut();
 DELIMITER $$
 CREATE PROCEDURE spaltAut(
 	$idAut int,
-	$nomAut varchar(30)
+	$nomAut varchar(100)
 )
 BEGIN
 	UPDATE tbAutor SET nomAut = $nomAut WHERE idAut = $idAut;
