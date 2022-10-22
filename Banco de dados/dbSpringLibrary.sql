@@ -23,7 +23,7 @@ use dbspringlibrary;
 CREATE TABLE tbEditora(
 	idEdit int primary key auto_increment,
     nomEdit varchar(30) not null unique, 
-    celEdit bigint(11) not null,
+    celEdit char(11) not null,
     emailEdit varchar(30) not null
 );
 
@@ -31,7 +31,7 @@ CREATE TABLE tbEditora(
 DELIMITER $$
 CREATE PROCEDURE spcadEdit(
 	$nomEdit varchar(30),
-    $celEdit bigint(11),
+    $celEdit char(11),
     $emailEdit varchar(30)
 )
 BEGIN
@@ -62,7 +62,7 @@ DELIMITER $$
 CREATE PROCEDURE spaltEdit(
 	$idEdit int,
 	$nomEdit varchar(30),
-    $celEdit bigint(11),
+    $celEdit char(11),
     $emailEdit varchar(30)
 )
 BEGIN
@@ -372,7 +372,7 @@ create view vwcheckAllAutInLiv as select
 	nomAut as 'Nome do autor'
     from tbAutor as aut
             inner join tbLivroAutor as lva on aut.idAut = lva.idAut
-            inner join tbLivro as lv on lva.ISBNLiv = lv.ISBNLiv
+            inner join tbLivro as lv on lva.ISBNLiv = lv.ISBNLiv;
 
 select * from vwcheckAllAutInLiv;
 
@@ -381,7 +381,7 @@ select * from vwcheckAllAutInLiv;
 -- == -- == -- == -- Endereço -- == -- == -- == -- ==
 -- =============================================== --
 create table tbEndereco(
-    CEP int(13) primary key
+    CEP char(8) primary key
 );
 -- A tabela endereço não terá qualquer atividade de CRUD por si só, sendo 100% manipulada por operações vinculadas às telas de cliente
 
@@ -392,10 +392,10 @@ CREATE TABLE tbCliente (
 	idCli int primary key auto_increment,
     nomCli varchar(100) not null,
     tipoCli boolean not null, -- FALSE para FÍSICO  ///  TRUE para JURÍDICO
-	celCli varchar(11),
+	celCli char(11),
     emailCli varchar(125) not null,
     senhaCli varchar(260) not null,
-	CEP int(13),
+	CEP char(8),
     foreign key (CEP) references tbEndereco(CEP),
     numEndCli smallint not null,
     compEndCli varchar(30)
@@ -418,7 +418,7 @@ select * from vwcheckAllCli;
 
 -- spCheckCliByUsername
 DELIMITER $$
-CREATE PROCEDURE spcheckCliByName($vnomCli varchar(20))
+CREATE PROCEDURE spcheckCliByName($vnomCli varchar(100))
 BEGIN
 	select * from tbCliente WHERE(nomCli = $vnomCli);
 END$$
@@ -436,7 +436,7 @@ mudado para 0, desativando proibição quanto à alteração/exclusão destas */
 -- == -- == -- == -- Cliente Físico -- == -- == -- ==
 -- =============================================== --
 create table tbCliFis(
-	CPFCli int(11) primary key,
+	CPFCli char(11) primary key,
 	idCli int unique,
     foreign key (idCli) references tbCliente (idCli),
     dtNascCliF date not null
@@ -446,10 +446,10 @@ create table tbCliFis(
 DELIMITER $$
 create procedure spcadCliFis(
 	$nomCli varchar(100),
-	$celCli varchar(11),
+	$celCli char(11),
 	$emailCli varchar(125),
 	$senhaCli varchar(260),
-	$CEP varchar(13),
+	$CEP char(8),
 	$numEndCli smallint,
 	$compEndCli varchar(30),
 	$CPFCli int,
@@ -466,10 +466,10 @@ begin
     end if;
 end $$
 
-call spcadCliFis('Jesus Youssef', '1199209832', 'jesuscristo@gmail.com', 'senha', 06300187, 33, 'Casa', 459822213, '1990-12-25');
-call spcadCliFis('Gabriel Bohm Santos', '1199209882', 'kamikat@gmail.com', 'senha', 06309687, 34, 'Casa', 459722213, '1996-04-02');
-call spcadCliFis('Bianca Lula', '1199309833', 'thaigaloud@gmail.com', 'senha', 06200087, 22, 'Casa', 459893116, '1996-01-03');
-call spcadCliFis('Thiago Sartori', '1199340822', 'tinownsthiago@gmail.com', 'senha', 06200087, 22, 'Casa', 459873176, '1999-05-06');
+call spcadCliFis('Jesus Youssef', '1199209832', 'jesuscristo@gmail.com', 'senha', "06300187", 33, 'Casa', 459822213, '1990-12-25');
+call spcadCliFis('Gabriel Bohm Santos', '1199209882', 'kamikat@gmail.com', 'senha', "06309687", 34, 'Casa', 459722213, '1996-04-02');
+call spcadCliFis('Bianca Lula', '1199309833', 'thaigaloud@gmail.com', 'senha', "06200087", 22, 'Casa', 459893116, '1996-01-03');
+call spcadCliFis('Thiago Sartori', '1199340822', 'tinownsthiago@gmail.com', 'senha', "06200087", 22, 'Casa', 459873176, '1999-05-06');
 
 -- spUpdateCliFis
 DELIMITER $$
@@ -493,7 +493,7 @@ BEGIN
 	CEP=$CEP, numEndCli=$numEndCli, compEndCli=$compEndCli where idCli=$idCli;
 END$$
 
-call spaltCliFis(2, 'Gus Rodrigues', '1194320943', 'gusthienx@gmail.com', 'senha', 06300187, 33, 'Casa', 93872213, '1990-12-25');
+call spaltCliFis(2, 'Gus Rodrigues', '1194320943', 'gusthienx@gmail.com', 'senha', "06300187", 33, 'Casa', 93872213, '1990-12-25');
 
 -- vwCheckCliFis
 create view vwcheckCliFis as select
@@ -516,7 +516,7 @@ select * from vwcheckCliFis;
 -- == -- == -- == -- Cliente Jurídico -- == -- == -- 
 -- =============================================== --
 create table tbCliJur(
-	CNPJCli int(14) primary key, 
+	CNPJCli char(14) primary key, 
 	idCli int unique,
     foreign key (idCli) references tbCliente (idCli),
     fantaCliJ varchar(100) not null,
@@ -527,13 +527,13 @@ create table tbCliJur(
 DELIMITER $$
 create procedure spcadCliJur(
 	$nomCli varchar(100),
-	$celCli varchar(11),
+	$celCli char(11),
 	$emailCli varchar(125),
 	$senhaCli varchar(260),
-	$CEP varchar(13),
+	$CEP char(8),
 	$numEndCli smallint,
 	$compEndCli varchar(30),
-	$CNPJCli int(14),
+	$CNPJCli char(14),
 	$fantaCliJ varchar(100),
 	$represCliJ varchar(50))
 begin
@@ -548,9 +548,9 @@ begin
     end if;
 end $$
 
-call spcadCliJur('Loud', '1136570927', 'loud@suporte.com.br', 'senha', '06210027', 10, 'Bloco 10', 463650010, 'LOUD GG', 'Thaiga');
+call spcadCliJur('Loud', '1136570927', 'loud@suporte.com.br', 'senha', '06210027', 10, 'Bloco 10', "463650010", 'LOUD GG', 'Thaiga');
 call spcadCliJur
-('Jornal BG News', '11958424397', 'bgnews@gmail.com', 'senha', '05089000', 678 , null, 233980686, 'MIDIAS BGNEWS', 'Madu Gaspar');
+('Jornal BG News', '11958424397', 'bgnews@gmail.com', 'senha', '05089000', 678 , null, "233980686", 'MIDIAS BGNEWS', 'Madu Gaspar');
 
 -- spUpdateCliJur
 DELIMITER $$
@@ -560,10 +560,10 @@ DELIMITER $$
     $celCli int,
     $emailCli varchar(125),
 	$senhaCli varchar(260),
-    $CEP int(13),
+    $CEP char(8),
     $numEndCli smallint,
     $compEndCli varchar(30),
-	$CNPJCli int(14),
+	$CNPJCli char(14),
 	$fantaCliJ varchar(100),
     $represCliJ varchar(50))
 BEGIN
@@ -603,10 +603,10 @@ select * from vwcheckCliJur;
 create table tbFuncionario(
 	idFunc int primary key auto_increment,
     nomFunc varchar(50) not null,
-    CPFFunc int(11) not null,
+    CPFFunc char(11) not null,
     imgFunc varchar(256),
 	cargoFunc varchar(30) not null,
-    celFunc varchar(11) not null,
+    celFunc char(11) not null,
     emailFunc varchar(125) not null,
     senhaFunc varchar(260) not null
 );
@@ -614,10 +614,10 @@ create table tbFuncionario(
 DELIMITER $$
 create procedure spcadFunc(
 	$nomFunc varchar(50),
-	$CPFFunc int(11),
+	$CPFFunc char(11),
 	$imgFunc varchar(256),
 	$cargoFunc varchar(30),
-	$celFunc varchar(11),
+	$celFunc char(11),
 	$emailFunc varchar(125),
 	$senhaFunc varchar(260))
 BEGIN
@@ -625,22 +625,22 @@ BEGIN
     values ($NomFunc, $CPFFunc, $imgFunc, $cargoFunc, $celFunc, $emailFunc, $senhaFunc);
 END $$
 
-call spcadFunc("Leticia", 1234567, "let.png", 'Gerente', 11987643239, "leticiaresina@email.com", "1234567");
-call spcadFunc("Larissa", 3458759, "lari.png", 'Gerente', 11987643819, "larii@email.com", "1234567");
-call spcadFunc("Gustavo", 4838712, "gus.png", 'Bibliotecário', 11958694851, "pearGus@email.com", "1234567");
-call spcadFunc("Taveira", 3259382, "tavs.png", 'Logístico', 11987642312, "taveira.mateus@email.com", "1234567");
-call spcadFunc("Erin", 1231382, "eri.png", 'Logístico', 11987643819, "eriin@email.com", "1234567");
-call spcadFunc("Wesley", 232382, "wes.png", 'Caixa', 11987643819, "wes@email.com", "1234567");
+call spcadFunc("Leticia", "1234567", "let.png", 'Gerente', "11987643239", "leticiaresina@email.com", "1234567");
+call spcadFunc("Larissa", "3458759", "lari.png", 'Gerente', "11987643819", "larii@email.com", "1234567");
+call spcadFunc("Gustavo", "4838712", "gus.png", 'Bibliotecário', "11958694851", "pearGus@email.com", "1234567");
+call spcadFunc("Taveira", "3259382", "tavs.png", 'Logístico', "11987642312", "taveira.mateus@email.com", "$&%o8&TY3Gh!8w33");
+call spcadFunc("Erin", "1231382", "eri.png", 'Logístico', "11987643819", "eriin@email.com", "1234567");
+call spcadFunc("Wesley", "232382", "wes.png", 'Caixa', "11987643819", "wes@email.com", "1234567");
 
 -- spaltFunc
 DELIMITER $$
 create procedure spaltFunc(
     $idFunc int,
     $nomFunc varchar(50),
-    $CPFFunc int,
+    $CPFFunc char(11),
     $imgFunc varchar(256),
     $cargoFunc varchar(30),
-    $celFunc varchar(11),
+    $celFunc char(11),
     $emailFunc varchar(125),
     $senhaFunc varchar(260))
     BEGIN
@@ -649,8 +649,8 @@ create procedure spaltFunc(
     END
 $$
 
-call spaltFunc(3, "Gus", 4838712, "gus.png", 'Bibliotecário', 11958694851, "novoEmaildoGus@email.com", "1234567");
-call spaltFunc(5, "Erin", 1231382, "eri.png", 'Bibliotecário', 11987643819, "eriin@email.com", "1234567");
+call spaltFunc(3, "Gus", 4838712, "gus.png", 'Bibliotecário', "11958694851", "novoEmaildoGus@email.com", "1234567");
+call spaltFunc(5, "Erin", 1231382, "eri.png", 'Bibliotecário', "11987643819", "eriin@email.com", "1234567");
 
 -- checkFuncById
 DELIMITER $$
@@ -707,9 +707,9 @@ create table tbDelivery(
 	idDel int primary key auto_increment,
     idVen int not null,
     foreign key (idVen) references tbVenda (idVen),
-    statDel boolean not null,
+    statDel char(1) not null,
     dtPrevDel date not null,
-    dtFinDel datetime
+    dtFinDel date
 );
 
 -- spcomecVenda - Abre a venda.
@@ -778,9 +778,9 @@ end $$
 DELIMITER $$
 create procedure spaltStatusDeliv(
 	$idDel int,
-	$statDel tinyint(1))
+	$statDel char(1))
 begin
-	if $statDel = 2 then
+	if $statDel = "2" then
 		update tbDelivery set statDel = $statDel, dtFinDel = current_timestamp where idDel = $idDel;
 	else
 		update tbDelivery set statDel = $statDel where idDel = $idDel;

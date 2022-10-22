@@ -38,10 +38,10 @@ namespace ASP_SpringLibrary.Models
         public void cadEdit(Editora editora)
         {
             connection.Open();
-            command.CommandText = "CALL spcadEditIfNotExists(@nomEdit, @celEdit, @emailEdit);"; // INSERIR tbEditora
-                command.Parameters.Add("@nomEdit", MySqlDbType.String).Value = editora.nomEdit;
-                command.Parameters.Add("@celEdit", MySqlDbType.Int64).Value = editora.celEdit;
-                command.Parameters.Add("@emailEdit", MySqlDbType.String).Value = editora.emailEdit;
+            command.CommandText = "CALL spcadEdit(@nomEdit, @celEdit, @emailEdit);"; // INSERIR tbEditora
+                command.Parameters.Add("@nomEdit", MySqlDbType.VarChar).Value = editora.nomEdit;
+                command.Parameters.Add("@celEdit", MySqlDbType.VarChar).Value = editora.celEdit;
+                command.Parameters.Add("@emailEdit", MySqlDbType.VarChar).Value = editora.emailEdit;
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();
@@ -50,7 +50,7 @@ namespace ASP_SpringLibrary.Models
         public bool editExists(int idEdit, string nomEdit)
         {
             connection.Open();
-            command.CommandText = "CALL speditExists(@idEdit, @nomEdit);";
+            command.CommandText = "SELECT nomEdit FROM tbEditora WHERE idEdit != @idEdit and nomEdit = @nomEdit;";
                 command.Parameters.Add("@idEdit", MySqlDbType.Int64).Value = idEdit;
                 command.Parameters.Add("@nomEdit", MySqlDbType.VarChar).Value = nomEdit;
                 command.Connection = connection;
@@ -68,9 +68,9 @@ namespace ASP_SpringLibrary.Models
             connection.Open();
             command.CommandText = "CALL spaltEdit(@idEdit, @nomEdit, @celEdit, @emailEdit);"; // ALTERAR tbEditora
                 command.Parameters.Add("@idEdit", MySqlDbType.Int64).Value = editora.idEdit;
-                command.Parameters.Add("@nomEdit", MySqlDbType.String).Value = editora.nomEdit;
-                command.Parameters.Add("@celEdit", MySqlDbType.Int64).Value = editora.celEdit;
-                command.Parameters.Add("@emailEdit", MySqlDbType.String).Value = editora.emailEdit;
+                command.Parameters.Add("@nomEdit", MySqlDbType.VarChar).Value = editora.nomEdit;
+                command.Parameters.Add("@celEdit", MySqlDbType.VarChar).Value = editora.celEdit;
+                command.Parameters.Add("@emailEdit", MySqlDbType.VarChar).Value = editora.emailEdit;
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();

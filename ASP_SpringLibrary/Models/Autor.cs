@@ -22,7 +22,7 @@ namespace ASP_SpringLibrary.Models
         public void cadAutIfNotExists(Autor autor)
         {
             connection.Open();
-            command.CommandText = "CALL spcadAutIfNotExists(@nomAut);"; // INSERIR tbAutor
+            command.CommandText = "CALL spcadAut(@nomAut);"; // INSERIR tbAutor
                 command.Parameters.Add("@nomAut", MySqlDbType.String).Value = autor.nomAut;
                 command.Connection = connection;
                 command.ExecuteNonQuery();

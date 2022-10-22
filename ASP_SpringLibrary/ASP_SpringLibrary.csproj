@@ -162,6 +162,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Dashboard\Controllers\EditoraController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\GeneroController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\HomeController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -196,6 +197,9 @@
     <Content Include="Areas\Dashboard\Views\Editora\Alterar.cshtml" />
     <Content Include="Areas\Dashboard\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Dashboard\Views\Editora\Cadastrar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Genero\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Genero\Cadastrar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Genero\Alterar.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
     <Content Include="Scripts\inputmask\inputmask.es6.js" />
