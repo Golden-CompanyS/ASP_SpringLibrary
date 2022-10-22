@@ -3,25 +3,28 @@ html{
     font-family: 'Roboto', sans-serif !important;
     font-size: 40px;
 }
-.a {
-    float: left;
-}
-li{
-    padding-left: 10px;
-    padding-right: 10px;
-    align-items: center;
-    list-style: none;
+.busca{
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
 }
 .btnbusca {
     background: #F448B0;
     color: #fff;
     font-family: 'Roboto', sans-serif;
-    font-size: 40px;
-    border-radius: 10px;
+    font-size: 20px;
+    border-radius: 15px;
+    border: none;
 }
 input, input::placeholder {
     font: 20px/3 sans-serif;
 }
 .barra{
-    border-radius: 30px;
+    width: 768px;
+    height: 57px;
+    left: 283px;
+    top: 166px;
+    border-radius: 78px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
 }
