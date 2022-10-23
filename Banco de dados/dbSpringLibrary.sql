@@ -616,8 +616,8 @@ create procedure spcadFunc(
 	$nomFunc varchar(50),
 	$CPFFunc char(11),
 	$imgFunc varchar(256),
-	$cargoFunc varchar(30),
 	$celFunc char(11),
+	$cargoFunc varchar(30),
 	$emailFunc varchar(125),
 	$senhaFunc varchar(260))
 BEGIN
@@ -625,12 +625,12 @@ BEGIN
     values ($NomFunc, $CPFFunc, $imgFunc, $cargoFunc, $celFunc, $emailFunc, $senhaFunc);
 END $$
 
-call spcadFunc("Leticia", "1234567", "let.png", 'Gerente', "11987643239", "leticiaresina@email.com", "1234567");
-call spcadFunc("Larissa", "3458759", "lari.png", 'Gerente', "11987643819", "larii@email.com", "1234567");
-call spcadFunc("Gustavo", "4838712", "gus.png", 'Bibliotecário', "11958694851", "pearGus@email.com", "1234567");
-call spcadFunc("Taveira", "3259382", "tavs.png", 'Logístico', "11987642312", "taveira.mateus@email.com", "$&%o8&TY3Gh!8w33");
-call spcadFunc("Erin", "1231382", "eri.png", 'Logístico', "11987643819", "eriin@email.com", "1234567");
-call spcadFunc("Wesley", "232382", "wes.png", 'Caixa', "11987643819", "wes@email.com", "1234567");
+call spcadFunc("Leticia", "1234567", "let.png", "11987643239", 'Gerente', "leticiaresina@email.com", "1234567");
+call spcadFunc("Larissa", "3458759", "lari.png", "11987643819", 'Gerente', "larii@email.com", "1234567");
+call spcadFunc("Gustavo", "4838712", "gus.png", "11958694851", 'Bibliotecário', "pearGus@email.com", "1234567");
+call spcadFunc("Taveira", "3259382", "tavs.png", "11987642312", 'Logístico', "taveira.mateus@email.com", "$&%o8&TY3Gh!8w33");
+call spcadFunc("Erin", "1231382", "eri.png", "11987643819", 'Logístico', "eriin@email.com", "1234567");
+call spcadFunc("Wesley", "232382", "wes.png", "11987643819", 'Caixa', "wes@email.com", "1234567");
 
 -- spaltFunc
 DELIMITER $$
@@ -676,7 +676,6 @@ create view vwCheckAllFuncs as select
 		from tbFuncionario;
 
 select * from vwCheckAllFuncs;
-
 
 -- =============================================== --
 -- == -- == -- == -- Venda -- == -- == -- == -- ==

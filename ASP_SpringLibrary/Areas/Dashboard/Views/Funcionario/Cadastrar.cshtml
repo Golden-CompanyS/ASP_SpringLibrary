@@ -1,0 +1,100 @@
+﻿@model ASP_SpringLibrary.Models.Funcionario
+
+@{
+    ViewBag.Title = "Cadastrar";
+    Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cadastrar</h2>
+
+@using (Html.BeginForm("Cadastrar", "Funcionario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Funcionario</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.idFunc, new { Value = 0 }) <!-- ID 0 escondido para passar à Controller -->
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.nomFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nomFunc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nomFunc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CPFFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CPFFunc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CPFFunc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.imgFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.imgFunc, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                @Html.ValidationMessageFor(model => model.imgFunc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.celFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.celFunc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.celFunc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cargoFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.cargoFunc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.cargoFunc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.emailFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.emailFunc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.emailFunc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.senhaFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.senhaFunc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.senhaFunc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Cancelar", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval") <!-- Para utilizar o DataAnnotation Remote -->
+    @Scripts.Render("~/bundles/inputmask") <!-- Para utilizar o jQuery InputMask -->
+
+    <script>
+        $(document).ready(function () {
+            $("#CPFFunc").inputmask("mask", { "mask": "999.999.999-99" });
+        });
+
+        $(document).ready(function () {
+            $("#celFunc").inputmask("mask", { "mask": "99 99999-9999" });
+        });
+    </script>
+}
