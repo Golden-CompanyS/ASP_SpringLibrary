@@ -17,7 +17,14 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
         // GET: Dashboard/Funcionario
         public ActionResult Index()
         {
-            return View();
+            var tempFuncList = new Funcionario().checkAllFunc();
+
+            foreach (var tempFunc in tempFuncList)
+            {
+                tempFunc.celFunc = tempFunc.celFunc.Insert(0, "(").Insert(3, ") ").Insert(10, "-");
+            }
+
+            return View(tempFuncList);
         }
 
         [HttpGet]
@@ -41,7 +48,7 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
                                 string.Format("{0:HH:mm:ss tt}", DateTime.Now) + imgFunc.FileName
                             ) + extension; // Criptografar o nome do arquivo + data em MD5 para torna-lo único
 
-                        string imgPath = Path.Combine(Server.MapPath("~/Photos/imgFunc/"), fileName);
+                        string imgPath = Path.Combine(Server.MapPath("/Photos/imgFunc/"), fileName);
 
                         bool imgSaved = new ImageCrop().SaveCroppedImage(Image.FromStream(imgFunc.InputStream), 256, 256, imgPath);
 
@@ -49,20 +56,13 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
                         {
                             funcionario.CPFFunc = String.Concat(funcionario.CPFFunc.Where(Char.IsDigit));
                             funcionario.celFunc = String.Concat(funcionario.celFunc.Where(Char.IsDigit));
-                            funcionario.imgFunc = "~/Photos/imgFunc/" + fileName;
+                            funcionario.imgFunc = "/Photos/imgFunc/" + fileName;
                             funcionario.senhaFunc = Hash.GenerateBCrypt(funcionario.senhaFunc); // Criptografar a senha em BCrypt
-
 
                             new Funcionario().cadFunc(funcionario);
 
                             return RedirectToAction("Index");
                         }
-                        else
-                        {
-                            ModelState.AddModelError("imgFunc", "Erro ao carregar a imagem");
-                            return View(funcionario);
-                        }
-
                     }
                     else
                     {
@@ -71,7 +71,7 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
                     }
                 }
             }
-
+            ModelState.AddModelError("imgFunc", "Erro ao carregar a imagem");
             return View(funcionario);
         }
 
@@ -81,6 +81,58 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
             bool funcExists = new Funcionario().funcExists(idFunc, CPFFunc); // Checar existência do nome (deve ser único), se não já atrelado ao ID
 
             return Json(!funcExists, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Alterar(int id)
+        {
+            var tempFunc = new Funcionario().checkFuncById(id);
+
+            return View(tempFunc);
+        }
+
+        [HttpPost]
+        public ActionResult Alterar(Funcionario funcionario, HttpPostedFileBase imgFunc)
+        {
+            if (ModelState.IsValid)
+            {
+                if (imgFunc != null && imgFunc.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(imgFunc.FileName).ToLower();
+
+                    if (extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".jpeg"))
+                    {
+                        string fileName = Hash.GenerateMD5(
+                                string.Format("{0:HH:mm:ss tt}", DateTime.Now) + imgFunc.FileName
+                            ) + extension; // Criptografar o nome do arquivo + data em MD5 para torna-lo único
+
+                        string imgPath = Path.Combine(Server.MapPath("/Photos/imgFunc/"), fileName);
+
+                        bool imgSaved = new ImageCrop().SaveCroppedImage(Image.FromStream(imgFunc.InputStream), 256, 256, imgPath);
+
+                        if (imgSaved)
+                        {
+                            System.IO.File.Delete(Server.MapPath(funcionario.imgFunc));
+
+                            funcionario.CPFFunc = String.Concat(funcionario.CPFFunc.Where(Char.IsDigit));
+                            funcionario.celFunc = String.Concat(funcionario.celFunc.Where(Char.IsDigit));
+                            funcionario.imgFunc = "/Photos/imgFunc/" + fileName;
+                            funcionario.senhaFunc = Hash.GenerateBCrypt(funcionario.senhaFunc); // Criptografar a senha em BCrypt
+
+                            new Funcionario().altFunc(funcionario);
+
+                            return RedirectToAction("Index");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("imgFunc", "A imagem deve ser do tipo .jpg/.png/.jpeg");
+                        return View(funcionario);
+                    }
+                }
+            }
+            ModelState.AddModelError("imgFunc", "Erro ao carregar a imagem");
+            return View(funcionario);
         }
     }
 }

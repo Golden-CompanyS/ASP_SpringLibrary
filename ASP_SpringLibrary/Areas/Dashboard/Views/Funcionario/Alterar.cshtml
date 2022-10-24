@@ -1,13 +1,13 @@
 ﻿@model ASP_SpringLibrary.Models.Funcionario
 
 @{
-    ViewBag.Title = "Cadastrar";
+    ViewBag.Title = "Alterar";
     Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Cadastrar</h2>
+<h2>Alterar</h2>
 
-@using (Html.BeginForm("Cadastrar", "Funcionario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Alterar", "Funcionario", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -15,7 +15,8 @@
         <h4>Funcionario</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.idFunc, new { Value = 0 }) <!-- ID 0 escondido para passar à Controller -->
+        @Html.HiddenFor(model => model.idFunc) <!-- ID escondido para passar à Controller -->
+        @Html.HiddenFor(model => model.imgFunc) <!-- img path escondido para passar à Controller -->
 
         <div class="form-group">
             @Html.LabelFor(model => model.nomFunc, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -75,7 +76,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Cadastrar" class="btn btn-default" />
+                <input type="submit" value="Salvar" class="btn btn-default" />
             </div>
         </div>
     </div>

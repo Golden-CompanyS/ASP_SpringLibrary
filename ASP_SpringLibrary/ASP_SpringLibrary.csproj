@@ -210,6 +210,8 @@
     <Content Include="Areas\Dashboard\Views\Autor\Cadastrar.cshtml" />
     <Content Include="Areas\Dashboard\Views\Autor\Alterar.cshtml" />
     <Content Include="Areas\Dashboard\Views\Funcionario\Cadastrar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Funcionario\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Funcionario\Alterar.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
     <Content Include="Scripts\inputmask\inputmask.es6.js" />
@@ -245,7 +247,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dashboard\Data\" />
-    <Folder Include="Areas\Dashboard\ViewModel\Editora\" />
+    <Folder Include="Areas\Dashboard\ViewModel\" />
     <Folder Include="Photos\imgFunc\" />
   </ItemGroup>
   <ItemGroup>
