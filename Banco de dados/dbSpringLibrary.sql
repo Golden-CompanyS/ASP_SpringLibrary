@@ -610,8 +610,8 @@ create table tbFuncionario(
     nomFunc varchar(50) not null,
     CPFFunc char(11) not null,
     imgFunc varchar(256),
-	cargoFunc varchar(30) not null,
     celFunc char(11) not null,
+	cargoFunc varchar(30) not null,
     emailFunc varchar(125) not null,
     senhaFunc varchar(260) not null,
     ativoFunc boolean not null
@@ -622,8 +622,8 @@ create procedure spcadFunc(
 	$nomFunc varchar(50),
 	$CPFFunc char(11),
 	$imgFunc varchar(256),
-	$cargoFunc varchar(30),
 	$celFunc char(11),
+	$cargoFunc varchar(30),
 	$emailFunc varchar(125),
 	$senhaFunc varchar(260),
     $ativoFunc boolean)
@@ -632,12 +632,12 @@ BEGIN
     values ($NomFunc, $CPFFunc, $imgFunc, $cargoFunc, $celFunc, $emailFunc, $senhaFunc, $ativoFunc);
 END $$
 
-call spcadFunc("Leticia", "1234567", "let.png", 'Gerente', "11987643239", "leticiaresina@email.com", "1234567", true);
-call spcadFunc("Larissa", "3458759", "lari.png", 'Gerente', "11987643819", "larii@email.com", "1234567", true));
-call spcadFunc("Gustavo", "4838712", "gus.png", 'Bibliotecário', "11958694851", "pearGus@email.com", "1234567", false));
-call spcadFunc("Taveira", "3259382", "tavs.png", 'Logístico', "11987642312", "taveira.mateus@email.com", "$&%o8&TY3Gh!8w33", true));
-call spcadFunc("Erin", "1231382", "eri.png", 'Logístico', "11987643819", "eriin@email.com", "1234567", true));
-call spcadFunc("Wesley", "232382", "wes.png", 'Caixa', "11987643819", "wes@email.com", "1234567", true));
+call spcadFunc("Leticia", "12345670325", "/Photos/imgFunc/d61d8a0b25028f787123bfff542d3051.png", "11987643239", 'Gerente', "leticiaresina@email.com", "1234567", true);
+call spcadFunc("Larissa", "34587595128", "/Photos/imgFunc/b96eee05bcc624dfa15a61c5c62e47cb.png", "11987643819", 'Gerente', "larii@email.com", "1234567", true);
+call spcadFunc("Gus", "48387121847", "/Photos/imgFunc/3ea38e723c590aabf186367e1eb7e6a1.png", "11958694851", 'Bibliotecário', "pearGus@email.com", "1234567", true);
+call spcadFunc("Taveira", "32593825201", "/Photos/imgFunc/e2bb3f9679fec6d4836fcf8abcc3eeac.png", "11987642312", 'Logístico', "taveira.mateus@email.com", "$&%o8&TY3Gh!8w33", true);
+call spcadFunc("Erin", "12313821561", "/Photos/imgFunc/96a033ac6a432dcf1e701c9febfe4687.png", "11987643819", 'Logístico', "eriin@email.com", "1234567", true);
+call spcadFunc("Wesley", "23238210228", "/Photos/imgFunc/b23f665210a1914cab61bc8eba4c9ae0.png", "11987643819", 'Caixa', "wes@email.com", "1234567", true);
 
 -- spaltFunc
 DELIMITER $$
@@ -646,8 +646,8 @@ create procedure spaltFunc(
     $nomFunc varchar(50),
     $CPFFunc char(11),
     $imgFunc varchar(256),
-    $cargoFunc varchar(30),
     $celFunc char(11),
+    $cargoFunc varchar(30),
     $emailFunc varchar(125),
     $senhaFunc varchar(260),
     $ativoFunc boolean)
@@ -657,8 +657,8 @@ create procedure spaltFunc(
     END
 $$
 
-call spaltFunc(3, "Gus", 4838712, "gus.png", 'Bibliotecário', "11958694851", "novoEmaildoGus@email.com", "1234567", true));
-call spaltFunc(5, "Erin", 1231382, "eri.png", 'Bibliotecário', "11987643819", "eriin@email.com", "1234567", , true));
+call spaltFunc(3, "Gustavo", "48387121847", "/Photos/imgFunc/3ea38e723c590aabf186367e1eb7e6a1.png", "11958694851", 'Bibliotecário', "novoEmaildoGus@email.com", "1234567", true);
+call spaltFunc(5, "Erin", "12313821561", "/Photos/imgFunc/96a033ac6a432dcf1e701c9febfe4687.png", "11987643819", 'Bibliotecário', "eriin@email.com", "1234567", true);
 
 -- checkFuncById
 DELIMITER $$
@@ -685,7 +685,6 @@ create view vwCheckAllFuncs as select
 		from tbFuncionario;
 
 select * from vwCheckAllFuncs;
-
 
 -- =============================================== --
 -- == -- == -- == -- Venda -- == -- == -- == -- ==

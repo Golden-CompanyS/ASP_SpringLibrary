@@ -216,3 +216,5 @@ C:\Users\mateu\source\repos\gitpark\ASP_SpringLibrary\ASP_SpringLibrary\obj\Debu
 C:\Users\mateu\source\repos\gitpark\ASP_SpringLibrary\ASP_SpringLibrary\obj\Debug\ASP_SpringLibrary.csproj.CopyComplete
 C:\Users\mateu\source\repos\gitpark\ASP_SpringLibrary\ASP_SpringLibrary\obj\Debug\ASP_SpringLibrary.dll
 C:\Users\mateu\source\repos\gitpark\ASP_SpringLibrary\ASP_SpringLibrary\obj\Debug\ASP_SpringLibrary.pdb
+C:\Users\mateu\source\repos\ASP_SpringLibrary\ASP_SpringLibrary\bin\BCrypt.Net-Next.dll
+C:\Users\mateu\source\repos\ASP_SpringLibrary\ASP_SpringLibrary\bin\BCrypt.Net-Next.xml
