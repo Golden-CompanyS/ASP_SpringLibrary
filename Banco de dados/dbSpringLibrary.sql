@@ -242,6 +242,7 @@ CREATE TABLE tbLivro (
     anoLiv SMALLINT NOT NULL,
     precoLiv FLOAT(10,2) NOT NULL,
     qtdLiv INT DEFAULT(0),
+    ativoLiv boolean,
     idEdit INT NOT NULL,
     FOREIGN KEY (idEdit)
         REFERENCES tbEditora (idEdit),
@@ -274,6 +275,7 @@ CREATE PROCEDURE spcadLiv(
 	$anoLiv smallint, 
     $precoLiv float(10,2),
     $qtdLiv int,
+	$ativoLiv boolean,
     $idAut int, 
 	$idEdit int, 
 	$idGen int
@@ -281,7 +283,7 @@ CREATE PROCEDURE spcadLiv(
 BEGIN
 	IF NOT EXISTS (SELECT ISBNLiv FROM tbLivro WHERE ISBNLiv = $ISBNLiv) THEN
 		INSERT INTO tbLivro VALUES
-        ($ISBNLiv, $titLivro, $titOriLiv, $sinopLiv, $imgLiv, $pratLiv, $numPagLiv, $numEdicaoLiv, $anoLiv, $precoLiv, $qtdLiv, $idEdit, $idGen);
+        ($ISBNLiv, $titLivro, $titOriLiv, $sinopLiv, $imgLiv, $pratLiv, $numPagLiv, $numEdicaoLiv, $anoLiv, $precoLiv, $qtdLiv, $ativoLiv, $idEdit, $idGen);
 	END IF;
     IF NOT EXISTS (SELECT ISBNLiv FROM tbLivroAutor WHERE idAut = $idAut) THEN
         INSERT INTO tbLivroAutor
@@ -300,15 +302,15 @@ cínico, “o amor que não ousava dizer o seu nome”. Depois, fascinou leitore
 de Fausto o Evangelho de um decadentismo que acredita em uma vida de arte, prazer e fascínio sensorial. Tudo isso em meio a um fim de 
 século no qual a convenção e a moralidade corroíam qualquer prazer que a existência humana poderia desfrutar.',
 'https://darkside.vteximg.com.br/arquivos/ids/176889-519-519/o-retrato-de-dorian-gray-0.png?v=637655004666100000',1,320,1,2021,30.00,200,
-1,4,9);
-call spcadLiv('9788594540188','Frankenstin',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,3,4,7);
-call spcadLiv('9788594540188','Frankenstin',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,2,4,7);
+true,1,4,9);
+call spcadLiv('9788594540188','Frankenstin',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,true,3,4,7);
+call spcadLiv('9788594540188','Frankenstin',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,true,2,4,7);
 -- Adicionando duas autoras em um livro;
 call spCadLiv('9786555652956','Morte no internato','The Murders at Fleat House',
 'Obra inédita da aclamada Lucinda Riley, Morte no internato é um romance policial com uma 
 trama instigante e a escrita envolvente que se tornaram marca registrada da autora.',
 'https://www.editoraarqueiro.com.br/media/livros_livro/9786555652956.png.200x300_q85_upscale.jpg',
-4,384,1,2022,39.99,29,4,6,7);
+4,384,1,2022,39.99,29,true,4,6,7);
 
 DELIMITER $$
 create procedure spaltLivro(
@@ -323,13 +325,15 @@ create procedure spaltLivro(
 	$anoLiv smallint, 
     $precoLiv float(10,2),
     $qtdLiv int,
+	$ativoLiv boolean,
 	$idAut int, 
 	$idEdit int, 
 	$idGen int)
 	BEGIN
 		UPDATE tbLivro SET
 			titLivro = $titLivro, titOriLiv = $titOriLiv, sinopLiv = $sinopLiv, imgLiv = $imgLiv, pratLiv = $pratLiv,
-            numPagLiv = $numPagLiv, numEdicaoLiv = $numEdicaoLiv, anoLiv = $anoLiv, precoLiv = $precoLiv, qtdLiv = $qtdLiv
+            numPagLiv = $numPagLiv, numEdicaoLiv = $numEdicaoLiv, anoLiv = $anoLiv, precoLiv = $precoLiv, qtdLiv = $qtdLiv,
+            ativoLiv = $ativoLiv
             WHERE (ISBNLiv = $ISBNLiv);
 		IF EXISTS(SELECT idAut FROM tbLivroAutor WHERE ISBNLiv = $ISBNLiv AND idAut = $idAut) THEN
 			DELETE FROM tbLivroAutor WHERE(idAut = $idAut AND ISBNLiv = $ISBNLiv);
@@ -355,6 +359,7 @@ create view vwcheckAllLiv as select
     anoLiv as 'Ano de publicação',
 	precoLiv as 'Preço',
     qtdLiv as 'Quantidade no estoque',
+    ativoLiv as "Está à venda?",
     nomGen as 'Gênero do livro',
 	nomEdit as 'Nome da editora',
     celEdit as 'Telefone da editora',
@@ -608,7 +613,8 @@ create table tbFuncionario(
 	cargoFunc varchar(30) not null,
     celFunc char(11) not null,
     emailFunc varchar(125) not null,
-    senhaFunc varchar(260) not null
+    senhaFunc varchar(260) not null,
+    ativoFunc boolean not null
 );
 
 DELIMITER $$
@@ -619,18 +625,19 @@ create procedure spcadFunc(
 	$cargoFunc varchar(30),
 	$celFunc char(11),
 	$emailFunc varchar(125),
-	$senhaFunc varchar(260))
+	$senhaFunc varchar(260),
+    $ativoFunc boolean)
 BEGIN
-	insert into tbFuncionario (nomFunc, CPFFunc, imgFunc, cargoFunc, celFunc, emailFunc, senhaFunc)
-    values ($NomFunc, $CPFFunc, $imgFunc, $cargoFunc, $celFunc, $emailFunc, $senhaFunc);
+	insert into tbFuncionario (nomFunc, CPFFunc, imgFunc, cargoFunc, celFunc, emailFunc, senhaFunc, ativoFunc)
+    values ($NomFunc, $CPFFunc, $imgFunc, $cargoFunc, $celFunc, $emailFunc, $senhaFunc, $ativoFunc);
 END $$
 
-call spcadFunc("Leticia", "1234567", "let.png", 'Gerente', "11987643239", "leticiaresina@email.com", "1234567");
-call spcadFunc("Larissa", "3458759", "lari.png", 'Gerente', "11987643819", "larii@email.com", "1234567");
-call spcadFunc("Gustavo", "4838712", "gus.png", 'Bibliotecário', "11958694851", "pearGus@email.com", "1234567");
-call spcadFunc("Taveira", "3259382", "tavs.png", 'Logístico', "11987642312", "taveira.mateus@email.com", "$&%o8&TY3Gh!8w33");
-call spcadFunc("Erin", "1231382", "eri.png", 'Logístico', "11987643819", "eriin@email.com", "1234567");
-call spcadFunc("Wesley", "232382", "wes.png", 'Caixa', "11987643819", "wes@email.com", "1234567");
+call spcadFunc("Leticia", "1234567", "let.png", 'Gerente', "11987643239", "leticiaresina@email.com", "1234567", true);
+call spcadFunc("Larissa", "3458759", "lari.png", 'Gerente', "11987643819", "larii@email.com", "1234567", true));
+call spcadFunc("Gustavo", "4838712", "gus.png", 'Bibliotecário', "11958694851", "pearGus@email.com", "1234567", false));
+call spcadFunc("Taveira", "3259382", "tavs.png", 'Logístico', "11987642312", "taveira.mateus@email.com", "$&%o8&TY3Gh!8w33", true));
+call spcadFunc("Erin", "1231382", "eri.png", 'Logístico', "11987643819", "eriin@email.com", "1234567", true));
+call spcadFunc("Wesley", "232382", "wes.png", 'Caixa', "11987643819", "wes@email.com", "1234567", true));
 
 -- spaltFunc
 DELIMITER $$
@@ -642,15 +649,16 @@ create procedure spaltFunc(
     $cargoFunc varchar(30),
     $celFunc char(11),
     $emailFunc varchar(125),
-    $senhaFunc varchar(260))
+    $senhaFunc varchar(260),
+    $ativoFunc boolean)
     BEGIN
          update tbFuncionario set nomFunc=$nomFunc, CPFFunc=$CPFFunc, imgFunc=$imgFunc, 
-         cargoFunc=$cargoFunc, celFunc=$celFunc, emailFunc=$emailFunc, senhaFunc=$senhaFunc where idFunc=$idFunc;
+         cargoFunc=$cargoFunc, celFunc=$celFunc, emailFunc=$emailFunc, senhaFunc=$senhaFunc, ativoFunc = $ativoFunc where idFunc=$idFunc;
     END
 $$
 
-call spaltFunc(3, "Gus", 4838712, "gus.png", 'Bibliotecário', "11958694851", "novoEmaildoGus@email.com", "1234567");
-call spaltFunc(5, "Erin", 1231382, "eri.png", 'Bibliotecário', "11987643819", "eriin@email.com", "1234567");
+call spaltFunc(3, "Gus", 4838712, "gus.png", 'Bibliotecário', "11958694851", "novoEmaildoGus@email.com", "1234567", true));
+call spaltFunc(5, "Erin", 1231382, "eri.png", 'Bibliotecário', "11987643819", "eriin@email.com", "1234567", , true));
 
 -- checkFuncById
 DELIMITER $$
@@ -672,7 +680,8 @@ create view vwCheckAllFuncs as select
     celFunc 'Telefone Celular',
 	cargoFunc as 'Cargo',
     emailFunc as 'Email',
-    senhaFunc as 'Senha'
+    senhaFunc as 'Senha',
+    ativoFunc as 'Situação contratual'
 		from tbFuncionario;
 
 select * from vwCheckAllFuncs;
