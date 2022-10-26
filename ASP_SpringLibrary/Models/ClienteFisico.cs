@@ -9,7 +9,7 @@ namespace ASP_SpringLibrary.Models
 {
     public class ClienteFisico : Cliente
     {
-        public int CPFCliF { get; set; }
+        public string CPFCliF { get; set; }
         public DateTime dtNascCliF { get; set; }
 
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);

@@ -13,9 +13,9 @@ namespace ASP_SpringLibrary.Models
         public string nomUsuCli { get; set; }
         public string senhaCli { get; set; }
         public string nomCli { get; set; }
-        public int celCli { get; set; }
+        public string celCli { get; set; }
         public string emailCli { get; set; }
-        public int CEPCli { get; set; }
+        public string CEPCli { get; set; }
         public int numEndCli { get; set; }
         public string compEndCli { get; set; }
     }

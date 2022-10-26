@@ -9,7 +9,7 @@ namespace ASP_SpringLibrary.Models
 {
     public class ClienteJuridico : Cliente
     {
-        public int CNPJCliJ { get; set; }
+        public string CNPJCliJ { get; set; }
         public string fantaCliJ { get; set; }
         public string represCliJ { get; set; }
 

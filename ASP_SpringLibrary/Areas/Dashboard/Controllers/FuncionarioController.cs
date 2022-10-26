@@ -54,14 +54,7 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
 
                         if (imgSaved)
                         {
-                            funcionario.CPFFunc = String.Concat(funcionario.CPFFunc.Where(Char.IsDigit));
-                            funcionario.celFunc = String.Concat(funcionario.celFunc.Where(Char.IsDigit));
                             funcionario.imgFunc = "/Photos/imgFunc/" + fileName;
-                            funcionario.senhaFunc = Hash.GenerateBCrypt(funcionario.senhaFunc); // Criptografar a senha em BCrypt
-
-                            new Funcionario().cadFunc(funcionario);
-
-                            return RedirectToAction("Index");
                         }
                     }
                     else
@@ -70,8 +63,20 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
                         return View(funcionario);
                     }
                 }
+                else
+                {
+                    funcionario.imgFunc = "/Photos/imgFunc/avatardefault.png";
+                }
+
+                funcionario.CPFFunc = String.Concat(funcionario.CPFFunc.Where(Char.IsDigit));
+                funcionario.celFunc = String.Concat(funcionario.celFunc.Where(Char.IsDigit));
+                funcionario.senhaFunc = Hash.GenerateBCrypt(funcionario.senhaFunc); // Criptografar a senha em BCrypt
+
+                new Funcionario().cadFunc(funcionario);
+
+                return RedirectToAction("Index");
             }
-            ModelState.AddModelError("imgFunc", "Erro ao carregar a imagem");
+
             return View(funcionario);
         }
 
@@ -112,16 +117,12 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
 
                         if (imgSaved)
                         {
-                            System.IO.File.Delete(Server.MapPath(funcionario.imgFunc));
+                            if (funcionario.imgFunc != "/Photos/imgFunc/avatardefault.png")
+                            {
+                                System.IO.File.Delete(Server.MapPath(funcionario.imgFunc));
+                            }
 
-                            funcionario.CPFFunc = String.Concat(funcionario.CPFFunc.Where(Char.IsDigit));
-                            funcionario.celFunc = String.Concat(funcionario.celFunc.Where(Char.IsDigit));
                             funcionario.imgFunc = "/Photos/imgFunc/" + fileName;
-                            funcionario.senhaFunc = Hash.GenerateBCrypt(funcionario.senhaFunc); // Criptografar a senha em BCrypt
-
-                            new Funcionario().altFunc(funcionario);
-
-                            return RedirectToAction("Index");
                         }
                     }
                     else
@@ -130,8 +131,16 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
                         return View(funcionario);
                     }
                 }
+
+                funcionario.CPFFunc = String.Concat(funcionario.CPFFunc.Where(Char.IsDigit));
+                funcionario.celFunc = String.Concat(funcionario.celFunc.Where(Char.IsDigit));
+                funcionario.senhaFunc = Hash.GenerateBCrypt(funcionario.senhaFunc); // Criptografar a senha em BCrypt
+
+                new Funcionario().altFunc(funcionario);
+
+                return RedirectToAction("Index");
             }
-            ModelState.AddModelError("imgFunc", "Erro ao carregar a imagem");
+
             return View(funcionario);
         }
     }

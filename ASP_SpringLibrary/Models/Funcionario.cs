@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using System.Xml.Linq;
 
 namespace ASP_SpringLibrary.Models
@@ -28,7 +29,6 @@ namespace ASP_SpringLibrary.Models
         public string CPFFunc { get; set; }
 
         [Display(Name = "Imagem")]
-        [Required(ErrorMessage = "Campo obrigatório")]
         public string imgFunc { get; set; }
 
         [Display(Name = "Celular de Contato")]
@@ -52,13 +52,17 @@ namespace ASP_SpringLibrary.Models
         [DataType(DataType.Password)]
         public string senhaFunc { get; set; }
 
+        [Display(Name = "Ativo")]
+        [Required(ErrorMessage = "Campo obrigatório")]
+        public bool ativoFunc { get; set; }
+
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
         public void cadFunc(Funcionario funcionario)
         {
             connection.Open();
-            command.CommandText = "CALL spcadFunc(@nomFunc, @CPFFunc, @imgFunc, @celFunc, @cargoFunc, @emailFunc, @senhaFunc);"; // INSERIR tbFuncionario
+            command.CommandText = "CALL spcadFunc(@nomFunc, @CPFFunc, @imgFunc, @celFunc, @cargoFunc, @emailFunc, @senhaFunc, @ativoFunc);"; // INSERIR tbFuncionario
                 command.Parameters.Add("@nomFunc", MySqlDbType.VarChar).Value = funcionario.nomFunc;
                 command.Parameters.Add("@CPFFunc", MySqlDbType.VarChar).Value = funcionario.CPFFunc;
                 command.Parameters.Add("@imgFunc", MySqlDbType.VarChar).Value = funcionario.imgFunc;
@@ -66,6 +70,7 @@ namespace ASP_SpringLibrary.Models
                 command.Parameters.Add("@cargoFunc", MySqlDbType.VarChar).Value = funcionario.cargoFunc;
                 command.Parameters.Add("@emailFunc", MySqlDbType.VarChar).Value = funcionario.emailFunc;
                 command.Parameters.Add("@senhaFunc", MySqlDbType.VarChar).Value = funcionario.senhaFunc;
+                command.Parameters.Add("@ativoFunc", MySqlDbType.Bit).Value = funcionario.ativoFunc;
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();
@@ -90,7 +95,7 @@ namespace ASP_SpringLibrary.Models
         public void altFunc(Funcionario funcionario)
         {
             connection.Open();
-            command.CommandText = "CALL spaltFunc(@idFunc, @nomFunc, @CPFFunc, @imgFunc, @celFunc, @cargoFunc, @emailFunc, @senhaFunc);"; // ALTERAR tbFuncionario
+            command.CommandText = "CALL spaltFunc(@idFunc, @nomFunc, @CPFFunc, @imgFunc, @celFunc, @cargoFunc, @emailFunc, @senhaFunc, @ativoFunc);"; // ALTERAR tbFuncionario
                 command.Parameters.Add("@idFunc", MySqlDbType.Int64).Value = funcionario.idFunc;
                 command.Parameters.Add("@nomFunc", MySqlDbType.VarChar).Value = funcionario.nomFunc;
                 command.Parameters.Add("@CPFFunc", MySqlDbType.VarChar).Value = funcionario.CPFFunc;
@@ -99,6 +104,7 @@ namespace ASP_SpringLibrary.Models
                 command.Parameters.Add("@cargoFunc", MySqlDbType.VarChar).Value = funcionario.cargoFunc;
                 command.Parameters.Add("@emailFunc", MySqlDbType.VarChar).Value = funcionario.emailFunc;
                 command.Parameters.Add("@senhaFunc", MySqlDbType.VarChar).Value = funcionario.senhaFunc;
+                command.Parameters.Add("@ativoFunc", MySqlDbType.Bit).Value = funcionario.ativoFunc;
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();
@@ -125,6 +131,7 @@ namespace ASP_SpringLibrary.Models
                 tempFunc.cargoFunc = readFunc["cargoFunc"].ToString();
                 tempFunc.emailFunc = readFunc["emailFunc"].ToString();
                 tempFunc.senhaFunc = readFunc["senhaFunc"].ToString();
+                tempFunc.ativoFunc = readFunc["ativoFunc"].ToString().AsBool();
 
                 tempFuncList.Add(tempFunc);
             }
@@ -155,6 +162,7 @@ namespace ASP_SpringLibrary.Models
                 tempFunc.cargoFunc = readFunc["cargoFunc"].ToString();
                 tempFunc.emailFunc = readFunc["emailFunc"].ToString();
                 tempFunc.senhaFunc = readFunc["senhaFunc"].ToString();
+                tempFunc.ativoFunc = readFunc["ativoFunc"].ToString().AsBool();
             }
 
             readFunc.Close();
