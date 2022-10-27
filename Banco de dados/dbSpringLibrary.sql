@@ -343,7 +343,7 @@ create procedure spaltLivro(
     END
 $$
 
-call spaltLivro('9788594540188','Frankenstein',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,2,4,7);
+call spaltLivro('9788594540188','Frankenstein',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,0,2,4,7);
 -- Retificando o nome do livro e retirando/recolocando a autora de ID 2
 
 -- vwcheckAllLiv
@@ -365,8 +365,8 @@ create view vwcheckAllLiv as select
     celEdit as 'Telefone da editora',
     emailEdit as 'Email da editora'
     from tbLivro as lv
-			inner join tbGenero as gen on lv.IdGen = gen.IdGen
-            inner join tbEditora as edit on lv.IdEdit = edit.IdEdit;
+			left join tbGenero as gen on lv.IdGen = gen.IdGen
+            left join tbEditora as edit on lv.IdEdit = edit.IdEdit;
             
 select * from vwcheckAllLiv;
 
@@ -383,14 +383,6 @@ select * from vwcheckAllAutInLiv;
 
 
 -- =============================================== --
--- == -- == -- == -- Endereço -- == -- == -- == -- ==
--- =============================================== --
-create table tbEndereco(
-    CEP char(8) primary key
-);
--- A tabela endereço não terá qualquer atividade de CRUD por si só, sendo 100% manipulada por operações vinculadas às telas de cliente
-
--- =============================================== --
 -- == -- == -- == -- Cliente -- == -- == -- == -- ==
 -- =============================================== --
 CREATE TABLE tbCliente (
@@ -398,10 +390,9 @@ CREATE TABLE tbCliente (
     nomCli varchar(100) not null,
     tipoCli boolean not null, -- FALSE para FÍSICO  ///  TRUE para JURÍDICO
 	celCli char(11),
-    emailCli varchar(125) not null,
+    emailCli varchar(125) not null unique,
     senhaCli varchar(260) not null,
-	CEP char(8),
-    foreign key (CEP) references tbEndereco(CEP),
+	CEPCli char(8) not null,
     numEndCli smallint not null,
     compEndCli varchar(30)
 );
@@ -413,7 +404,7 @@ create view vwcheckAllCli as select
     celCli as 'Celular',
     emailCli as 'Email', 
 	senhaCli as 'Senha',
-    CEP as 'CEP',
+    CEPCli as 'CEP',
     numEndCli as 'Número do endereço', 
     compEndCli as 'Complemento' 
 		from tbCliente;
@@ -441,7 +432,7 @@ mudado para 0, desativando proibição quanto à alteração/exclusão destas */
 -- == -- == -- == -- Cliente Físico -- == -- == -- ==
 -- =============================================== --
 create table tbCliFis(
-	CPFCli char(11) primary key,
+	CPFCliF char(11) primary key,
 	idCli int unique,
     foreign key (idCli) references tbCliente (idCli),
     dtNascCliF date not null
@@ -454,27 +445,24 @@ create procedure spcadCliFis(
 	$celCli char(11),
 	$emailCli varchar(125),
 	$senhaCli varchar(260),
-	$CEP char(8),
+	$CEPCli char(8),
 	$numEndCli smallint,
 	$compEndCli varchar(30),
-	$CPFCli int,
+	$CPFCliF char(11),
 	$dtNascCliF date)
 begin
-	if not exists (select CPFCli from tbCliFis where CPFCli = $CPFCli) then
-		if not exists (select CEP from tbEndereco where CEP=$CEP) then
-			insert into tbEndereco (CEP) values ($CEP);
-		end if;
-    	insert into tbCliente (nomCli, tipoCli, celCli, emailCli, senhaCli, CEP, numEndCli, compEndCli) values 
-			 ($nomCli, false, $celCli, $emailCli, $senhaCli, $CEP, $numEndCli, $compEndCli);
-		insert into tbCliFis (CPFCli, idCli, dtNascCliF) values
-			($CPFCli, (select idCli from tbCliente order by idCli desc limit 1), $dtNascCliF);
+	if not exists (select CPFCliF from tbCliFis where CPFCliF = $CPFCliF) then
+    	insert into tbCliente (nomCli, tipoCli, celCli, emailCli, senhaCli, CEPCli, numEndCli, compEndCli) values 
+			 ($nomCli, false, $celCli, $emailCli, $senhaCli, $CEPCli, $numEndCli, $compEndCli);
+		insert into tbCliFis (CPFCliF, idCli, dtNascCliF) values
+			($CPFCliF, (select idCli from tbCliente order by idCli desc limit 1), $dtNascCliF);
     end if;
 end $$
 
-call spcadCliFis('Jesus Youssef', '1199209832', 'jesuscristo@gmail.com', 'senha', "06300187", 33, 'Casa', 459822213, '1990-12-25');
-call spcadCliFis('Gabriel Bohm Santos', '1199209882', 'kamikat@gmail.com', 'senha', "06309687", 34, 'Casa', 459722213, '1996-04-02');
-call spcadCliFis('Bianca Lula', '1199309833', 'thaigaloud@gmail.com', 'senha', "06200087", 22, 'Casa', 459893116, '1996-01-03');
-call spcadCliFis('Thiago Sartori', '1199340822', 'tinownsthiago@gmail.com', 'senha', "06200087", 22, 'Casa', 459873176, '1999-05-06');
+call spcadCliFis('Jesus Youssef', '1199209832', 'jesuscristo@gmail.com', 'senha', "06300187", 33, 'Casa', 45982221311, '1990-12-25');
+call spcadCliFis('Gabriel Bohm Santos', '1199209882', 'kamikat@gmail.com', 'senha', "06309687", 34, 'Casa', 45226661311, '1996-04-02');
+call spcadCliFis('Bianca Lula', '1199309833', 'thaigaloud@gmail.com', 'senha', "06200087", 22, 'Casa', 45982221333, '1996-01-03');
+call spcadCliFis('Thiago Sartori', '1199340822', 'tinownsthiago@gmail.com', 'senha', "06200087", 22, 'Casa', 45912632311, '1999-05-06');
 
 -- spUpdateCliFis
 DELIMITER $$
@@ -484,21 +472,18 @@ create procedure spaltCliFis(
 	$celCli varchar(11),
 	$emailCli varchar(125),
 	$senhaCli varchar(260),
-	$CEP varchar(13),
+	$CEPCli char(8),
 	$numEndCli smallint,
 	$compEndCli varchar(30),
-	$CPFCli int,
+	$CPFCliF char(11),
 	$dtNascCliF date)
 BEGIN
-	if not exists (select CEP from tbEndereco where CEP=$CEP) then
-		insert into tbEndereco (CEP) values ($CEP);
-	end if;
-	update tbCliFis set CPFCli=$CPFCli, dtNascCliF=$dtNascCliF where idCli=$idCli;
+	update tbCliFis set CPFCliF=$CPFCliF, dtNascCliF=$dtNascCliF where idCli=$idCli;
 	update tbCliente set nomCli=$nomCli, celCli=$celCli, emailCli=$emailCli, senhaCli=$senhaCli, 
-	CEP=$CEP, numEndCli=$numEndCli, compEndCli=$compEndCli where idCli=$idCli;
+	CEPCli=$CEPCli, numEndCli=$numEndCli, compEndCli=$compEndCli where idCli=$idCli;
 END$$
 
-call spaltCliFis(2, 'Gus Rodrigues', '1194320943', 'gusthienx@gmail.com', 'senha', "06300187", 33, 'Casa', 93872213, '1990-12-25');
+call spaltCliFis(2, 'Gus Rodrigues', '1194320943', 'gusthienx@gmail.com', 'senha', "06300187", 33, 'Casa', 45982221222, '1990-12-25');
 
 -- vwCheckCliFis
 create view vwcheckCliFis as select
@@ -507,10 +492,10 @@ create view vwcheckCliFis as select
     celCli as 'Celular',
     emailCli as 'Email', 
 	senhaCli as 'Senha',
-    CEP as 'CEP',
+    CEPCli as 'CEP',
     numEndCli as 'Número do endereço', 
     compEndCli as 'Complemento', 
-    CPFCli as 'CPF', 
+    CPFCliF as 'CPF', 
     dtNascCliF as 'Data de nascimento'
 		from tbCliente 
                 inner join tbCliFis on tbCliente.idCli = tbCliFis.idCli;
@@ -535,7 +520,7 @@ create procedure spcadCliJur(
 	$celCli char(11),
 	$emailCli varchar(125),
 	$senhaCli varchar(260),
-	$CEP char(8),
+	$CEPCli char(8),
 	$numEndCli smallint,
 	$compEndCli varchar(30),
 	$CNPJCli char(14),
@@ -543,11 +528,8 @@ create procedure spcadCliJur(
 	$represCliJ varchar(50))
 begin
 	if not exists (select CNPJCli from tbCliJur where CNPJCli = $CNPJCli) then
-		if not exists (select CEP from tbEndereco where CEP=$CEP) then
-			insert into tbEndereco (CEP) values ($CEP);
-		end if;
-    	insert into tbCliente (nomCli, tipoCli, celCli, emailCli, senhaCli, numEndCli, CEP, compEndCli) values 
-			($nomCli, true, $celCli, $emailCli, $senhaCli, $numEndCli, $CEP, $compEndCli);
+    	insert into tbCliente (nomCli, tipoCli, celCli, emailCli, senhaCli, numEndCli, CEPCli, compEndCli) values 
+			($nomCli, true, $celCli, $emailCli, $senhaCli, $numEndCli, $CEPCli, $compEndCli);
 		insert into tbCliJur (CNPJCli, idCli, fantaCliJ, represCliJ) values
 			($CNPJCli, (select idCli from tbCliente order by idCli desc limit 1), $fantaCliJ,  $represCliJ);
     end if;
@@ -565,20 +547,17 @@ DELIMITER $$
     $celCli int,
     $emailCli varchar(125),
 	$senhaCli varchar(260),
-    $CEP char(8),
+    $CEPCli char(8),
     $numEndCli smallint,
     $compEndCli varchar(30),
 	$CNPJCli char(14),
 	$fantaCliJ varchar(100),
     $represCliJ varchar(50))
 BEGIN
-	if not exists (select CEP from tbEndereco where CEP=$CEP) then
-		insert into tbEndereco (CEP) values ($CEP);
-	end if;
 	update tbCliJur set CNPJCli=$CNPJCli, fantaCliJ=$fantaCliJ, represCliJ = $represCliJ where idCli=$idCli;
 
 	update tbCliente set nomCli=$nomCli, celCli=$celCli, emailCli=$emailCli, senhaCli=$senhaCli, 
-	CEP=$CEP, numEndCli=$numEndCli, compEndCli=$compEndCli where idCli=$idCli;
+	CEPCli=$CEPCli, numEndCli=$numEndCli, compEndCli=$compEndCli where idCli=$idCli;
 END$$
 
 call spautCliJur(5, 'Loud e-sports', '1136570927', 'loud@suporte.com.br', 'senha', '06239487', 124, 'Casa', 463650010, 'LOUD GG', 'Playhard');
@@ -590,7 +569,7 @@ create view vwcheckCliJur as select
     celCli as 'Celular',
     emailCli as 'Email', 
 	senhaCli as 'Senha',
-    CEP as 'CEP',
+    CEPCli as 'CEP',
     numEndCli as 'Número do endereço', 
     compEndCli as 'Complemento', 
     CNPJCli as 'CNPJ', 

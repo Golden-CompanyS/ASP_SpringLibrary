@@ -1,96 +1,124 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Web.WebPages;
 
 namespace ASP_SpringLibrary.Models
 {
     public class ClienteFisico : Cliente
     {
         public string CPFCliF { get; set; }
+
+        [Display(Name = "Nascimento")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime dtNascCliF { get; set; }
 
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
-        /*public void cadCliF(ClienteFisico clienteF)
+        public void cadCliF(ClienteFisico clienteF)
         {
             connection.Open();
-            command.CommandText = "CALL spcadCliF(@CPFCliF, @dtNascCliF, @nomUsuCli, @senhaCli, @nomCli, @celCli, @emailCli, @CEPCli, @numEndCli, @compEndCli);";
-                command.Parameters.Add("@CPFCliF", MySqlDbType.Int64).Value = clienteF.CPFCliF;
-                command.Parameters.Add("@dtNascCliF", MySqlDbType.Date).Value = clienteF.dtNascCliF;
-                command.Parameters.Add("@nomUsuCli", MySqlDbType.String).Value = clienteF.nomUsuCli;
-                command.Parameters.Add("senhaCli", MySqlDbType.String).Value = clienteF.senhaCli;
-                command.Parameters.Add("nomCli", MySqlDbType.String).Value = clienteF.nomCli;
-                command.Parameters.Add("celCli", MySqlDbType.Int64).Value = clienteF.celCli;
-                command.Parameters.Add("emailCli", MySqlDbType.Int64).Value = clienteF.emailCli;
-                command.Parameters.Add("@CEPCli", MySqlDbType.Int64).Value = clienteF.CEPCli;
-                command.Parameters.Add("numEndCli", MySqlDbType.Int64).Value = clienteF.numEndCli;
-                command.Parameters.Add("compEndCli", MySqlDbType.String).Value = clienteF.compEndCli;
-                command.Connection = connection;
+            command.CommandText = "CALL spcadCliFis(@nomCli, @celCli, @emailCli, @senhaCli, @CEPCli, @numEndCli, @compEndCli, @CPFCliF, @dtNascCliF);";
+                command.Parameters.Add("@nomCli", MySqlDbType.VarChar).Value = clienteF.nomCli;
+                command.Parameters.Add("@celCli", MySqlDbType.VarChar).Value = clienteF.celCli;
+                command.Parameters.Add("@emailCli", MySqlDbType.VarChar).Value = clienteF.emailCli;
+                command.Parameters.Add("@senhaCli", MySqlDbType.VarChar).Value = clienteF.senhaCli;
+                command.Parameters.Add("@CEPCli", MySqlDbType.VarChar).Value = clienteF.CEPCli;
+                command.Parameters.Add("@numEndCli", MySqlDbType.Int64).Value = clienteF.numEndCli;
+                command.Parameters.Add("@compEndCli", MySqlDbType.VarChar).Value = clienteF.compEndCli;
+                command.Parameters.Add("@CPFCliF", MySqlDbType.VarChar).Value = clienteF.CPFCliF;
+                command.Parameters.Add("@dtNascCliF", MySqlDbType.Date).Value = clienteF.dtNascCliF; // STR_TO_DATE(@dtNascCliF, '%d/%m/%Y %T')
+            command.Connection = connection;
             command.ExecuteNonQuery();
             connection.Close();
-        }
-
-        public ClienteFisico checkCliF(int CPFCliF)
-        {
-            connection.Open();
-            command.CommandText = "CALL spcheckCliF(@CPFCliF);";
-                command.Parameters.Add("@CPFCliF", MySqlDbType.Int64).Value = CPFCliF;
-            var readClienteF = command.ExecuteReader();
-            var tempClienteF = new ClienteFisico();
-
-            if (readClienteF.Read())
-            {
-                tempClienteF.CPFCliF = int.Parse(readClienteF["CPFCliF"].ToString());
-                tempClienteF.dtNascCliF = DateTime.Parse(readClienteF["dtNascCliF"].ToString());
-                tempClienteF.idCli = int.Parse(readClienteF["idCli"].ToString());
-                tempClienteF.nomUsuCli = readClienteF["nomUsuCli"].ToString();
-                tempClienteF.senhaCli = readClienteF["senhaCli"].ToString();
-                tempClienteF.nomCli = readClienteF["nomCli"].ToString();
-                tempClienteF.celCli = int.Parse(readClienteF["celCli"].ToString());
-                tempClienteF.emailCli = readClienteF["emailCli"].ToString();
-                tempClienteF.CEPCli = int.Parse(readClienteF["CEPCli"].ToString());
-                tempClienteF.numEndCli = int.Parse(readClienteF["numEndCli"].ToString());
-                tempClienteF.compEndCli = readClienteF["compEndCli"].ToString();
-            }
-
-            readClienteF.Close();
-            connection.Close();
-
-            return tempClienteF;
         }
 
         public void altCliF(ClienteFisico clienteF)
         {
             connection.Open();
-            command.CommandText = "CALL spaltCliF(@CPFCliF, @dtNascCliF, @idCli, @nomUsuCli, @senhaCli, @nomCli, @celCli, @emailCli, @CEPCli, @numEndCli, @compEndCli);";
-                command.Parameters.Add("@CPFCliF", MySqlDbType.Int64).Value = clienteF.CPFCliF;
-                command.Parameters.Add("@dtNascCliF", MySqlDbType.Date).Value = clienteF.dtNascCliF;
+            command.CommandText = "CALL spaltCliFis(@idCli, @nomCli, @celCli, @emailCli, @senhaCli, @CEPCli, @numEndCli, @compEndCli, @CPFCliF, @dtNascCliF);";
                 command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = clienteF.idCli;
-                command.Parameters.Add("@nomUsuCli", MySqlDbType.String).Value = clienteF.nomUsuCli;
-                command.Parameters.Add("senhaCli", MySqlDbType.String).Value = clienteF.senhaCli;
-                command.Parameters.Add("nomCli", MySqlDbType.String).Value = clienteF.nomCli;
-                command.Parameters.Add("celCli", MySqlDbType.Int64).Value = clienteF.celCli;
-                command.Parameters.Add("emailCli", MySqlDbType.Int64).Value = clienteF.emailCli;
-                command.Parameters.Add("@CEPCli", MySqlDbType.Int64).Value = clienteF.CEPCli;
-                command.Parameters.Add("numEndCli", MySqlDbType.Int64).Value = clienteF.numEndCli;
-                command.Parameters.Add("compEndCli", MySqlDbType.String).Value = clienteF.compEndCli;
-                command.Connection = connection;
-                command.ExecuteNonQuery();
+                command.Parameters.Add("@nomCli", MySqlDbType.VarChar).Value = clienteF.nomCli;
+                command.Parameters.Add("@celCli", MySqlDbType.VarChar).Value = clienteF.celCli;
+                command.Parameters.Add("@emailCli", MySqlDbType.VarChar).Value = clienteF.emailCli;
+                command.Parameters.Add("@senhaCli", MySqlDbType.VarChar).Value = clienteF.senhaCli;
+                command.Parameters.Add("@CEPCli", MySqlDbType.VarChar).Value = clienteF.CEPCli;
+                command.Parameters.Add("@numEndCli", MySqlDbType.Int64).Value = clienteF.numEndCli;
+                command.Parameters.Add("@compEndCli", MySqlDbType.VarChar).Value = clienteF.compEndCli;
+                command.Parameters.Add("@CPFCliF", MySqlDbType.VarChar).Value = clienteF.CPFCliF;
+                command.Parameters.Add("@dtNascCliF", MySqlDbType.Date).Value = clienteF.dtNascCliF; // STR_TO_DATE(@dtNascCliF, '%d/%m/%Y %T')
+            command.Connection = connection;
+            command.ExecuteNonQuery();
             connection.Close();
         }
 
-        public void delCliF(int CPFCliF)
+        public List<ClienteFisico> checkAllCliF()
         {
             connection.Open();
-            command.CommandText = "CALL spdelCliF(@CPFCliF);";
-                command.Parameters.Add("@CPFCliF", MySqlDbType.Int64).Value = CPFCliF;
+            command.CommandText = "SELECT * FROM tbCliente INNER JOIN tbCliFis on tbCliente.idCli = tbCliFis.idCli;";
                 command.Connection = connection;
-                command.ExecuteNonQuery();
+
+            var readCliF = command.ExecuteReader();
+            List<ClienteFisico> tempCliFList = new List<ClienteFisico>();
+
+            while (readCliF.Read())
+            {
+                var tempCliF = new ClienteFisico();
+
+                tempCliF.idCli = int.Parse(readCliF["idCli"].ToString());
+                tempCliF.nomCli = readCliF["nomCli"].ToString();
+                tempCliF.tipoCli = readCliF["tipoCli"].ToString().AsBool();
+                tempCliF.celCli = readCliF["celCli"].ToString();
+                tempCliF.emailCli = readCliF["emailCli"].ToString();
+                tempCliF.senhaCli = readCliF["senhaCli"].ToString();
+                tempCliF.CEPCli = readCliF["CEPCli"].ToString();
+                tempCliF.numEndCli = int.Parse(readCliF["numEndCli"].ToString());
+                tempCliF.compEndCli = readCliF["compEndCli"].ToString();
+                tempCliF.CPFCliF = readCliF["CPFCliF"].ToString();
+                tempCliF.dtNascCliF = DateTime.Parse(readCliF["dtNascCliF"].ToString());
+
+
+                tempCliFList.Add(tempCliF);
+            }
+
+            readCliF.Close();
             connection.Close();
-        }*/
+
+            return tempCliFList;
+        }
+
+        public ClienteFisico checkCliF(int CPFCliF)
+        {
+            connection.Open();
+            command.CommandText = "SELECT * FROM tbCliente INNER JOIN tbCliFis on tbCliente.idCli = tbCliFis.idCli WHERE tbCliFis.CPFCli = @CPFCli;";
+                command.Parameters.Add("@CPFCliF", MySqlDbType.VarChar).Value = CPFCliF;
+            var readCliF = command.ExecuteReader();
+            var tempCliF = new ClienteFisico();
+
+            if (readCliF.Read())
+            {
+                tempCliF.idCli = int.Parse(readCliF["idCli"].ToString());
+                tempCliF.nomCli = readCliF["nomCli"].ToString();
+                tempCliF.tipoCli = readCliF["tipoCli"].ToString().AsBool();
+                tempCliF.celCli = readCliF["celCli"].ToString();
+                tempCliF.emailCli = readCliF["emailCli"].ToString();
+                tempCliF.senhaCli = readCliF["senhaCli"].ToString();
+                tempCliF.CEPCli = readCliF["CEPCli"].ToString();
+                tempCliF.numEndCli = int.Parse(readCliF["numEndCli"].ToString());
+                tempCliF.compEndCli = readCliF["compEndCli"].ToString();
+                tempCliF.CPFCliF = readCliF["CPFCliF"].ToString();
+                tempCliF.dtNascCliF = DateTime.Parse(readCliF["dtNascCliF"].ToString());
+            }
+
+            readCliF.Close();
+            connection.Close();
+
+            return tempCliF;
+        }
     }
 }

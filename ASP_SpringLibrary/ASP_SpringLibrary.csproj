@@ -165,6 +165,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Dashboard\Controllers\AutorController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\ClienteController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\EditoraController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\FuncionarioController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\GeneroController.cs" />
@@ -212,6 +213,7 @@
     <Content Include="Areas\Dashboard\Views\Funcionario\Cadastrar.cshtml" />
     <Content Include="Areas\Dashboard\Views\Funcionario\Index.cshtml" />
     <Content Include="Areas\Dashboard\Views\Funcionario\Alterar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Cliente\Fisico.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
     <Content Include="Scripts\inputmask\inputmask.es6.js" />

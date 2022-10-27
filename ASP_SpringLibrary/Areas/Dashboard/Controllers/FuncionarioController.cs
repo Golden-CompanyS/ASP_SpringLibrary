@@ -21,6 +21,7 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
 
             foreach (var tempFunc in tempFuncList)
             {
+                tempFunc.CPFFunc = tempFunc.CPFFunc.Insert(3, ".").Insert(7, ".").Insert(11, "-");
                 tempFunc.celFunc = tempFunc.celFunc.Insert(0, "(").Insert(3, ") ").Insert(10, "-");
             }
 
