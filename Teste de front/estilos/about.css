@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+html{
+    font-family: 'Roboto', sans-serif ;
+    font-size: 40px;
+}
+
+body{
+    color:#696565;
+    padding-left: 50px;
+    padding-right: 450px;
+    font-family: 'Roboto', sans-serif ;
+}
+h1{
+    font-weight: bold;
+
+}
+h2{
+    font-weight: bold;
+    font-size: 30px;
+
+}
+
+.Historia{
+    text-align: justify;
+}
+h4{
+    font-size: 25px;
+}
+.textoMap{
+    position: absolute;
+}
