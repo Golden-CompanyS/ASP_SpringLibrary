@@ -38,19 +38,20 @@ input{
 
 .slides{
     display:flex;
-    width:200%;
+    width:200vw;
     height: 100%;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .slide{
-    width:50%;
+    width: 100vw;
     transition: .6s;
 }
 
 .slide img{
-    width: 100%;
+    width: 100vw;
     height: 100%;
+    object-fit: c;
 }
 
 #slide1:checked ~ .s1{
@@ -59,4 +60,8 @@ input{
 
 #slide2:checked ~ .s1{
     margin-left: -50%;
+}
+
+.irLivros{
+    
 }
