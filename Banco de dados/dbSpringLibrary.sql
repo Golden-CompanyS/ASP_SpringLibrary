@@ -228,6 +228,91 @@ CALL spcheckAutById(1);
 
 
 -- =============================================== --
+-- == -- == -- == -- Funcionário -- == -- == -- == -- 
+-- =============================================== --
+create table tbFuncionario(
+	idFunc int primary key auto_increment,
+    nomFunc varchar(50) not null,
+    CPFFunc char(11) not null,
+    imgFunc varchar(256),
+    celFunc char(11) not null,
+	cargoFunc varchar(30) not null,
+    emailFunc varchar(125) not null,
+    senhaFunc varchar(260) not null,
+    ativoFunc boolean not null
+);
+
+DELIMITER $$
+create procedure spcadFunc(
+	$nomFunc varchar(50),
+	$CPFFunc char(11),
+	$imgFunc varchar(256),
+	$celFunc char(11),
+	$cargoFunc varchar(30),
+	$emailFunc varchar(125),
+	$senhaFunc varchar(260),
+    $ativoFunc boolean)
+BEGIN
+	insert into tbFuncionario (nomFunc, CPFFunc, imgFunc, cargoFunc, celFunc, emailFunc, senhaFunc, ativoFunc)
+    values ($NomFunc, $CPFFunc, $imgFunc, $cargoFunc, $celFunc, $emailFunc, $senhaFunc, $ativoFunc);
+END $$
+
+call spcadFunc("Leticia", "12345670325", "/Photos/imgFunc/d61d8a0b25028f787123bfff542d3051.png", "11987643239", 'Gerente', "leticiaresina@email.com", "1234567", true);
+call spcadFunc("Larissa", "34587595128", "/Photos/imgFunc/b96eee05bcc624dfa15a61c5c62e47cb.png", "11987643819", 'Gerente', "larii@email.com", "1234567", true);
+call spcadFunc("Gus", "48387121847", "/Photos/imgFunc/3ea38e723c590aabf186367e1eb7e6a1.png", "11958694851", 'Bibliotecário', "pearGus@email.com", "1234567", true);
+call spcadFunc("Taveira", "32593825201", "/Photos/imgFunc/e2bb3f9679fec6d4836fcf8abcc3eeac.png", "11987642312", 'Logístico', "taveira.mateus@email.com", "$&%o8&TY3Gh!8w33", true);
+call spcadFunc("Erin", "12313821561", "/Photos/imgFunc/96a033ac6a432dcf1e701c9febfe4687.png", "11987643819", 'Logístico', "eriin@email.com", "1234567", true);
+call spcadFunc("Wesley", "23238210228", "/Photos/imgFunc/b23f665210a1914cab61bc8eba4c9ae0.png", "11987643819", 'Caixa', "wes@email.com", "1234567", true);
+
+-- spaltFunc
+DELIMITER $$
+create procedure spaltFunc(
+    $idFunc int,
+    $nomFunc varchar(50),
+    $CPFFunc char(11),
+    $imgFunc varchar(256),
+    $celFunc char(11),
+    $cargoFunc varchar(30),
+    $emailFunc varchar(125),
+    $senhaFunc varchar(260),
+    $ativoFunc boolean)
+    BEGIN
+         update tbFuncionario set nomFunc=$nomFunc, CPFFunc=$CPFFunc, imgFunc=$imgFunc, 
+         cargoFunc=$cargoFunc, celFunc=$celFunc, emailFunc=$emailFunc, senhaFunc=$senhaFunc, ativoFunc = $ativoFunc where idFunc=$idFunc;
+    END
+$$
+
+call spaltFunc(3, "Gustavo", "48387121847", "/Photos/imgFunc/3ea38e723c590aabf186367e1eb7e6a1.png", "11958694851", 'Bibliotecário', "novoEmaildoGus@email.com", "1234567", true);
+call spaltFunc(5, "Erin", "12313821561", "/Photos/imgFunc/96a033ac6a432dcf1e701c9febfe4687.png", "11987643819", 'Bibliotecário', "eriin@email.com", "1234567", true);
+
+-- checkFuncById
+DELIMITER $$
+CREATE PROCEDURE checkFuncById(
+	$idFunc int
+)
+BEGIN
+	SELECT * FROM tbFuncionario WHERE idFunc = $idFunc;
+END$$
+
+call checkFuncById(3);
+
+-- vwCheckAllFuncs
+create view vwCheckAllFuncs as select 
+	IdFunc as 'ID', 
+    nomFunc as 'Nome',
+    CPFFunc as 'CPF',
+    imgFunc as 'Imagem',
+    celFunc 'Telefone Celular',
+	cargoFunc as 'Cargo',
+    emailFunc as 'Email',
+    senhaFunc as 'Senha',
+    ativoFunc as 'Situação contratual'
+		from tbFuncionario;
+
+select * from vwCheckAllFuncs;
+
+
+-- =============================================== --
 -- == -- == -- == -- Livro -- == -- == -- == -- == --
 -- =============================================== --
 CREATE TABLE tbLivro (
@@ -248,7 +333,10 @@ CREATE TABLE tbLivro (
         REFERENCES tbEditora (idEdit),
     idGen INT NOT NULL,
     FOREIGN KEY (idGen)
-        REFERENCES tbGenero (idGen)
+        REFERENCES tbGenero (idGen),
+	idFunc INT NOT NULL,
+    FOREIGN KEY (idFunc)
+		REFERENCES tbFuncionario (idFunc)
 );
 
 -- Tabela necessária para intermediar a relação entre livros e seu(s) atore(s)
@@ -278,12 +366,13 @@ CREATE PROCEDURE spcadLiv(
 	$ativoLiv boolean,
     $idAut int, 
 	$idEdit int, 
-	$idGen int
+	$idGen int, 
+	$idFunc int
 )
 BEGIN
 	IF NOT EXISTS (SELECT ISBNLiv FROM tbLivro WHERE ISBNLiv = $ISBNLiv) THEN
 		INSERT INTO tbLivro VALUES
-        ($ISBNLiv, $titLivro, $titOriLiv, $sinopLiv, $imgLiv, $pratLiv, $numPagLiv, $numEdicaoLiv, $anoLiv, $precoLiv, $qtdLiv, $ativoLiv, $idEdit, $idGen);
+        ($ISBNLiv, $titLivro, $titOriLiv, $sinopLiv, $imgLiv, $pratLiv, $numPagLiv, $numEdicaoLiv, $anoLiv, $precoLiv, $qtdLiv, $ativoLiv, $idEdit, $idGen, $idFunc);
 	END IF;
     IF NOT EXISTS (SELECT ISBNLiv FROM tbLivroAutor WHERE idAut = $idAut) THEN
         INSERT INTO tbLivroAutor
@@ -302,15 +391,15 @@ cínico, “o amor que não ousava dizer o seu nome”. Depois, fascinou leitore
 de Fausto o Evangelho de um decadentismo que acredita em uma vida de arte, prazer e fascínio sensorial. Tudo isso em meio a um fim de 
 século no qual a convenção e a moralidade corroíam qualquer prazer que a existência humana poderia desfrutar.',
 'https://darkside.vteximg.com.br/arquivos/ids/176889-519-519/o-retrato-de-dorian-gray-0.png?v=637655004666100000',1,320,1,2021,30.00,200,
-true,1,4,9);
-call spcadLiv('9788594540188','Frankenstin',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,true,3,4,7);
-call spcadLiv('9788594540188','Frankenstin',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,true,2,4,7);
+true,1,4,9, 1);
+call spcadLiv('9788594540188','Frankenstin',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,true,3,4,7, 2);
+call spcadLiv('9788594540188','Frankenstin',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,true,2,4,7, 2);
 -- Adicionando duas autoras em um livro;
 call spCadLiv('9786555652956','Morte no internato','The Murders at Fleat House',
 'Obra inédita da aclamada Lucinda Riley, Morte no internato é um romance policial com uma 
 trama instigante e a escrita envolvente que se tornaram marca registrada da autora.',
 'https://www.editoraarqueiro.com.br/media/livros_livro/9786555652956.png.200x300_q85_upscale.jpg',
-4,384,1,2022,39.99,29,true,4,6,7);
+4,384,1,2022,39.99,29,true,4,6,7, 2);
 
 DELIMITER $$
 create procedure spaltLivro(
@@ -362,11 +451,13 @@ create view vwcheckAllLiv as select
     ativoLiv as "Está à venda?",
     nomGen as 'Gênero do livro',
 	nomEdit as 'Nome da editora',
+    nomFunc as 'Quem cadastrou',
     celEdit as 'Telefone da editora',
     emailEdit as 'Email da editora'
     from tbLivro as lv
 			left join tbGenero as gen on lv.IdGen = gen.IdGen
-            left join tbEditora as edit on lv.IdEdit = edit.IdEdit;
+            left join tbEditora as edit on lv.IdEdit = edit.IdEdit
+            left join tbFuncionario as func on lv.IdFunc = func.IdFunc;
             
 select * from vwcheckAllLiv;
 
@@ -582,90 +673,6 @@ select * from vwcheckCliJur;
 
 
 -- =============================================== --
--- == -- == -- == -- Funcionário -- == -- == -- == -- 
--- =============================================== --
-create table tbFuncionario(
-	idFunc int primary key auto_increment,
-    nomFunc varchar(50) not null,
-    CPFFunc char(11) not null,
-    imgFunc varchar(256),
-    celFunc char(11) not null,
-	cargoFunc varchar(30) not null,
-    emailFunc varchar(125) not null,
-    senhaFunc varchar(260) not null,
-    ativoFunc boolean not null
-);
-
-DELIMITER $$
-create procedure spcadFunc(
-	$nomFunc varchar(50),
-	$CPFFunc char(11),
-	$imgFunc varchar(256),
-	$celFunc char(11),
-	$cargoFunc varchar(30),
-	$emailFunc varchar(125),
-	$senhaFunc varchar(260),
-    $ativoFunc boolean)
-BEGIN
-	insert into tbFuncionario (nomFunc, CPFFunc, imgFunc, cargoFunc, celFunc, emailFunc, senhaFunc, ativoFunc)
-    values ($NomFunc, $CPFFunc, $imgFunc, $cargoFunc, $celFunc, $emailFunc, $senhaFunc, $ativoFunc);
-END $$
-
-call spcadFunc("Leticia", "12345670325", "/Photos/imgFunc/d61d8a0b25028f787123bfff542d3051.png", "11987643239", 'Gerente', "leticiaresina@email.com", "1234567", true);
-call spcadFunc("Larissa", "34587595128", "/Photos/imgFunc/b96eee05bcc624dfa15a61c5c62e47cb.png", "11987643819", 'Gerente', "larii@email.com", "1234567", true);
-call spcadFunc("Gus", "48387121847", "/Photos/imgFunc/3ea38e723c590aabf186367e1eb7e6a1.png", "11958694851", 'Bibliotecário', "pearGus@email.com", "1234567", true);
-call spcadFunc("Taveira", "32593825201", "/Photos/imgFunc/e2bb3f9679fec6d4836fcf8abcc3eeac.png", "11987642312", 'Logístico', "taveira.mateus@email.com", "$&%o8&TY3Gh!8w33", true);
-call spcadFunc("Erin", "12313821561", "/Photos/imgFunc/96a033ac6a432dcf1e701c9febfe4687.png", "11987643819", 'Logístico', "eriin@email.com", "1234567", true);
-call spcadFunc("Wesley", "23238210228", "/Photos/imgFunc/b23f665210a1914cab61bc8eba4c9ae0.png", "11987643819", 'Caixa', "wes@email.com", "1234567", true);
-
--- spaltFunc
-DELIMITER $$
-create procedure spaltFunc(
-    $idFunc int,
-    $nomFunc varchar(50),
-    $CPFFunc char(11),
-    $imgFunc varchar(256),
-    $celFunc char(11),
-    $cargoFunc varchar(30),
-    $emailFunc varchar(125),
-    $senhaFunc varchar(260),
-    $ativoFunc boolean)
-    BEGIN
-         update tbFuncionario set nomFunc=$nomFunc, CPFFunc=$CPFFunc, imgFunc=$imgFunc, 
-         cargoFunc=$cargoFunc, celFunc=$celFunc, emailFunc=$emailFunc, senhaFunc=$senhaFunc, ativoFunc = $ativoFunc where idFunc=$idFunc;
-    END
-$$
-
-call spaltFunc(3, "Gustavo", "48387121847", "/Photos/imgFunc/3ea38e723c590aabf186367e1eb7e6a1.png", "11958694851", 'Bibliotecário', "novoEmaildoGus@email.com", "1234567", true);
-call spaltFunc(5, "Erin", "12313821561", "/Photos/imgFunc/96a033ac6a432dcf1e701c9febfe4687.png", "11987643819", 'Bibliotecário', "eriin@email.com", "1234567", true);
-
--- checkFuncById
-DELIMITER $$
-CREATE PROCEDURE checkFuncById(
-	$idFunc int
-)
-BEGIN
-	SELECT * FROM tbFuncionario WHERE idFunc = $idFunc;
-END$$
-
-call checkFuncById(3);
-
--- vwCheckAllFuncs
-create view vwCheckAllFuncs as select 
-	IdFunc as 'ID', 
-    nomFunc as 'Nome',
-    CPFFunc as 'CPF',
-    imgFunc as 'Imagem',
-    celFunc 'Telefone Celular',
-	cargoFunc as 'Cargo',
-    emailFunc as 'Email',
-    senhaFunc as 'Senha',
-    ativoFunc as 'Situação contratual'
-		from tbFuncionario;
-
-select * from vwCheckAllFuncs;
-
--- =============================================== --
 -- == -- == -- == -- Venda -- == -- == -- == -- ==
 -- =============================================== --
 create table tbVenda(
@@ -674,8 +681,6 @@ create table tbVenda(
     delivVen boolean not null,
     dtHoraVen datetime default(current_timestamp()),
     tipoPgtVen varchar(20) not null,
-    idFunc int not null,
-    foreign key (idFunc) references tbFuncionario(idFunc),
     IdCli int not null,
     foreign key (idCli) references tbCliente(idCli)
 );
@@ -704,12 +709,11 @@ DELIMITER $$
 create procedure spcomecVenda(
     $tipoPgtVen varchar(20), 
     $idCli int,
-    $idFunc int,
     $delivVen boolean,
     $dtPrevDel date)
 begin
-	insert into tbVenda (valTotVen, delivVen, dtHoraVen, tipoPgtVen, idFunc, idCli) values
-		(null, $delivVen, default, $tipoPgtVen, $idFunc, $idCli);
+	insert into tbVenda (valTotVen, delivVen, dtHoraVen, tipoPgtVen, idCli) values
+		(null, $delivVen, default, $tipoPgtVen, $idCli);
 	if $delivVen = true then
 		insert into tbDelivery(idVen, statDel, dtPrevDel, dtFinDel) values
 			((select idVen from tbVenda order by idVen desc limit 1), 0, $dtPrevDel, null);
@@ -776,16 +780,16 @@ end $$
 
 /* Abrindo vendas, colocando, tirando produtos e alterando o status de delivery delas
 ---=== SEMPRE SETAR SET FOREIGN_KEY_CHECKS=0 ANTES DE RODAR OS TESTES ===---*/
-call spcomecVenda("Dinheiro", 1, 3, false, null);
+call spcomecVenda("Dinheiro", 1, false, null);
 call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555652956",1);
 
-call spcomecVenda("Transferência", 2, 3, true, '2022-10-24');
+call spcomecVenda("Transferência", 2, true, '2022-10-24');
 call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555980004",1);
 call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555980004",1);
 call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555652956",1);
 call spaltStatusDeliv((select idDel from tbDelivery order by idVen desc limit 1),2)
 
-call spcomecVenda("Crédito", 3, 6, true, '2022-10-26');
+call spcomecVenda("Crédito", 3, true, '2022-10-26');
 call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555980004",1);
 call spdelLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9786555980004");
 call spputLivVenda((select idVen from tbVenda order by idVen desc limit 1),"9788594540188",1);
@@ -796,12 +800,10 @@ create view vwcheckAllVenda as select
 	idVen as 'ID',
     dtHoraVen as 'Data e hora',
 	tbCliente.NomCli as 'Nome do cliente',
-    tbFuncionario.NomFunc as 'Funcionário responsável',
     tipoPgtVen as 'Situação de pagamento', 
     valTotVen as 'Valor total',
 	delivVen as 'É Delivery?'
 		From tbVenda
-			inner join tbFuncionario on tbVenda.idFunc = tbFuncionario.idFunc
             inner join tbCliente on tbVenda.idCli = tbCliente.idCli;
      
 select * from vwcheckAllVenda;
@@ -831,14 +833,12 @@ create view vwcheckAllDeliv as select
 	tbVenda.idVen as 'ID',
     dtHoraVen as 'Data e hora',
 	tbCliente.NomCli as 'Nome do cliente',
-    tbFuncionario.NomFunc as 'Funcionário responsável',
     tipoPgtVen as 'Situação de pagamento', 
     valTotVen as 'Valor total',
     statDel as 'Status do delivery',
     dtPrevDel as 'Previsão de entrega',
     dtFinDel as 'Data de entrega'
 		From tbVenda
-			inner join tbFuncionario on tbVenda.idFunc = tbFuncionario.idFunc
             inner join tbCliente on tbVenda.idCli = tbCliente.idCli
             inner join tbDelivery on tbVenda.idVen = tbDelivery.idVen;
             
