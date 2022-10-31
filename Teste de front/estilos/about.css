@@ -1,13 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
 html{
-    font-family: 'Roboto', sans-serif ;
     font-size: 40px;
 }
 
 body{
     color:#696565;
-    padding-left: 50px;
-    padding-right: 450px;
+    padding-left: 150px;
+    padding-right: 400px;
     font-family: 'Roboto', sans-serif ;
 }
 h1{
@@ -19,13 +18,19 @@ h2{
     font-size: 30px;
 
 }
+.textohist{
+    padding-bottom: 10px;
+}
 
 .Historia{
     text-align: justify;
 }
 h4{
     font-size: 25px;
+    font-weight: lighter;
 }
+
 .textoMap{
-    position: absolute;
+    font-size: 40px;
+    padding-left: 40px;
 }
