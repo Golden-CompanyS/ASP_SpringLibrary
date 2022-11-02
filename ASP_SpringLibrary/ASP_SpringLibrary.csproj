@@ -214,6 +214,7 @@
     <Content Include="Areas\Dashboard\Views\Funcionario\Index.cshtml" />
     <Content Include="Areas\Dashboard\Views\Funcionario\Alterar.cshtml" />
     <Content Include="Areas\Dashboard\Views\Cliente\Fisico.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Cliente\Juridico.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
     <Content Include="Scripts\inputmask\inputmask.es6.js" />

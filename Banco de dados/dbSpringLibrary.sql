@@ -257,12 +257,12 @@ BEGIN
     values ($NomFunc, $CPFFunc, $imgFunc, $cargoFunc, $celFunc, $emailFunc, $senhaFunc, $ativoFunc);
 END $$
 
-call spcadFunc("Leticia", "12345670325", "/Photos/imgFunc/d61d8a0b25028f787123bfff542d3051.png", "11987643239", 'Gerente', "leticiaresina@email.com", "1234567", true);
-call spcadFunc("Larissa", "34587595128", "/Photos/imgFunc/b96eee05bcc624dfa15a61c5c62e47cb.png", "11987643819", 'Gerente', "larii@email.com", "1234567", true);
-call spcadFunc("Gus", "48387121847", "/Photos/imgFunc/3ea38e723c590aabf186367e1eb7e6a1.png", "11958694851", 'Bibliotecário', "pearGus@email.com", "1234567", true);
-call spcadFunc("Taveira", "32593825201", "/Photos/imgFunc/e2bb3f9679fec6d4836fcf8abcc3eeac.png", "11987642312", 'Logístico', "taveira.mateus@email.com", "$&%o8&TY3Gh!8w33", true);
-call spcadFunc("Erin", "12313821561", "/Photos/imgFunc/96a033ac6a432dcf1e701c9febfe4687.png", "11987643819", 'Logístico', "eriin@email.com", "1234567", true);
-call spcadFunc("Wesley", "23238210228", "/Photos/imgFunc/b23f665210a1914cab61bc8eba4c9ae0.png", "11987643819", 'Caixa', "wes@email.com", "1234567", true);
+call spcadFunc("Leticia", "12345670325", "/Photos/imgFunc/d61d8a0b25028f787123bfff542d3051.png", "11987643239", 'Gerente', "leticiaresina@email.com", "$2a$10$UdE/dABUzjWipHLkC9cy8.TewWva7vGkon0zl1yKrej8.n0Uqz9CO", true);
+call spcadFunc("Larissa", "34587595128", "/Photos/imgFunc/b96eee05bcc624dfa15a61c5c62e47cb.png", "11987643819", 'Gerente', "larii@email.com", "$2a$10$cVTPmbucXk6J5zC4plf5uOW/nwfbQNCUCpQ/hxl/Eh1KRt.mlCswC", true);
+call spcadFunc("Gus", "48387121847", "/Photos/imgFunc/3ea38e723c590aabf186367e1eb7e6a1.png", "11958694851", 'Bibliotecário', "pearGus@email.com", "$2a$10$b7goyg40iN95uw9PKMtX2.700UGqpfpHs6V3L5feaI.Q2QAks09xa", true);
+call spcadFunc("Taveira", "32593825201", "/Photos/imgFunc/e2bb3f9679fec6d4836fcf8abcc3eeac.png", "11987642312", 'Logístico', "taveira.mateus@email.com", "$2a$10$L169gxfwclPif1x6nh8qP.Sxwny6Q5DAtgRMqAe9oSR/1xhVdDUhO", true);
+call spcadFunc("Erin", "12313821561", "/Photos/imgFunc/96a033ac6a432dcf1e701c9febfe4687.png", "11987643819", 'Logístico', "eriin@email.com", "$2a$10$uvkAzdQ/8aSmhSq7vMjj1up7fKx6yLSuzcWShGcNtlInU7LlHOdz.", true);
+call spcadFunc("Wesley", "23238210228", "/Photos/imgFunc/b23f665210a1914cab61bc8eba4c9ae0.png", "11987643819", 'Caixa', "wes@email.com", "$2a$10$YP2EW/RL4nNsmcksie454.7r/K6wqAraDMhC5wTkoSm2byQo/Q6zW", true);
 
 -- spaltFunc
 DELIMITER $$
@@ -282,8 +282,8 @@ create procedure spaltFunc(
     END
 $$
 
-call spaltFunc(3, "Gustavo", "48387121847", "/Photos/imgFunc/3ea38e723c590aabf186367e1eb7e6a1.png", "11958694851", 'Bibliotecário', "novoEmaildoGus@email.com", "1234567", true);
-call spaltFunc(5, "Erin", "12313821561", "/Photos/imgFunc/96a033ac6a432dcf1e701c9febfe4687.png", "11987643819", 'Bibliotecário', "eriin@email.com", "1234567", true);
+call spaltFunc(3, "Gustavo", "48387121847", "/Photos/imgFunc/3ea38e723c590aabf186367e1eb7e6a1.png", "11958694851", 'Bibliotecário', "novoEmaildoGus@email.com", "$2a$10$b7goyg40iN95uw9PKMtX2.700UGqpfpHs6V3L5feaI.Q2QAks09xa", true);
+call spaltFunc(5, "Erin", "12313821561", "/Photos/imgFunc/96a033ac6a432dcf1e701c9febfe4687.png", "11987643819", 'Bibliotecário', "eriin@email.com", "$2a$10$uvkAzdQ/8aSmhSq7vMjj1up7fKx6yLSuzcWShGcNtlInU7LlHOdz.", true);
 
 -- checkFuncById
 DELIMITER $$
@@ -550,10 +550,10 @@ begin
     end if;
 end $$
 
-call spcadCliFis('Jesus Youssef', '1199209832', 'jesuscristo@gmail.com', 'senha', "06300187", 33, 'Casa', 45982221311, '1990-12-25');
-call spcadCliFis('Gabriel Bohm Santos', '1199209882', 'kamikat@gmail.com', 'senha', "06309687", 34, 'Casa', 45226661311, '1996-04-02');
-call spcadCliFis('Bianca Lula', '1199309833', 'thaigaloud@gmail.com', 'senha', "06200087", 22, 'Casa', 45982221333, '1996-01-03');
-call spcadCliFis('Thiago Sartori', '1199340822', 'tinownsthiago@gmail.com', 'senha', "06200087", 22, 'Casa', 45912632311, '1999-05-06');
+call spcadCliFis('Jesus Youssef', '1199209832', 'jesuscristo@gmail.com', '$2a$10$EBgbnvn9BIFBmoUIDvxVmOTkqqevLcqPrCyLSltl1vCtmXG8clLka', "06300187", 33, 'Casa', 45982221311, '1990-12-25');
+call spcadCliFis('Gabriel Bohm Santos', '1199209882', 'kamikat@gmail.com', '$2a$10$EBgbnvn9BIFBmoUIDvxVmOTkqqevLcqPrCyLSltl1vCtmXG8clLka', "06309687", 34, 'Casa', 45226661311, '1996-04-02');
+call spcadCliFis('Bianca Lula', '1199309833', 'thaigaloud@gmail.com', '$2a$10$EBgbnvn9BIFBmoUIDvxVmOTkqqevLcqPrCyLSltl1vCtmXG8clLka', "06200087", 22, 'Casa', 45982221333, '1996-01-03');
+call spcadCliFis('Thiago Sartori', '1199340822', 'tinownsthiago@gmail.com', '$2a$10$EBgbnvn9BIFBmoUIDvxVmOTkqqevLcqPrCyLSltl1vCtmXG8clLka', "06200087", 22, 'Casa', 45912632311, '1999-05-06');
 
 -- spUpdateCliFis
 DELIMITER $$
@@ -574,7 +574,7 @@ BEGIN
 	CEPCli=$CEPCli, numEndCli=$numEndCli, compEndCli=$compEndCli where idCli=$idCli;
 END$$
 
-call spaltCliFis(2, 'Gus Rodrigues', '1194320943', 'gusthienx@gmail.com', 'senha', "06300187", 33, 'Casa', 45982221222, '1990-12-25');
+call spaltCliFis(2, 'Gus Rodrigues', '1194320943', 'gusthienx@gmail.com', '$2a$10$EBgbnvn9BIFBmoUIDvxVmOTkqqevLcqPrCyLSltl1vCtmXG8clLka', "06300187", 33, 'Casa', 45982221222, '1990-12-25');
 
 -- vwCheckCliFis
 create view vwcheckCliFis as select
@@ -626,16 +626,16 @@ begin
     end if;
 end $$
 
-call spcadCliJur('Loud', '1136570927', 'loud@suporte.com.br', 'senha', '06210027', 10, 'Bloco 10', "463650010", 'LOUD GG', 'Thaiga');
+call spcadCliJur('Loud', '1136570927', 'loud@suporte.com.br', '$2a$10$EBgbnvn9BIFBmoUIDvxVmOTkqqevLcqPrCyLSltl1vCtmXG8clLka', '06210027', 10, 'Bloco 10', "01345846258741", 'LOUD GG', 'Thaiga');
 call spcadCliJur
-('Jornal BG News', '11958424397', 'bgnews@gmail.com', 'senha', '05089000', 678 , null, "233980686", 'MIDIAS BGNEWS', 'Madu Gaspar');
+('Jornal BG News', '11958424397', 'bgnews@gmail.com', '$2a$10$EBgbnvn9BIFBmoUIDvxVmOTkqqevLcqPrCyLSltl1vCtmXG8clLka', '05089000', 678 , null, "15485248562154", 'MIDIAS BGNEWS', 'Madu Gaspar');
 
 -- spUpdateCliJur
 DELIMITER $$
 	create procedure spautCliJur(
     $idCli smallint,
     $nomCli varchar(100),
-    $celCli int,
+    $celCli char(11),
     $emailCli varchar(125),
 	$senhaCli varchar(260),
     $CEPCli char(8),
@@ -651,7 +651,8 @@ BEGIN
 	CEPCli=$CEPCli, numEndCli=$numEndCli, compEndCli=$compEndCli where idCli=$idCli;
 END$$
 
-call spautCliJur(5, 'Loud e-sports', '1136570927', 'loud@suporte.com.br', 'senha', '06239487', 124, 'Casa', 463650010, 'LOUD GG', 'Playhard');
+call spautCliJur(5, 'Loud e-sports', '11365709287', 'loud@suporte.com.br', '$2a$10$EBgbnvn9BIFBmoUIDvxVmOTkqqevLcqPrCyLSltl1vCtmXG8clLka', '06239487', 124, 'Casa', "01345846258741", 'LOUD GG', 'Playhard');
+call spautCliJur(6, 'Jornal BG News', '11958424397', 'bgnews@gmail.com', '$2a$10$EBgbnvn9BIFBmoUIDvxVmOTkqqevLcqPrCyLSltl1vCtmXG8clLka', '05089000', 678 , null, "15485248562154", 'MIDIAS BGNEWS', 'Madu Gaspar');
 
 -- vwCheckCliFis
 create view vwcheckCliJur as select

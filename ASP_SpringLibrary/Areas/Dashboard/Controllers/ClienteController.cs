@@ -26,7 +26,16 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
 
         public ActionResult Juridico()
         {
-            return View();
+            var tempCliJList = new ClienteJuridico().checkAllCliJ();
+
+            foreach (var tempCliJ in tempCliJList)
+            {
+                tempCliJ.CNPJCliJ = tempCliJ.CNPJCliJ.Insert(2, ".").Insert(6, ".").Insert(10, "/").Insert(15, "-");
+                tempCliJ.celCli = tempCliJ.celCli.Insert(0, "(").Insert(3, ") ").Insert(10, "-");
+                tempCliJ.CEPCli = tempCliJ.CEPCli.Insert(5, "-");
+            }
+
+            return View(tempCliJList);
         }
     }
 }

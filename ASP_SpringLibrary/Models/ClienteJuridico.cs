@@ -1,100 +1,130 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Web.WebPages;
 
 namespace ASP_SpringLibrary.Models
 {
     public class ClienteJuridico : Cliente
     {
+        [Display(Name = "CPNJ")]
         public string CNPJCliJ { get; set; }
+
+        [Display(Name = "Nome Fantasia")]
         public string fantaCliJ { get; set; }
+
+        [Display(Name = "Representante")]
         public string represCliJ { get; set; }
 
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
-        /*public void cadCliJ(ClienteJuridico clienteJ)
+        public void cadCliJ(ClienteJuridico clienteJ)
         {
             connection.Open();
-            command.CommandText = "CALL spcadCliJ(@CNPJCliJ, @fantaCliJ, @represCliJ, @nomUsuCli, @senhaCli, @nomCli, @celCli, @emailCli, @CEPCli, @numEndCli, @compEndCli);";
-                command.Parameters.Add("@CNPJCliJ", MySqlDbType.Int64).Value = clienteJ.CNPJCliJ;
-                command.Parameters.Add("@fantaCliJ", MySqlDbType.String).Value = clienteJ.fantaCliJ;
-                command.Parameters.Add("@represCliJ", MySqlDbType.String).Value = clienteJ.represCliJ;
-                command.Parameters.Add("@nomUsuCli", MySqlDbType.String).Value = clienteJ.nomUsuCli;
-                command.Parameters.Add("senhaCli", MySqlDbType.String).Value = clienteJ.senhaCli;
-                command.Parameters.Add("nomCli", MySqlDbType.String).Value = clienteJ.nomCli;
-                command.Parameters.Add("celCli", MySqlDbType.Int64).Value = clienteJ.celCli;
-                command.Parameters.Add("emailCli", MySqlDbType.Int64).Value = clienteJ.emailCli;
-                command.Parameters.Add("@CEPCli", MySqlDbType.Int64).Value = clienteJ.CEPCli;
-                command.Parameters.Add("numEndCli", MySqlDbType.Int64).Value = clienteJ.numEndCli;
-                command.Parameters.Add("compEndCli", MySqlDbType.String).Value = clienteJ.compEndCli;
-                command.Connection = connection;
-                command.ExecuteNonQuery();
+            command.CommandText = "CALL spcadCliFis(@nomCli, @celCli, @emailCli, @senhaCli, @CEPCli, @numEndCli, @compEndCli, @CNPJCliJ, @fantaCliJ, @represCliJ);";
+            command.Parameters.Add("@nomCli", MySqlDbType.VarChar).Value = clienteJ.nomCli;
+            command.Parameters.Add("@celCli", MySqlDbType.VarChar).Value = clienteJ.celCli;
+            command.Parameters.Add("@emailCli", MySqlDbType.VarChar).Value = clienteJ.emailCli;
+            command.Parameters.Add("@senhaCli", MySqlDbType.VarChar).Value = clienteJ.senhaCli;
+            command.Parameters.Add("@CEPCli", MySqlDbType.VarChar).Value = clienteJ.CEPCli;
+            command.Parameters.Add("@numEndCli", MySqlDbType.Int64).Value = clienteJ.numEndCli;
+            command.Parameters.Add("@compEndCli", MySqlDbType.VarChar).Value = clienteJ.compEndCli;
+            command.Parameters.Add("@CNPJCliJ", MySqlDbType.VarChar).Value = clienteJ.CNPJCliJ;
+            command.Parameters.Add("@fantaCliJ", MySqlDbType.Date).Value = clienteJ.fantaCliJ;
+            command.Parameters.Add("@represCliJ", MySqlDbType.Date).Value = clienteJ.represCliJ;
+            command.Connection = connection;
+            command.ExecuteNonQuery();
             connection.Close();
+        }
+
+        public void altCliJ(ClienteJuridico clienteJ)
+        {
+            connection.Open();
+            command.CommandText = "CALL spaltCliJur(@idCli, @nomCli, @celCli, @emailCli, @senhaCli, @CEPCli, @numEndCli, @compEndCli, @CNPJCliJ, @fantaCliJ0, @represCliJ);";
+            command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = clienteJ.idCli;
+            command.Parameters.Add("@nomCli", MySqlDbType.VarChar).Value = clienteJ.nomCli;
+            command.Parameters.Add("@celCli", MySqlDbType.VarChar).Value = clienteJ.celCli;
+            command.Parameters.Add("@emailCli", MySqlDbType.VarChar).Value = clienteJ.emailCli;
+            command.Parameters.Add("@senhaCli", MySqlDbType.VarChar).Value = clienteJ.senhaCli;
+            command.Parameters.Add("@CEPCli", MySqlDbType.VarChar).Value = clienteJ.CEPCli;
+            command.Parameters.Add("@numEndCli", MySqlDbType.Int64).Value = clienteJ.numEndCli;
+            command.Parameters.Add("@compEndCli", MySqlDbType.VarChar).Value = clienteJ.compEndCli;
+            command.Parameters.Add("@CNPJCliJ", MySqlDbType.VarChar).Value = clienteJ.CNPJCliJ;
+            command.Parameters.Add("@fantaCliJ", MySqlDbType.Date).Value = clienteJ.fantaCliJ;
+            command.Parameters.Add("@represCliJ", MySqlDbType.Date).Value = clienteJ.represCliJ;
+            command.Connection = connection;
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public List<ClienteJuridico> checkAllCliJ()
+        {
+            connection.Open();
+            command.CommandText = "SELECT * FROM tbCliente INNER JOIN tbCliJur on tbCliente.idCli = tbCliJur.idCli ORDER BY tbCliente.idCli;";
+            command.Connection = connection;
+
+            var readCliJ = command.ExecuteReader();
+            List<ClienteJuridico> tempCliJList = new List<ClienteJuridico>();
+
+            while (readCliJ.Read())
+            {
+                var tempCliJ = new ClienteJuridico();
+
+                tempCliJ.idCli = int.Parse(readCliJ["idCli"].ToString());
+                tempCliJ.nomCli = readCliJ["nomCli"].ToString();
+                tempCliJ.tipoCli = readCliJ["tipoCli"].ToString().AsBool();
+                tempCliJ.celCli = readCliJ["celCli"].ToString();
+                tempCliJ.emailCli = readCliJ["emailCli"].ToString();
+                tempCliJ.senhaCli = readCliJ["senhaCli"].ToString();
+                tempCliJ.CEPCli = readCliJ["CEPCli"].ToString();
+                tempCliJ.numEndCli = int.Parse(readCliJ["numEndCli"].ToString());
+                tempCliJ.compEndCli = readCliJ["compEndCli"].ToString();
+                tempCliJ.CNPJCliJ = readCliJ["CNPJCli"].ToString();
+                tempCliJ.fantaCliJ = readCliJ["fantaCliJ"].ToString();
+                tempCliJ.represCliJ = readCliJ["represCliJ"].ToString();
+
+                tempCliJList.Add(tempCliJ);
+            }
+
+            readCliJ.Close();
+            connection.Close();
+
+            return tempCliJList;
         }
 
         public ClienteJuridico checkCliJ(int CNPJCliJ)
         {
             connection.Open();
-            command.CommandText = "CALL spcheckCliJ(@CNPJCliJ);";
-                command.Parameters.Add("@CNPJCliJ", MySqlDbType.Int64).Value = CNPJCliJ;
-            var readClienteJ = command.ExecuteReader();
-            var tempClienteJ = new ClienteJuridico();
+            command.CommandText = "SELECT * FROM tbCliente INNER JOIN tbCliJur on tbCliente.idCli = tbCliJur.idCli WHERE tbCliJur.CNPJCli = @CNPJCli ORDER BY tbCliente.idCli;";
+            command.Parameters.Add("@CNPJCli", MySqlDbType.VarChar).Value = CNPJCliJ;
+            var readCliJ = command.ExecuteReader();
+            var tempCliJ = new ClienteJuridico();
 
-            if (readClienteJ.Read())
+            if (readCliJ.Read())
             {
-                tempClienteJ.CNPJCliJ = int.Parse(readClienteJ["CNPJCliJ"].ToString());
-                tempClienteJ.fantaCliJ = readClienteJ["fantaCliJ"].ToString();
-                tempClienteJ.represCliJ = readClienteJ["represCliJ"].ToString();
-                tempClienteJ.idCli = int.Parse(readClienteJ["idCli"].ToString());
-                tempClienteJ.nomUsuCli = readClienteJ["nomUsuCli"].ToString();
-                tempClienteJ.senhaCli = readClienteJ["senhaCli"].ToString();
-                tempClienteJ.nomCli = readClienteJ["nomCli"].ToString();
-                tempClienteJ.celCli = int.Parse(readClienteJ["celCli"].ToString());
-                tempClienteJ.emailCli = readClienteJ["emailCli"].ToString();
-                tempClienteJ.CEPCli = int.Parse(readClienteJ["CEPCli"].ToString());
-                tempClienteJ.numEndCli = int.Parse(readClienteJ["numEndCli"].ToString());
-                tempClienteJ.compEndCli = readClienteJ["compEndCli"].ToString();
+                tempCliJ.idCli = int.Parse(readCliJ["idCli"].ToString());
+                tempCliJ.nomCli = readCliJ["nomCli"].ToString();
+                tempCliJ.tipoCli = readCliJ["tipoCli"].ToString().AsBool();
+                tempCliJ.celCli = readCliJ["celCli"].ToString();
+                tempCliJ.emailCli = readCliJ["emailCli"].ToString();
+                tempCliJ.senhaCli = readCliJ["senhaCli"].ToString();
+                tempCliJ.CEPCli = readCliJ["CEPCli"].ToString();
+                tempCliJ.numEndCli = int.Parse(readCliJ["numEndCli"].ToString());
+                tempCliJ.compEndCli = readCliJ["compEndCli"].ToString();
+                tempCliJ.CNPJCliJ = readCliJ["CPFCliF"].ToString();
+                tempCliJ.fantaCliJ = readCliJ["fantaCliJ"].ToString();
+                tempCliJ.represCliJ = readCliJ["represCliJ"].ToString();
             }
 
-            readClienteJ.Close();
+            readCliJ.Close();
             connection.Close();
 
-            return tempClienteJ;
+            return tempCliJ;
         }
-
-        public void altCliF(ClienteJuridico clienteJ)
-        {
-            connection.Open();
-            command.CommandText = "CALL spaltCliF(@CNPJCliJ, @fantaCliJ, @represCliJ, @idCli, @nomUsuCli, @senhaCli, @nomCli, @celCli, @emailCli, @CEPCli, @numEndCli, @compEndCli);";
-                command.Parameters.Add("@CNPJCliJ", MySqlDbType.Int64).Value = clienteJ.CNPJCliJ;
-                command.Parameters.Add("@fantaCliJ", MySqlDbType.String).Value = clienteJ.fantaCliJ;
-                command.Parameters.Add("@represCliJ", MySqlDbType.String).Value = clienteJ.represCliJ;
-                command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = clienteJ.idCli;
-                command.Parameters.Add("@nomUsuCli", MySqlDbType.String).Value = clienteJ.nomUsuCli;
-                command.Parameters.Add("senhaCli", MySqlDbType.String).Value = clienteJ.senhaCli;
-                command.Parameters.Add("nomCli", MySqlDbType.String).Value = clienteJ.nomCli;
-                command.Parameters.Add("celCli", MySqlDbType.Int64).Value = clienteJ.celCli;
-                command.Parameters.Add("emailCli", MySqlDbType.Int64).Value = clienteJ.emailCli;
-                command.Parameters.Add("@CEPCli", MySqlDbType.Int64).Value = clienteJ.CEPCli;
-                command.Parameters.Add("numEndCli", MySqlDbType.Int64).Value = clienteJ.numEndCli;
-                command.Parameters.Add("compEndCli", MySqlDbType.String).Value = clienteJ.compEndCli;
-                command.Connection = connection;
-                command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public void delCliF(int CNPJCliJ)
-        {
-            connection.Open();
-            command.CommandText = "CALL spdelCliF(@CPFCliF);";
-                command.Parameters.Add("@CPFCliF", MySqlDbType.Int64).Value = CNPJCliJ;
-                command.Connection = connection;
-                command.ExecuteNonQuery();
-            connection.Close();
-        }*/
     }
 }
