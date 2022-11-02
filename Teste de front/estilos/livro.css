@@ -62,5 +62,22 @@ label{
 
 .content{
     display:flex;
+    float:right;
+    width: 70vw;
+    margin-top: -500px;
+}
+h1{
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    color:#696565;
+}
+
+.Livros
+{
     position: absolute;
+    padding-top: 100px;
+    width: 70vw;
+    color:#696565;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
 }
