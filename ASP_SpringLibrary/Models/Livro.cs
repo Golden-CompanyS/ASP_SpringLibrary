@@ -9,14 +9,18 @@ namespace ASP_SpringLibrary.Models
 {
     public class Livro
     {
-        public int idLiv { get; set; }
-        public int ISBNLiv { get; set; }
+        public string ISBNLiv { get; set; }
+        public string titLiv { get; set; }
+        public string titOriLiv { get; set; }
         public string sinopLiv { get; set; }
-        public string nomOriLiv { get; set; }
+        public string imgLiv { get; set; }
         public int pratLiv { get; set; }
-        public int publLiv { get; set; }
-        public int pagLiv { get; set; }
+        public int numPagLiv { get; set; }
+        public int numEdicaoLiv { get; set; }
         public int anoLiv { get; set; }
+        public float precoLiv { get; set; }
+        public int qtdLiv { get; set; }
+        public bool ativoLiv { get; set; }
         public Editora editLiv { get; set; }
         public List<Autor> autLiv { get; set; }
         public Genero genLiv { get; set; }
@@ -24,15 +28,16 @@ namespace ASP_SpringLibrary.Models
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);
         MySqlCommand command = new MySqlCommand();
 
-        public void cadLivIfNotExists(Livro livro)
+        /*public void cadLivIfNotExists(Livro livro)
         {
             connection.Open();
-            command.CommandText = "CALL spcadLiv(@ISBNLiv, @sinopLiv, @nomOriLiv, @pratLiv, " +
-                                  "              @publLiv, @pagLiv, @anoLiv,                " +
-                                  "              @FKeditLiv, @FKgenLiv);                    "; // INSERIR tbLivro
+            command.CommandText = "CALL spcadLiv(@ISBNLiv, @sinopLiv, @titLiv, @titOriLiv, " +
+                                  "              @pratLiv, @publLiv, @pagLiv, @anoLiv,     " +
+                                  "              @FKeditLiv, @FKgenLiv);                   "; // INSERIR tbLivro
                 command.Parameters.Add("@ISBNLiv", MySqlDbType.Int64).Value = livro.ISBNLiv;
                 command.Parameters.Add("@sinopLiv", MySqlDbType.String).Value = livro.sinopLiv;
-                command.Parameters.Add("@nomOriLiv", MySqlDbType.String).Value = livro.nomOriLiv;
+                command.Parameters.Add("@titLiv", MySqlDbType.String).Value = livro.titLiv;
+                command.Parameters.Add("@titOriLiv", MySqlDbType.String).Value = livro.titOriLiv;
                 command.Parameters.Add("@pratLiv", MySqlDbType.Int64).Value = livro.pratLiv;
                 command.Parameters.Add("@publLiv", MySqlDbType.Int64).Value = livro.publLiv;
                 command.Parameters.Add("@pagLiv", MySqlDbType.Int64).Value = livro.pagLiv;
@@ -75,7 +80,8 @@ namespace ASP_SpringLibrary.Models
                 tempLiv.idLiv = int.Parse(readLiv["idLiv"].ToString());
                 tempLiv.ISBNLiv = int.Parse(readLiv["ISBNLiv"].ToString());
                 tempLiv.sinopLiv = readLiv["sinopLiv"].ToString();
-                tempLiv.nomOriLiv = readLiv["nomOriLiv"].ToString();
+                tempLiv.titLiv = readLiv["titLiv"].ToString();
+                tempLiv.titOriLiv = readLiv["titOriLiv"].ToString();
                 tempLiv.pratLiv = int.Parse(readLiv["pratLiv"].ToString());
                 tempLiv.publLiv = int.Parse(readLiv["publLiv"].ToString());
                 tempLiv.pagLiv = int.Parse(readLiv["pagLiv"].ToString());
@@ -107,7 +113,8 @@ namespace ASP_SpringLibrary.Models
                 tempLiv.idLiv = int.Parse(readLiv["idLiv"].ToString());
                 tempLiv.ISBNLiv = int.Parse(readLiv["ISBNLiv"].ToString());
                 tempLiv.sinopLiv = readLiv["sinopLiv"].ToString();
-                tempLiv.nomOriLiv = readLiv["nomOriLiv"].ToString();
+                tempLiv.titLiv = readLiv["titLiv"].ToString();
+                tempLiv.titOriLiv = readLiv["titOriLiv"].ToString();
                 tempLiv.pratLiv = int.Parse(readLiv["pratLiv"].ToString());
                 tempLiv.publLiv = int.Parse(readLiv["publLiv"].ToString());
                 tempLiv.pagLiv = int.Parse(readLiv["pagLiv"].ToString());
@@ -123,76 +130,82 @@ namespace ASP_SpringLibrary.Models
             connection.Close();
 
             return tempLivList;
-        }
+        }*/
 
-        public List<Livro> checkAllLivByFilter(string filter, string query)
+        public List<Livro> checkAllLivByFilter(string filter, string query = "")
         {
             filter = filter.ToLower();
 
-            if (filter == "editora" ||
-                filter == "autor" ||
-                filter == "genero")
+            if (filter != "editora" &&
+                filter != "autor" &&
+                filter != "genero" &&
+                filter != "lancamentos" &&
+                filter != "populares" &&
+                filter != "ate12reais")
             {
-                switch (filter)
-                {
-                    case "editora":
-                        command.CommandText = "CALL spcheckAllLivByEdit(@query);"; // SELECIONAR TUDO DA tbLivro PELA EDITORA
-                        break;
-                    case "autor":
-                        command.CommandText = "CALL spcheckAllLivByAut(@query);"; // SELECIONAR TUDO DA tbLivro PELO AUTOR
-                        break;
-                    case "genero":
-                        command.CommandText = "CALL spcheckAllLivByGen(@query);"; // SELECIONAR TUDO DA tbLivro PELO GENERO
-                        break;
-                }
-
-                command.Parameters.Add("@query", MySqlDbType.VarChar).Value = query;
-                connection.Open();
-                command.Connection = connection;
-
-                var readLiv = command.ExecuteReader();
-                List<Livro> tempLivList = new List<Livro>();
-
-                while (readLiv.Read())
-                {
-                    var tempLiv = new Livro();
-
-                    tempLiv.idLiv = int.Parse(readLiv["idLiv"].ToString());
-                    tempLiv.ISBNLiv = int.Parse(readLiv["ISBNLiv"].ToString());
-                    tempLiv.sinopLiv = readLiv["sinopLiv"].ToString();
-                    tempLiv.nomOriLiv = readLiv["nomOriLiv"].ToString();
-                    tempLiv.pratLiv = int.Parse(readLiv["pratLiv"].ToString());
-                    tempLiv.publLiv = int.Parse(readLiv["publLiv"].ToString());
-                    tempLiv.pagLiv = int.Parse(readLiv["pagLiv"].ToString());
-                    tempLiv.anoLiv = int.Parse(readLiv["anoLiv"].ToString());
-                    tempLiv.editLiv = new Editora().checkEditById(int.Parse(readLiv["editLiv"].ToString()));
-                    tempLiv.autLiv = checkAutListByLivId(int.Parse(readLiv["idLiv"].ToString()));
-                    tempLiv.genLiv = new Genero().checkGenById(int.Parse(readLiv["genLiv"].ToString()));
-
-                    tempLivList.Add(tempLiv);
-                }
-
-                readLiv.Close();
-                connection.Close();
-
-                return tempLivList;
+                throw new InvalidOperationException("Invalid filter parameter. Use \"editora\", \"autor\", \"genero\", \"lancamentos\", \"populares\" or \"ate12reais\"."); ;
             }
-            else
+
+            switch (filter)
             {
-                throw new InvalidOperationException("Invalid filter parameter. Use \"Editora\", \"Autor\" or \"genero\"."); ;
+                case "editora":
+                    command.CommandText = "CALL spcheckAllLivByEdit(@query);"; // SELECIONAR PELA EDITORA
+                    break;
+                case "autor":
+                    command.CommandText = "CALL spcheckAllLivByAut(@query);"; // SELECIONAR PELO AUTOR
+                    break;
+                case "genero":
+                    command.CommandText = "CALL spcheckAllLivByGen(@query);"; // SELECIONAR PELO GENERO
+                    break;
+                case "lancamentos":
+                    command.CommandText = "SELECT ISBNLiv, titLiv, imgLiv, precoLiv FROM tbLivro            " +
+                                          "   WHERE anoLiv = " + DateTime.Now.Year + " and ativoLiv = true; "; // Livros lançados esse ano
+                    break;
+                case "populares":
+                    command.CommandText = ""; // Livros mais vendidos
+                    break;
+                case "ate12reais":
+                    command.CommandText = "SELECT ISBNLiv, titLiv, imgLiv, precoLiv FROM tbLivro " +
+                                          "   WHERE precoLiv <= 12 and ativoLiv = true;          "; // Livros de até R$12,00
+                    break;
             }
+
+            command.Parameters.Add("@query", MySqlDbType.VarChar).Value = query;
+            connection.Open();
+            command.Connection = connection;
+
+            var readLiv = command.ExecuteReader();
+            List<Livro> tempLivList = new List<Livro>();
+
+            while (readLiv.Read())
+            {
+                var tempLiv = new Livro();
+
+                tempLiv.ISBNLiv = readLiv["ISBNLiv"].ToString();
+                tempLiv.titLiv = readLiv["titLiv"].ToString();
+                tempLiv.imgLiv = readLiv["imgLiv"].ToString();
+                tempLiv.precoLiv = float.Parse(readLiv["precoLiv"].ToString());
+
+                tempLivList.Add(tempLiv);
+            }
+
+            readLiv.Close();
+            connection.Close();
+
+            return tempLivList;
         }
 
-        public void altLiv(Livro livro)
+        /*public void altLiv(Livro livro)
         {
             connection.Open();
-            command.CommandText = "CALL spaltLiv(@idLiv, @ISBNLiv, @sinopLiv, @nomOriLiv, @pratLiv, " +
-                                  "              @publLiv, @pagLiv, @anoLiv,                        " +
-                                  "              @FKeditLiv, @FKgenLiv);                            "; // ALTERAR tbLivro
+            command.CommandText = "CALL spaltLiv(@idLiv, @ISBNLiv, @sinopLiv, @titLiv, @titOriLiv, " +
+                                  "              @pratLiv, @publLiv, @pagLiv, @anoLiv,             " +
+                                  "              @FKeditLiv, @FKgenLiv);                           "; // ALTERAR tbLivro
                 command.Parameters.Add("@idLiv", MySqlDbType.Int64).Value = livro.idLiv;
                 command.Parameters.Add("@ISBNLiv", MySqlDbType.Int64).Value = livro.ISBNLiv;
                 command.Parameters.Add("@sinopLiv", MySqlDbType.String).Value = livro.sinopLiv;
-                command.Parameters.Add("@nomOriLiv", MySqlDbType.String).Value = livro.nomOriLiv;
+                command.Parameters.Add("@titLiv", MySqlDbType.String).Value = livro.titLiv;
+                command.Parameters.Add("@titOriLiv", MySqlDbType.String).Value = livro.titOriLiv;
                 command.Parameters.Add("@pratLiv", MySqlDbType.Int64).Value = livro.pratLiv;
                 command.Parameters.Add("@publLiv", MySqlDbType.Int64).Value = livro.publLiv;
                 command.Parameters.Add("@pagLiv", MySqlDbType.Int64).Value = livro.pagLiv;
@@ -245,6 +258,6 @@ namespace ASP_SpringLibrary.Models
             connection.Close();
 
             return tempAutList;
-        }
+        }*/
     }
 }
