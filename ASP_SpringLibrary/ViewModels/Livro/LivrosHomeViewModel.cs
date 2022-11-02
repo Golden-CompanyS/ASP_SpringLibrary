@@ -10,6 +10,6 @@ namespace ASP_SpringLibrary.ViewModels.Livro
         public string ISBNLiv { get; set; }
         public string titLiv { get; set; }
         public string imgLiv { get; set; }
-        public float precoLiv { get; set; }
+        public decimal precoLiv { get; set; }
     }
 }

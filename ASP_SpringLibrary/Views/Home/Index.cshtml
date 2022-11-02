@@ -33,16 +33,20 @@
 </div>
 @foreach (string secao in (List<string>)ViewData["secoes"])
 {
-    <b style="color:red">@secao</b>
-    <br />
+    <h2 style="color:red">@ViewData[@secao + "Tit"]</h2>
 
-    foreach (var tempLiv in (List<LivrosHomeViewModel>)ViewData[secao])
-     {
-        <ul>
-            <li>@tempLiv.ISBNLiv</li>
-            <li>@tempLiv.titLiv</li>
-            <li>@tempLiv.imgLiv</li>
-            <li>@tempLiv.precoLiv</li>
-        </ul>
-     }
+    <div style="display: flex;">
+
+        @foreach (var tempLiv in (List<LivrosHomeViewModel>)ViewData[secao])
+        {
+        <a href="@Url.Action("Detalhes", "Livros", new { id=tempLiv.ISBNLiv })">
+            <div style="text-align: center;">
+                <h3>@tempLiv.titLiv</h3>
+                <img src="@Url.Content(tempLiv.imgLiv)" style="width: 200px; height: 350px; object-fit: cover;" />
+                <h4>R$ @tempLiv.precoLiv.ToString("F")</h4>
+            </div>
+        </a>
+        }
+
+    </div>
 }

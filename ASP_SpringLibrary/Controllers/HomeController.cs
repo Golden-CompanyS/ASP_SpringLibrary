@@ -17,7 +17,11 @@ namespace ASP_SpringLibrary.Controllers
                 "lancamentos", "ate12reais"
             };
 
+            ViewData["lancamentosTit"] = "Lançamentos do ano: ";
+            ViewData["ate12reaisTit"] = "Baratinhos, até R$12,00: ";
+
             ViewData["secoes"] = secoesLiv;
+
 
             foreach (var secao in secoesLiv)
             {
@@ -56,5 +60,13 @@ namespace ASP_SpringLibrary.Controllers
 
             return View();
         }
+        /*
+        [HttpGet]
+        public ActionResult Livro(int id)
+        {
+            var tempLiv = new Livro().checkLivByISBN(id);
+
+            return View(tempLiv);
+        }*/
     }
 }

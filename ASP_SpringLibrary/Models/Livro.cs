@@ -18,7 +18,7 @@ namespace ASP_SpringLibrary.Models
         public int numPagLiv { get; set; }
         public int numEdicaoLiv { get; set; }
         public int anoLiv { get; set; }
-        public float precoLiv { get; set; }
+        public decimal precoLiv { get; set; }
         public int qtdLiv { get; set; }
         public bool ativoLiv { get; set; }
         public Editora editLiv { get; set; }
@@ -166,7 +166,7 @@ namespace ASP_SpringLibrary.Models
                     break;
                 case "ate12reais":
                     command.CommandText = "SELECT ISBNLiv, titLiv, imgLiv, precoLiv FROM tbLivro " +
-                                          "   WHERE precoLiv <= 12 and ativoLiv = true;          "; // Livros de até R$12,00
+                                          "  ;          "; // Livros de até R$12,00
                     break;
             }
 
@@ -184,7 +184,7 @@ namespace ASP_SpringLibrary.Models
                 tempLiv.ISBNLiv = readLiv["ISBNLiv"].ToString();
                 tempLiv.titLiv = readLiv["titLiv"].ToString();
                 tempLiv.imgLiv = readLiv["imgLiv"].ToString();
-                tempLiv.precoLiv = float.Parse(readLiv["precoLiv"].ToString());
+                tempLiv.precoLiv = decimal.Parse(readLiv["precoLiv"].ToString());
 
                 tempLivList.Add(tempLiv);
             }
