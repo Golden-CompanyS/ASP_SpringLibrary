@@ -286,7 +286,6 @@ CREATE PROCEDURE spcadLiv(
     $precoLiv float(10,2),
     $qtdLiv int,
 	$ativoLiv boolean,
-    $idAut int, 
 	$idEdit int, 
 	$idGen int, 
 	$idFunc int
@@ -296,11 +295,20 @@ BEGIN
 		INSERT INTO tbLivro VALUES
         ($ISBNLiv, $titLiv, $titOriLiv, $sinopLiv, $imgLiv, $pratLiv, $numPagLiv, $numEdicaoLiv, $anoLiv, $precoLiv, $qtdLiv, $ativoLiv, $idEdit, $idGen, $idFunc);
 	END IF;
-    IF NOT EXISTS (SELECT ISBNLiv FROM tbLivroAutor WHERE idAut = $idAut) THEN
-        INSERT INTO tbLivroAutor
-			VALUES ($ISBNLiv,$idAut);
-	END IF;
 END$$
+
+-- inserir autor no livro
+DELIMITER $$
+CREATE PROCEDURE spinsertAutLiv(
+	$ISBNLiv char(13),
+	$idAut int
+)
+BEGIN
+	IF NOT EXISTS (SELECT ISBNLiv FROM tbLivroAutor WHERE ISBNLiv = @ISBNLiv and idAut = $idAut) THEN
+        INSERT INTO tbLivroAutor
+			VALUES ($ISBNLiv, $idAut);
+	END IF;
+END $$
 
 DELIMITER $$
 create procedure spaltLivro(

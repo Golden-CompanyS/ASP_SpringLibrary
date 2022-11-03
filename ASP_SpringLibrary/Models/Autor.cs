@@ -14,7 +14,7 @@ namespace ASP_SpringLibrary.Models
     {
         public int idAut { get; set; }
 
-        [Display(Name = "Nome do(a) Autor(a)")]
+        [Display(Name = "Autor")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [MaxLength(30, ErrorMessage = "O nome do(a) autor(a) deve ter até 100 caracteres")]
         [Remote("AutExists", "Autor", "Dashboard", AdditionalFields = "idAut", ErrorMessage = "O(a) autor(a) já existe!")]

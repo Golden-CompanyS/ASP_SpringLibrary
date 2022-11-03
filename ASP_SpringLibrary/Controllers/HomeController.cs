@@ -60,13 +60,5 @@ namespace ASP_SpringLibrary.Controllers
 
             return View();
         }
-        /*
-        [HttpGet]
-        public ActionResult Livro(int id)
-        {
-            var tempLiv = new Livro().checkLivByISBN(id);
-
-            return View(tempLiv);
-        }*/
     }
 }

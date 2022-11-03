@@ -15,7 +15,7 @@ namespace ASP_SpringLibrary.Models
     {
         public int idEdit { get; set; }
 
-        [Display(Name = "Nome da Editora")]
+        [Display(Name = "Editora")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [MaxLength(30, ErrorMessage = "O nome da editora deve ter até 30 caracteres")]
         [Remote("EditExists", "Editora", "Dashboard", AdditionalFields = "idEdit", ErrorMessage = "A editora já existe!")]
@@ -26,7 +26,7 @@ namespace ASP_SpringLibrary.Models
         [RegularExpression(@"^[1-9]{2} (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$", ErrorMessage = "Formato: xx xxxxx-xxxx")]
         public string celEdit { get; set; }
 
-        [Display(Name = "E-Mail da Editora")]
+        [Display(Name = "E-Mail")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [MaxLength(30, ErrorMessage = "O email da editora deve ter até 30 caracteres")]
         [EmailAddress(ErrorMessage = "Email inválido")]

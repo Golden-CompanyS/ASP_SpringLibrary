@@ -15,7 +15,7 @@ namespace ASP_SpringLibrary.Models
     {
         public int idGen { get; set; }
 
-        [Display(Name = "Nome do Gênero")]
+        [Display(Name = "Gênero")]
         [Required(ErrorMessage = "Campo obrigatório")]
         [MaxLength(30, ErrorMessage = "O nome do gênero deve ter até 30 caracteres")]
         [Remote("GenExists", "Genero", "Dashboard", AdditionalFields = "idGen", ErrorMessage = "O gênero já existe!")]
