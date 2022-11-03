@@ -1,0 +1,138 @@
+﻿@model ASP_SpringLibrary.Models.Livro
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Livro</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ISBNLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ISBNLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.titLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.titOriLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titOriLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sinopLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sinopLiv)
+        </dd>
+
+        <dd>
+            <img src="@Html.DisplayFor(model => model.imgLiv)" style="width: 300px; height: 450px; object-fit: cover;" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pratLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pratLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numPagLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numPagLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numEdicaoLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numEdicaoLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.anoLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.anoLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precoLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precoLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtdLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtdLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ativoLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ativoLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.genLiv.nomGen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.genLiv.nomGen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.editLiv.nomEdit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.editLiv.nomEdit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.autLiv[0].nomAut)
+        </dt>
+
+        @foreach (var tempAut in Model.autLiv)
+        {
+            <dd>
+                @tempAut.nomAut
+            </dd>
+        }
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Voltar aos Livros", "Index")
+</p>

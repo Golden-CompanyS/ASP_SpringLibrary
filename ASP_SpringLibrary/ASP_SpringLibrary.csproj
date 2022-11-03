@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net-Next, Version=4.0.3.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.4.0.3\lib\net472\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
@@ -161,20 +164,30 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\AutorController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\ClienteController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\EditoraController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\FuncionarioController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\GeneroController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LivrosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Autor.cs" />
-    <Compile Include="Models\Cargo.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\ClienteFisico.cs" />
     <Compile Include="Models\ClienteJuridico.cs" />
-    <Compile Include="Models\Delivery.cs" />
     <Compile Include="Models\Editora.cs" />
+    <Compile Include="Models\Funcionario.cs" />
     <Compile Include="Models\Genero.cs" />
     <Compile Include="Models\Livro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Hash.cs" />
+    <Compile Include="Utils\ImageCrop.cs" />
+    <Compile Include="ViewModels\Livro\LivrosHomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -187,7 +200,30 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Dashboard\Views\web.config" />
+    <Content Include="Areas\Dashboard\Views\Editora\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Editora\Alterar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Editora\Cadastrar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Genero\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Genero\Cadastrar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Genero\Alterar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Autor\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Autor\Cadastrar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Autor\Alterar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Funcionario\Cadastrar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Funcionario\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Funcionario\Alterar.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Cliente\Fisico.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Cliente\Juridico.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
+    <Content Include="Scripts\inputmask\inputmask.es6.js" />
+    <Content Include="Scripts\inputmask\inputmask.js" />
+    <Content Include="Scripts\inputmask\inputmask.min.js" />
+    <Content Include="Scripts\inputmask\jquery.inputmask.js" />
+    <Content Include="Scripts\inputmask\jquery.inputmask.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -209,12 +245,16 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Sobre.cshtml" />
+    <Content Include="Views\Home\Contato.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Livros\Detalhes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Dashboard\Data\" />
+    <Folder Include="Areas\Dashboard\ViewModel\" />
+    <Folder Include="Photos\imgFunc\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ASP_SpringLibrary.ViewModels.Livro
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -29,3 +31,22 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+@foreach (string secao in (List<string>)ViewData["secoes"])
+{
+    <h2 style="color:red">@ViewData[@secao + "Tit"]</h2>
+
+    <div style="display: flex;">
+
+        @foreach (var tempLiv in (List<LivrosHomeViewModel>)ViewData[secao])
+        {
+        <a href="@Url.Action("Detalhes", "Livros", new { id=tempLiv.ISBNLiv })">
+            <div style="text-align: center;">
+                <h3>@tempLiv.titLiv</h3>
+                <img src="@Url.Content(tempLiv.imgLiv)" style="width: 200px; height: 350px; object-fit: cover;" />
+                <h4>R$ @tempLiv.precoLiv.ToString("F")</h4>
+            </div>
+        </a>
+        }
+
+    </div>
+}

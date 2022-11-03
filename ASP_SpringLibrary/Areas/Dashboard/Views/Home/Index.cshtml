@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Funções</h2>
+
+
+<h3>Editora</h3>
+<p>@Html.ActionLink("Gerenciar Editoras", "Index", "Editora", new { area = "Dashboard" }, null)</p> <!-- /Dashboard/Editora/Index -->
+<p>@Html.ActionLink("Gerenciar Gêneros", "Index", "Genero", new { area = "Dashboard" }, null)</p> <!-- /Dashboard/Genero/Index -->
+<p>@Html.ActionLink("Gerenciar Autores", "Index", "Autor", new { area = "Dashboard" }, null)</p> <!-- /Dashboard/Autor/Index -->

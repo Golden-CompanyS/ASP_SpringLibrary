@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ASP_SpringLibrary.Models.ClienteJuridico>
+
+@{
+    ViewBag.Title = "Juridico";
+    Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Clientes Juridico</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.idCli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nomCli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.emailCli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.celCli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CEPCli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numEndCli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.compEndCli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CNPJCliJ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fantaCliJ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.represCliJ)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emailCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.celCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CEPCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.numEndCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.compEndCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CNPJCliJ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fantaCliJ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.represCliJ)
+            </td>
+        </tr>
+    }
+
+</table>
