@@ -6,9 +6,10 @@ body{
 }
 
 aside{
-    width: 300px;
+    width: 30vw;
     font-family: 'Roboto', sans-serif;
     color:#696565;
+    font-size: 10vw;
 }
 
 .categoria{
@@ -80,4 +81,35 @@ h1{
     color:#696565;
     font-size: 20px;
     font-family: 'Roboto', sans-serif;
+    display: flex;
+}
+
+.Livro{
+    margin:5px;
+
+    border-radius: 10px;
+    padding:10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    cursor: pointer;
+    color:#696565;
+}
+
+.Livro a{
+    text-decoration: none;
+}
+
+.Livro img{
+    width:15vw;
+    border-radius: 10px;
+}
+
+.Livro h2{
+    margin:0px;
+}
+
+.Livro p{
+    margin:0px;
+    margin-top:5px;
+    font-size: 2vw;
 }
