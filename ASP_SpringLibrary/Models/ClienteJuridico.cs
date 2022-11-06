@@ -26,19 +26,19 @@ namespace ASP_SpringLibrary.Models
         public void cadCliJ(ClienteJuridico clienteJ)
         {
             connection.Open();
-            command.CommandText = "CALL spcadCliFis(@nomCli, @celCli, @emailCli, @senhaCli, @CEPCli, @numEndCli, @compEndCli, @CNPJCliJ, @fantaCliJ, @represCliJ);";
-            command.Parameters.Add("@nomCli", MySqlDbType.VarChar).Value = clienteJ.nomCli;
-            command.Parameters.Add("@celCli", MySqlDbType.VarChar).Value = clienteJ.celCli;
-            command.Parameters.Add("@emailCli", MySqlDbType.VarChar).Value = clienteJ.emailCli;
-            command.Parameters.Add("@senhaCli", MySqlDbType.VarChar).Value = clienteJ.senhaCli;
-            command.Parameters.Add("@CEPCli", MySqlDbType.VarChar).Value = clienteJ.CEPCli;
-            command.Parameters.Add("@numEndCli", MySqlDbType.Int64).Value = clienteJ.numEndCli;
-            command.Parameters.Add("@compEndCli", MySqlDbType.VarChar).Value = clienteJ.compEndCli;
-            command.Parameters.Add("@CNPJCliJ", MySqlDbType.VarChar).Value = clienteJ.CNPJCliJ;
-            command.Parameters.Add("@fantaCliJ", MySqlDbType.Date).Value = clienteJ.fantaCliJ;
-            command.Parameters.Add("@represCliJ", MySqlDbType.Date).Value = clienteJ.represCliJ;
-            command.Connection = connection;
-            command.ExecuteNonQuery();
+            command.CommandText = "CALL spcadCliJur(@nomCli, @celCli, @emailCli, @senhaCli, @CEPCli, @numEndCli, @compEndCli, @CNPJCliJ, @fantaCliJ, @represCliJ);";
+                command.Parameters.Add("@nomCli", MySqlDbType.VarChar).Value = clienteJ.nomCli;
+                command.Parameters.Add("@celCli", MySqlDbType.VarChar).Value = clienteJ.celCli;
+                command.Parameters.Add("@emailCli", MySqlDbType.VarChar).Value = clienteJ.emailCli;
+                command.Parameters.Add("@senhaCli", MySqlDbType.VarChar).Value = clienteJ.senhaCli;
+                command.Parameters.Add("@CEPCli", MySqlDbType.VarChar).Value = clienteJ.CEPCli;
+                command.Parameters.Add("@numEndCli", MySqlDbType.Int64).Value = clienteJ.numEndCli;
+                command.Parameters.Add("@compEndCli", MySqlDbType.VarChar).Value = clienteJ.compEndCli;
+                command.Parameters.Add("@CNPJCliJ", MySqlDbType.VarChar).Value = clienteJ.CNPJCliJ;
+                command.Parameters.Add("@fantaCliJ", MySqlDbType.VarChar).Value = clienteJ.fantaCliJ;
+                command.Parameters.Add("@represCliJ", MySqlDbType.VarChar).Value = clienteJ.represCliJ;
+                command.Connection = connection;
+                command.ExecuteNonQuery();
             connection.Close();
         }
 
@@ -46,19 +46,19 @@ namespace ASP_SpringLibrary.Models
         {
             connection.Open();
             command.CommandText = "CALL spaltCliJur(@idCli, @nomCli, @celCli, @emailCli, @senhaCli, @CEPCli, @numEndCli, @compEndCli, @CNPJCliJ, @fantaCliJ0, @represCliJ);";
-            command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = clienteJ.idCli;
-            command.Parameters.Add("@nomCli", MySqlDbType.VarChar).Value = clienteJ.nomCli;
-            command.Parameters.Add("@celCli", MySqlDbType.VarChar).Value = clienteJ.celCli;
-            command.Parameters.Add("@emailCli", MySqlDbType.VarChar).Value = clienteJ.emailCli;
-            command.Parameters.Add("@senhaCli", MySqlDbType.VarChar).Value = clienteJ.senhaCli;
-            command.Parameters.Add("@CEPCli", MySqlDbType.VarChar).Value = clienteJ.CEPCli;
-            command.Parameters.Add("@numEndCli", MySqlDbType.Int64).Value = clienteJ.numEndCli;
-            command.Parameters.Add("@compEndCli", MySqlDbType.VarChar).Value = clienteJ.compEndCli;
-            command.Parameters.Add("@CNPJCliJ", MySqlDbType.VarChar).Value = clienteJ.CNPJCliJ;
-            command.Parameters.Add("@fantaCliJ", MySqlDbType.Date).Value = clienteJ.fantaCliJ;
-            command.Parameters.Add("@represCliJ", MySqlDbType.Date).Value = clienteJ.represCliJ;
-            command.Connection = connection;
-            command.ExecuteNonQuery();
+                command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = clienteJ.idCli;
+                command.Parameters.Add("@nomCli", MySqlDbType.VarChar).Value = clienteJ.nomCli;
+                command.Parameters.Add("@celCli", MySqlDbType.VarChar).Value = clienteJ.celCli;
+                command.Parameters.Add("@emailCli", MySqlDbType.VarChar).Value = clienteJ.emailCli;
+                command.Parameters.Add("@senhaCli", MySqlDbType.VarChar).Value = clienteJ.senhaCli;
+                command.Parameters.Add("@CEPCli", MySqlDbType.VarChar).Value = clienteJ.CEPCli;
+                command.Parameters.Add("@numEndCli", MySqlDbType.Int64).Value = clienteJ.numEndCli;
+                command.Parameters.Add("@compEndCli", MySqlDbType.VarChar).Value = clienteJ.compEndCli;
+                command.Parameters.Add("@CNPJCliJ", MySqlDbType.VarChar).Value = clienteJ.CNPJCliJ;
+                command.Parameters.Add("@fantaCliJ", MySqlDbType.Date).Value = clienteJ.fantaCliJ;
+                command.Parameters.Add("@represCliJ", MySqlDbType.Date).Value = clienteJ.represCliJ;
+                command.Connection = connection;
+                command.ExecuteNonQuery();
             connection.Close();
         }
 

@@ -33,6 +33,12 @@ namespace ASP_SpringLibrary.Controllers
                 {
                     case true:
 
+                        if (viewModel.CNPJCliJ == null)
+                        {
+                            ModelState.AddModelError("CNPJCliJ", "Informe o CNPJ da empresa.");
+                            return View(viewModel);
+                        }
+
                         if (viewModel.fantaCliJ == null)
                         {
                             ModelState.AddModelError("fantaCliJ", "Informe o nome fantasia da empresa.");
@@ -51,7 +57,7 @@ namespace ASP_SpringLibrary.Controllers
                             emailCli = viewModel.emailCli,
                             senhaCli = Hash.GenerateBCrypt(viewModel.senhaCli),
                             celCli = String.Concat(viewModel.celCli.Where(Char.IsDigit)),
-                            CEPCli = viewModel.CEPCli,
+                            CEPCli = String.Concat(viewModel.CEPCli.Where(Char.IsDigit)),
                             numEndCli = viewModel.numEndCli,
                             compEndCli = viewModel.compEndCli,
                             tipoCli = viewModel.tipoCli,
@@ -71,13 +77,19 @@ namespace ASP_SpringLibrary.Controllers
                             return View(viewModel);
                         }
 
+                        if (viewModel.dtNascCliF == null)
+                        {
+                            ModelState.AddModelError("dtNascCliF", "Informe sua data de nascimento.");
+                            return View(viewModel);
+                        }
+
                         var tempCliF = new ClienteFisico
                         {
                             nomCli = viewModel.nomCli,
                             emailCli = viewModel.emailCli,
                             senhaCli = Hash.GenerateBCrypt(viewModel.senhaCli),
                             celCli = String.Concat(viewModel.celCli.Where(Char.IsDigit)),
-                            CEPCli = viewModel.CEPCli,
+                            CEPCli = String.Concat(viewModel.CEPCli.Where(Char.IsDigit)),
                             numEndCli = viewModel.numEndCli,
                             compEndCli = viewModel.compEndCli,
                             tipoCli = viewModel.tipoCli,

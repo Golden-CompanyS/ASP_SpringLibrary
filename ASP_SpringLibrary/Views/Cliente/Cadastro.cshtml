@@ -157,6 +157,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval") <!-- Para utilizar o DataAnnotation Remote -->
     @Scripts.Render("~/bundles/inputmask") <!-- Para utilizar o jQuery InputMask -->
+    @Scripts.Render("~/Scripts/moment.js") <!-- Para arrumar o formatador de data -->
 
     <script>
         $('#Fisico').css("display", "none")
@@ -189,6 +190,13 @@
             $("#CPFCliF").inputmask("mask", { "mask": "999.999.999-99" });
             $("#dtNascCliF").inputmask("mask", { "mask": "99/99/9999" });
             $("#CNPJCliJ").inputmask("mask", { "mask": "99.999.999/9999-99" });
+        });
+
+        // Arrumar o formatador de data
+        $(function () {
+            $.validator.methods.date = function (value, element) {
+                return this.optional(element) || moment(value, "DD.MM.YYYY", true).isValid();
+            }
         });
     </script>
 }

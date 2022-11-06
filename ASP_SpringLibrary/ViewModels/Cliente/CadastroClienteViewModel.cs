@@ -63,7 +63,7 @@ namespace ASP_SpringLibrary.ViewModels.Cliente
         public string CPFCliF { get; set; }
 
         [Display(Name = "Nascimento")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")] // Formatação em dd/MM/yyyy ainda não está pegando.
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime dtNascCliF { get; set; }
 
         // ClienteJuridico
