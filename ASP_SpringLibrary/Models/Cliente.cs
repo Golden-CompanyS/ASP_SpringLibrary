@@ -43,17 +43,17 @@ namespace ASP_SpringLibrary.Models
         public bool cliExists(int idCli, string docCli)
         {
             connection.Open();
-            command.CommandText = "SELECT C.idCli FROM tbCliente as C " +
+            command.CommandText = "SELECT C.nomCli FROM tbCliente as C " +
                                   "     LEFT JOIN tbCliFis as F on C.idCli = F.idCli" +
                                   "     LEFT JOIN tbCliJur as J on C.idCli = J.idCli" +
-                                  " WHERE C.idCli != @idCli and (CPFCli = @docCli or CNPJCli = @docCli);";
+                                  " WHERE C.idCli != @idCli and (CPFCliF = @docCli or CNPJCli = @docCli);";
                 command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = idCli;
                 command.Parameters.Add("@docCli", MySqlDbType.VarChar).Value = docCli;
                 command.Connection = connection;
-            string edit = (string) command.ExecuteScalar(); // ExecuteScalar: RETORNAR APENAS 1 VALOR
+            string cli = (string) command.ExecuteScalar(); // ExecuteScalar: RETORNAR APENAS 1 VALOR
             connection.Close();
 
-            if (edit.IsNullOrWhiteSpace())
+            if (cli.IsNullOrWhiteSpace())
                 return false;
             else
                 return true;
@@ -62,14 +62,14 @@ namespace ASP_SpringLibrary.Models
         public bool emailExists(int idCli, string emailCli)
         {
             connection.Open();
-            command.CommandText = "SELECT idCli FROM tbCliente WHERE idCli != @idCli and emailCli = @emailCli;";
+            command.CommandText = "SELECT emailCli FROM tbCliente WHERE idCli != @idCli and emailCli = @emailCli;";
                 command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = idCli;
                 command.Parameters.Add("@emailCli", MySqlDbType.VarChar).Value = emailCli;
                 command.Connection = connection;
-            string edit = (string) command.ExecuteScalar(); // ExecuteScalar: RETORNAR APENAS 1 VALOR
+            string email = (string) command.ExecuteScalar(); // ExecuteScalar: RETORNAR APENAS 1 VALOR
             connection.Close();
 
-            if (edit.IsNullOrWhiteSpace())
+            if (email.IsNullOrWhiteSpace())
                 return false;
             else
                 return true;

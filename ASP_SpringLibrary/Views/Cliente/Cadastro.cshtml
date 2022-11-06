@@ -1,0 +1,194 @@
+﻿@model ASP_SpringLibrary.ViewModels.Cliente.CadastroClienteViewModel
+
+@{
+    ViewBag.Title = "Cadastro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cadastro</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>CadastroClienteViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.idCli, new { Value = 0 }) <!-- ID 0 escondido para passar à Controller -->
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.nomCli, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.nomCli, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.nomCli, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.emailCli, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.emailCli, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.emailCli, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.senhaCli, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.senhaCli, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.senhaCli, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.confSenhaCli, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.confSenhaCli, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.confSenhaCli, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.celCli, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.celCli, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.celCli, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CEPCli, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CEPCli, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CEPCli, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.numEndCli, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.numEndCli, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.numEndCli, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.compEndCli, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.compEndCli, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.compEndCli, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.tipoCli, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    Física
+                    <input class="tipoCli" name="tipoCli" type="radio" value="False" />
+                    Jurídica
+                    <input class="tipoCli" name="tipoCli" type="radio" value="True" />
+                    @Html.ValidationMessageFor(model => model.tipoCli, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div id="Fisico">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CPFCliF, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CPFCliF, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CPFCliF, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.dtNascCliF, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.dtNascCliF, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.dtNascCliF, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div id="Juridico">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CNPJCliJ, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CNPJCliJ, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CNPJCliJ, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.fantaCliJ, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fantaCliJ, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fantaCliJ, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.represCliJ, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.represCliJ, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.represCliJ, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cadastrar-se" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Cancelar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval") <!-- Para utilizar o DataAnnotation Remote -->
+    @Scripts.Render("~/bundles/inputmask") <!-- Para utilizar o jQuery InputMask -->
+
+    <script>
+        $('#Fisico').css("display", "none")
+        $('#Juridico').css("display", "none")
+        $('input[type=submit]').css("display", "none")
+
+        // Seleção da natureza do cliente
+        $('input[type=radio][name=tipoCli]').change(function () {
+            if (this.value == 'False') {
+                $('#Juridico').css("display", "none")
+                $('#Fisico').css("display", "block")
+                $('input[name=CPFCliF]').val("");
+                $('input[name=dtNascCliF]').val("");
+            }
+            else if (this.value == 'True') {
+                $('#Fisico').css("display", "none")
+                $('#Juridico').css("display", "block")
+                $('input[name=CNPJCliJ]').val("");
+                $('input[name=fantaCliJ]').val("");
+                $('input[name=represCliJ]').val("");
+            }
+
+            $('input[type=submit]').css("display", "block")
+        });
+
+        // Máscaras JQuery
+        $(document).ready(function () {
+            $("#celCli").inputmask("mask", { "mask": "99 99999-9999" });
+            $("#CEPCli").inputmask("mask", { "mask": "99999-999" });
+            $("#CPFCliF").inputmask("mask", { "mask": "999.999.999-99" });
+            $("#dtNascCliF").inputmask("mask", { "mask": "99/99/9999" });
+            $("#CNPJCliJ").inputmask("mask", { "mask": "99.999.999/9999-99" });
+        });
+    </script>
+}

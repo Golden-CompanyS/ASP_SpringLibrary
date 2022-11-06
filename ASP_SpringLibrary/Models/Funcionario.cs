@@ -83,7 +83,7 @@ namespace ASP_SpringLibrary.Models
                 command.Parameters.Add("@idFunc", MySqlDbType.Int64).Value = idFunc;
                 command.Parameters.Add("@CPFFunc", MySqlDbType.VarChar).Value = CPFFunc;
                 command.Connection = connection;
-            string edit = (string)command.ExecuteScalar(); // ExecuteScalar: RETORNAR APENAS 1 VALOR
+            string edit = (string) command.ExecuteScalar(); // ExecuteScalar: RETORNAR APENAS 1 VALOR
             connection.Close();
 
             if (edit.IsNullOrWhiteSpace())

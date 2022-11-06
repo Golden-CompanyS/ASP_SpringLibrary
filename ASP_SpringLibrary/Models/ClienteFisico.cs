@@ -11,6 +11,7 @@ namespace ASP_SpringLibrary.Models
 {
     public class ClienteFisico : Cliente
     {
+        [Display(Name = "CPF")]
         public string CPFCliF { get; set; }
 
         [Display(Name = "Nascimento")]
