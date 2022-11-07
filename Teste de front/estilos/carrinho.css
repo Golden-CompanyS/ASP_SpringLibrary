@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+body{
+    color:#696565;
+    font-family: 'Roboto', sans-serif ;
+}
+.container{
+    margin-top: 150px;
+    width:90%;
+    height: 40vh;
+    position: absolute;
+    left: 50%;
+    transform: translate( -50%, -50%);
+    border: 3px solid #C8C8C8;
+    border-radius: 50px;
+    display: flex;
+    
+}
+.imagem img{
+    width: 100px;
+    height: 150px;
+    border-radius: 10px;
+}
+
