@@ -9,30 +9,41 @@
     <link rel="stylesheet" type="text/css" href="estilos/carrinho.css">
 </head>
 <body>
+
+    <h1>Carrinho</h1>
     <div class="container">
-        <form class="formularform">
+      
             <div class="imagem">
             <img src="resources/exemplo.jpg" alt="livro">
             </div>
+            <div class="conteudo">
+                <div class="texto">
+                    <p> Memórias Póstumas de Bras Cubas</p>
+                </div>
+                <div class="quantity">
+                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
 
-            <div class="texto">
-            <p> Memórias Póstumas de Bras Cubas</p>
+                <div class="preco">
+                    <h2>R$ 19,90</h2>
+                </div>
+                <button type="submit" id="botao" >
+                    <img src = "resources/trash.png" alt="excluir">
+                </button>
             </div>
+    </div>
 
-            <button type="button" id="botao" class="btn  btn-link">Excluir</button>
+    <div class="total">
 
-            <div class="quantity">
-            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-            </div>
+            <input type="checkbox" >
+            <label> Delivery</label>
+            <span class="checkmark"></span>
 
-            <div class="preco">
-            <h2>R$ 19,90</h2>
-            </div>
-        </form>
+        <h3>Total: 19,90</h3>
     </div>
 </body>
-</html>
+</html> 
