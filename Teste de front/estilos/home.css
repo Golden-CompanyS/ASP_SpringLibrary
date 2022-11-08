@@ -14,7 +14,7 @@ body{
 }
 .navigation{
     position: absolute;
-    bottom: 20px;
+    top: 70vh;
     left: 50%;
     transform: translate(-50%);
     display: flex;
@@ -34,14 +34,14 @@ body{
     background-color: #fff;
 }
 
-input{
+.slides input{
     display:none;
 }
 
 .slides{
     display:flex;
     width:200vw;
-    height: 100%;
+    height: 75%;
     object-fit: fill;
 }
 
@@ -73,6 +73,15 @@ input{
     padding:1.2vw;
     z-index:10;
     position:absolute;
-    top: 75vh;
+    top: 55vh;
     left: 60vh;
+}
+
+#slide2:checked ~ .irLivros{
+    margin-left: +50%;
+}
+
+.searchbar{
+    width: 100vw;
+    height: 5vh;
 }
