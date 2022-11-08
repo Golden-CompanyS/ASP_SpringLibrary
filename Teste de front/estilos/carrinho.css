@@ -4,21 +4,78 @@ body{
     color:#696565;
     font-family: 'Roboto', sans-serif ;
 }
+
+h1{
+    text-align: center;
+    font-size: 45px;
+    font-weight: bold;
+}
+
 .container{
-    margin-top: 150px;
+    margin-top: 10vh;
     width:90%;
-    height: 40vh;
-    position: absolute;
-    left: 50%;
-    transform: translate( -50%, -50%);
+    min-height: 30vh;
     border: 3px solid #C8C8C8;
     border-radius: 50px;
     display: flex;
-    
-}
+    padding: 2vw;
+
+}        
 .imagem img{
-    width: 100px;
-    height: 150px;
+    width: 200px;
+    height: 300px;
     border-radius: 10px;
 }
 
+.conteudo{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+}
+.texto{
+    font-size: 2em;
+    padding-right: 5em;
+}
+
+#botao{
+    font-size: 1.5em;
+    border: none;
+    background: none;
+}
+
+#botao img{
+    width: 2vw;
+}
+.quantity{
+    font-size: 18px;
+    border: #C8C8C8;
+    border-radius: 10px;
+    padding-right: 2em;
+    
+}
+
+h2{
+    font-size: 45px;
+    color: rgb(40, 92, 202);
+}
+.preco{
+    padding-right: 2em;
+}
+
+h3{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 45px;
+    font-weight: bold;
+    margin-top: 3vw;
+    margin-right: 5vw;
+}
+label{
+    font-size: 23px;
+}
+.checkmark{
+    height: 25px;
+    width: 25px;
+}
