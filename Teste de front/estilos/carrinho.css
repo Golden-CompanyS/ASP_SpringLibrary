@@ -22,8 +22,8 @@ h1{
 
 }        
 .imagem img{
-    width: 200px;
-    height: 300px;
+    width: 7vw;
+    height: 10vw;
     border-radius: 10px;
 }
 
@@ -57,7 +57,7 @@ h1{
 }
 
 h2{
-    font-size: 45px;
+    font-size: 36px;
     color: rgb(40, 92, 202);
 }
 .preco{
@@ -74,8 +74,34 @@ h3{
 }
 label{
     font-size: 23px;
+    font-weight: normal;
 }
-.checkmark{
-    height: 25px;
-    width: 25px;
+.del{
+    padding-left: 5vw;
+    padding-top: 3vw;
+}
+
+h4{
+    font-size: 2.5em;
+    padding-top: 4vw;
+    padding-left: 7vw;
+    font-weight: bold;
+}
+.opcoes{
+    padding-top: 2vw;
+    padding-left: 5vw;
+}
+
+.bot{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+}
+.btn{
+    font-size: 2em;
+    color: #fff;
+    background: #F448B0;
+    width: 10vw;
+    border-radius: 1em;
 }
