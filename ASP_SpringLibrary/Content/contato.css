@@ -1,0 +1,74 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #696565;
+}
+
+h1 {
+    text-align: center;
+    padding-bottom: 20px;
+    font-weight: bold;
+}
+
+form {
+    margin: 0 auto;
+    width: 700px;
+    font-size: 25px;
+}
+
+input {
+    background: #F8F4F4;
+    border: 1px solid #8B8B8B;
+    border-radius: 24px;
+    width: 45vw;
+    height: 40px;
+}
+
+textarea {
+    background: #F8F4F4;
+    border: 1px solid #8B8B8B;
+    border-radius: 24px;
+    width: 45vw;
+    height: 259px;
+    resize: none;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: normal;
+}
+
+.nome1 {
+    padding-bottom: 10px;
+}
+
+.email1 {
+    padding-bottom: 10px;
+}
+
+.boot {
+    background: #F448B0;
+    border-radius: 20px;
+    color: #F8F4F4;
+    border: none;
+    padding: 10px;
+    width: 150px;
+    margin-top: 30px;
+}
+
+.botao {
+    display: flex;
+    justify-content: center;
+}
+
+.info {
+    font-weight: bold;
+    padding-left: 40px;
+    padding-top: 30px;
+}
+
+h2 {
+    font-weight: bold;
+}
