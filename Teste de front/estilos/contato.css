@@ -22,6 +22,7 @@ input{
     border-radius: 24px;
     width: 45vw;
     height: 40px;
+    padding: 10px;
 }
 textarea{
     background: #F8F4F4;
@@ -32,6 +33,7 @@ textarea{
     resize:none;
     display:flex;
     flex-direction: column;
+    padding:10px;
 }
 label{
     font-weight: normal;
