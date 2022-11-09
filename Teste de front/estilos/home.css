@@ -6,15 +6,15 @@ body{
     width: 100vw;
     font-size: 40px;
 }
-.content{
-    height: 100%;
-    width: 100%;
+
+.slideholder{
+    height: 80vh;
     overflow: hidden;
-    position: absolute;
 }
+
 .navigation{
     position: absolute;
-    top: 70vh;
+    top: 72vh;
     left: 50%;
     transform: translate(-50%);
     display: flex;
@@ -41,8 +41,7 @@ body{
 .slides{
     display:flex;
     width:200vw;
-    height: 75%;
-    object-fit: fill;
+    height: 100%;
 }
 
 .slide{
@@ -63,20 +62,6 @@ body{
     margin-left: -50%;
 }
 
-.irLivros{
-    font-family: 'Poppins', sans-serif;
-    font-size:2.5vh;
-    background-color:#E25D5D;
-    color:white;
-    border-radius: 10vh;
-    border-width: 0px;
-    padding:1.2vw;
-    z-index:10;
-    position:absolute;
-    top: 55vh;
-    left: 60vh;
-}
-
 #slide2:checked ~ .irLivros{
     margin-left: +50%;
 }
@@ -84,4 +69,41 @@ body{
 .searchbar{
     width: 100vw;
     height: 5vh;
+}
+
+.categories{
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    justify-content: space-around;
+    align-items: center;
+}
+
+.categories div{
+    display: flex;
+    /* margin-top:5vh; */
+}
+
+.divider {
+    margin-top: 2vh;
+}
+
+.divider h2{
+    margin: 0 0 1.5vh 0;
+}
+
+.row img{
+    width: 15vw;
+    height: 50vh;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.row a{
+    margin:0px 1vw 0px 1vw;
+}
+
+.divider{
+    display: flex;
+    flex-direction: column;
 }
