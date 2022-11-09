@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,300&display=swap');
+html{
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 40px;
+}
+.masterNav{
+}
+
+.topItems{
+    width: 100vw;
+    background-color:#ff9cc4;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#logo{
+    width: 15vw;
+    height: 15.5vh;
+}
+
+.topItems a{
+    color: #fff;
+    font-size: 1.5vw;
+    margin-right: 5vw;
+}
+
+.rightIcons{
+    margin-right: 2vw;
+}
+
+.rightIcons img{
+    margin-left: 1vw;
+    width: 1.5vw;
+    height: 3vh;
+}
+
+.busca{
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+.btnbusca {
+    background: #F448B0;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    border-radius: 15px;
+    border: none;
+}
+input, input::placeholder {
+    font: 20px/3 sans-serif;
+}
+.barra{
+    width: 768px;
+    height: 57px;
+    left: 283px;
+    top: 166px;
+    border-radius: 78px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+}

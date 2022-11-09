@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="estilos/carrinho.css">
+</head>
+<body>
+
+    <h1>Carrinho</h1>
+    <div class="container">
+      
+            <div class="imagem">
+            <img src="resources/exemplo.jpg" alt="livro">
+            </div>
+            <div class="conteudo">
+                <div class="texto">
+                    <p> Memórias Póstumas de Bras Cubas</p>
+                </div>
+                <div class="quantity">
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelectPref">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+                <div class="preco">
+                    <h2>R$ 19,90</h2>
+                </div>
+                <button type="submit" id="botao" >
+                    <img src = "resources/trash.png" alt="excluir">
+                </button>
+            </div>
+    </div>
+
+    <div class="total">
+
+        <h3>Total: 19,90</h3>
+
+        <div class="del">
+            <label> Delivery</label>
+            <input type="checkbox" class="check">
+        </div>
+
+    </div>
+
+    <div class="pag">
+        <h4>Forma de Pagamento</h4>
+
+        <div class="opcoes">
+            
+            <div class="din">
+            <input type="radio" name="selecionar" id="dinheiro">
+            <label>Dinheiro/Boleto</label>
+            </div>
+
+            <div class="pixi">
+            <input type="radio" name="selecionar" id="Pix">
+            <label>Pix</label>
+            </div>
+
+            <input type="radio" name="selecionar" id="Cartão">
+            <label>Cartão de crédito</label>
+
+        </div>
+
+    </div>
+
+    <div class="bot">
+    <button type="button" class="btn">Comprar</button>
+    </div>
+    
+</body>
+</html> 

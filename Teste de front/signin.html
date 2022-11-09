@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Spring Library</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="estilos/userLogin.css">
+</head>
+<body>
+    <aside id="signinAside">
+        <img src="resources/aside-image.png"/>
+    </aside>
+    <div id="filler"></div>
+        <form class="formContainer">
+            <img id="signinLogo" src="resources/logo.png"/>
+            <ul class="radioArea">
+                <li class="form-check">
+                    <input class="form-check-input" type="radio" name="cli" checked/>
+                    <label class="form-check-label" for="cliFis">Cliente Físico</label>
+                </li>
+                <li>&nbsp;&nbsp;</li>
+                <li class="form-check">
+                    <input class="form-check-input" type="radio" name="cli"/>
+                    <label class="form-check-label" for="cliJur">Cliente Jurídico</label>
+                </li>
+            </ul>
+            <div>
+                <label for="nome">Nome</label>
+                <input class="form-control" name="nome" type="text"/>
+                <label for="email">Email</label>
+                <input class="form-control" name="email" type="email"/>
+                <label for="login">Login</label>
+                <input class="form-control" name="login" type="text"/>
+                <label for="senha">Celular</label>
+                <input class="form-control" name="cpf" type="text"/>
+                <label for="cpf">CPF</label>
+                <input class="form-control" name="email" type="text"/>
+                <label for="dtNasc">Data de nascimento</label>
+                <input class="form-control" name="dtNasc" type="text"/>
+                <label for="senha">Senha</label>
+                <input class="form-control" name="email" type="password"/>
+                <label for="senhaConf">Confimar a senha</label>
+                <input class="form-control" name="senhaConf" type="password"/>
+                <div id="formEnd">
+                    <button class="btn">Cadastrar</button>
+                </div>
+            </div>
+        </form>
+</body>
+</html>

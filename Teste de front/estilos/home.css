@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    font-size: 40px;
+}
+
+.slideholder{
+    height: 80vh;
+    overflow: hidden;
+}
+
+.navigation{
+    position: absolute;
+    top: 72vh;
+    left: 50%;
+    transform: translate(-50%);
+    display: flex;
+}
+
+.bar{
+    width:70px;
+    height: 17px;
+    border: 2px solid #fff;
+    margin:6px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.bar:hover{
+    background-color: #fff;
+}
+
+.slides input{
+    display:none;
+}
+
+.slides{
+    display:flex;
+    width:200vw;
+    height: 100%;
+}
+
+.slide{
+    width: 100vw;
+    transition: .6s;
+}
+
+.slide img{
+    width: 100vw;
+    height: 100%;
+}
+
+#slide1:checked ~ .s1{
+    margin-left: 0;
+}
+
+#slide2:checked ~ .s1{
+    margin-left: -50%;
+}
+
+#slide2:checked ~ .irLivros{
+    margin-left: +50%;
+}
+
+.searchbar{
+    width: 100vw;
+    height: 5vh;
+}
+
+.categories{
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    justify-content: space-around;
+    align-items: center;
+}
+
+.categories div{
+    display: flex;
+    /* margin-top:5vh; */
+}
+
+.divider {
+    margin-top: 2vh;
+}
+
+.divider h2{
+    margin: 0 0 1.5vh 0;
+}
+
+.row img{
+    width: 15vw;
+    height: 50vh;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.row a{
+    margin:0px 1vw 0px 1vw;
+}
+
+.divider{
+    display: flex;
+    flex-direction: column;
+}
