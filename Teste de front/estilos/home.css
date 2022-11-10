@@ -73,8 +73,20 @@ body{
 }
 
 .container{
-    position: relative;
-    padding: 7vw;
-    max-width: 100%vh;
-    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    margin:0;
+    width: 100vw;
+}
+.fotos{
+    box-shadow: 2px 2px 4px black;
+    overflow:hidden;
+}
+.galeria{
+    display:flex;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0);
+}
+img{
+    object-fit:fit;
 }
