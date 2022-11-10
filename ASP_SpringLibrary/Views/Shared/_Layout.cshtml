@@ -1,38 +1,41 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Spring Library</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/nav.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-light bg-light navbar-inverse navbar-fixed-top" style="background-color: #FF9CC0;">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Spring Library", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li> <!-- /Home/Index -->
-                    <li>@Html.ActionLink("Livros", "Index", "Livros")</li> <!-- /Livros/Index -->
-                    <li>@Html.ActionLink("Sobre", "Sobre", "Home")</li> <!-- /Home/Sobre -->
-                    <li>@Html.ActionLink("Contato", "Contato", "Home")</li> <!-- /Home/Contato -->
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Login", "Index", "Login", new { area = "Usuario" }, null)</li> <!-- /Dashboard/Home/Index -->
-                    <li>@Html.ActionLink("Carrinho", "Index", "Carrinho", new { area = "Usuario" }, null)</li> <!-- /Usuario/Carrinho/Index -->
-                </ul>
-            </div>
-        </div>
-    </div>
+    <nav class="masterNav">
+    <ul class="topItems">
+        <li>
+            <a href='@Url.Action("Index", "Home")'>
+                <img id="logo" src="Photos/logo2.png">
+            </a>
+        </li>
+        <li>
+            <li>@Html.ActionLink("LIVROS", "Index", "Livros")</li> <!-- /Livros/Index -->
+            <li>@Html.ActionLink("SOBRE", "Sobre", "Home")</li> <!-- /Home/Sobre -->
+            <li>@Html.ActionLink("CONTATO", "Contato", "Home")</li> <!-- /Home/Contato -->
+        </li>
+        <li class="rightIcons">
+            <a href='@Url.Action("Login", "Index"/*, "Login", new { area = "Usuario" }*/)'>
+                <img src="Photos/user.png">
+            </a>
+            <a href='@Url.Action("Carrinho", "Index"/*, "Carrinho", new { area = "Usuario" }*/)'>
+                <img src="Photos/carrinho.png">
+            </a>
+        </li>
+    </ul>
+    <form class="busca">
+        <input class="barra" placeholder="Pesquise por um livro, autor ou editora" >
+        <button class="btnbusca" type="submit">Buscar</button>
+    </form>
+</nav>
     <div class="container body-content">
         @RenderBody()
         <hr />

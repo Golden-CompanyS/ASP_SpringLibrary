@@ -3,16 +3,22 @@
 <nav class="masterNav">
     <ul class="topItems">
         <li>
-            <img id="logo" src="resources/logo2.png">
+            <a href='@Url.Action("Index", "Home")'>
+                <img id="logo" src="resources/logo2.png">
+            </a>
         </li>
         <li>
-            <a>LIVROS</a>
-            <a>SOBRE</a>
-            <a>CONTATO</a>
+            <li>@Html.ActionLink("LIVROS", "Index", "Livros")</li> <!-- /Livros/Index -->
+            <li>@Html.ActionLink("SOBRE", "Sobre", "Home")</li> <!-- /Home/Sobre -->
+            <li>@Html.ActionLink("CONTATO", "Contato", "Home")</li> <!-- /Home/Contato -->
         </li>
         <li class="rightIcons">
-            <img src="resources/user.png">
-            <img src="resources/carrinho.png">
+            <a href='@Url.Action("Login", "Index", "Login", new { area = "Usuario" }'>
+                <img src="resources/user.png">
+            </a>
+            <a href='@Url.Action("Carrinho", "Index", "Carrinho", new { area = "Usuario" }'>
+                <img src="resources/carrinho.png">
+            </a>
         </li>
     </ul>
     <form class="busca">
