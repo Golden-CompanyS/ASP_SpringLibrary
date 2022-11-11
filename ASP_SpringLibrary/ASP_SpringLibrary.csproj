@@ -187,7 +187,9 @@
     <Compile Include="Areas\Dashboard\Controllers\FuncionarioController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\GeneroController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\LivroController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Controllers\CarrinhoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LivrosController.cs" />
@@ -195,6 +197,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Autor.cs" />
+    <Compile Include="Models\Carrinho.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\ClienteFisico.cs" />
     <Compile Include="Models\ClienteJuridico.cs" />
@@ -206,6 +209,7 @@
     <Compile Include="Utils\Hash.cs" />
     <Compile Include="Utils\ImageCrop.cs" />
     <Compile Include="ViewModels\Cliente\CadastroClienteViewModel.cs" />
+    <Compile Include="ViewModels\Cliente\LoginClienteViewModel.cs" />
     <Compile Include="ViewModels\Livro\LivrosHomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +217,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\about.css" />
+    <Content Include="Content\contato.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -236,6 +242,7 @@
     <Content Include="Areas\Dashboard\Views\Funcionario\Alterar.cshtml" />
     <Content Include="Areas\Dashboard\Views\Cliente\Fisico.cshtml" />
     <Content Include="Areas\Dashboard\Views\Cliente\Juridico.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Livro\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
     <Content Include="Scripts\inputmask\inputmask.es6.js" />
@@ -269,6 +276,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Livros\Detalhes.cshtml" />
     <Content Include="Views\Cliente\Cadastro.cshtml" />
+    <Content Include="Views\Cliente\Login.cshtml" />
+    <Content Include="Views\Carrinho\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

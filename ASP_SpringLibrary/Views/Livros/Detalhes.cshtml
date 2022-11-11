@@ -130,8 +130,10 @@
             </dd>
         }
 
-
     </dl>
+
+    @Html.ActionLink("Adicionar ao carrinho", "AdicionarCarrinho", "Carrinho", new { ISBNLiv = Model.ISBNLiv }, null);
+
 </div>
 <p>
     @Html.ActionLink("Voltar aos Livros", "Index")

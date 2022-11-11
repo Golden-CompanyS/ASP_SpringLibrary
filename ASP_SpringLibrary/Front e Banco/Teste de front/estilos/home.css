@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    font-size: 40px;
+    box-sizing: border-box;
+}
+
+.slideholder{
+    height: 80vh;
+    overflow: hidden;
+}
+
+.navigation{
+    position: absolute;
+    top: 72vh;
+    left: 50%;
+    transform: translate(-50%);
+    display: flex;
+}
+
+.bar{
+    width:70px;
+    height: 17px;
+    border: 2px solid #fff;
+    margin:6px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.bar:hover{
+    background-color: #fff;
+}
+
+.slides input{
+    display:none;
+}
+
+.slides{
+    display:flex;
+    width:200vw;
+    height: 100%;
+}
+
+.slide{
+    width: 100vw;
+    transition: .6s;
+}
+
+.slide img{
+    width: 100vw;
+    height: 100%;
+}
+
+#slide1:checked ~ .s1{
+    margin-left: 0;
+}
+
+#slide2:checked ~ .s1{
+    margin-left: -50%;
+}
+
+#slide2:checked ~ .irLivros{
+    margin-left: +50%;
+}
+
+.searchbar{
+    width: 100vw;
+    height: 5vh;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    margin:0;
+    width: 100vw;
+}
+.fotos{
+    box-shadow: 2px 2px 4px black;
+    overflow:hidden;
+}
+.galeria{
+    display:flex;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0);
+}
+img{
+    object-fit:fit;
+}

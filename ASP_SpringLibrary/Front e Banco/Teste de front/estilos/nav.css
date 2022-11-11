@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600&display=swap');
+
+.masterNav{
+    font-family: 'Baloo Bhaijaan 2', cursive;
+}
+
+.topItems{
+    width: 100vw;
+    background-color:#ff9cc4;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5vh 3vw;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+#logo{
+    width: 15vw;
+    height: 8vh;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.topItems a{
+    color: #fff;
+    font-size: 1.5vw;
+    margin-right: 5vw;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.rightIcons{
+    margin-right: 2vw;
+    cursor: pointer;
+}
+
+.rightIcons img{
+    margin-left: 1vw;
+    width: 1.5vw;
+    height: 3vh;
+    object-fit: contain;
+}
+
+.busca{
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+
+.btnbusca {
+    background: #F448B0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bolder;
+    border-radius: 10px;
+    border: none;
+    padding: 0 20px 0 20px;
+}
+
+.busca{
+    display: flex;
+    justify-content: center;
+    border: solid;
+    border-color: #8B8B8B;
+    border-width: 0px;
+    border-bottom-width: 0.5px;
+    padding-bottom: 10px;
+}
+
+.busca input{
+    background: #F8F4F4;
+    border: 1px solid #8B8B8B;
+    border-radius: 24px;
+    width: 45vw;
+    height: 7vh;
+    padding: 10px;
+    margin-right: 2vw;
+    font-size: 20px;
+}

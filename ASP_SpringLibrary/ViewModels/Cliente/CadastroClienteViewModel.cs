@@ -18,7 +18,7 @@ namespace ASP_SpringLibrary.ViewModels.Cliente
         [Required(ErrorMessage = "Informe seu nome")]
         public string nomCli { get; set; }
 
-        [Display(Name = "Seu melhor e-mail")]
+        [Display(Name = "E-mail")]
         [Required(ErrorMessage = "Informe seu email")]
         [Remote("EmailExists", "Cliente", AdditionalFields = "idCli", ErrorMessage = "E-mail já cadastrado!")]
         [EmailAddress(ErrorMessage = "E-mail inválido")]

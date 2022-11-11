@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+body{
+    color:#696565;
+    font-family: 'Roboto', sans-serif ;
+}
+
+h1{
+    text-align: center;
+    font-size: 45px;
+    font-weight: bold;
+    margin-top: 3vw;
+}
+
+.container{
+    margin-top: 10vh;
+    width:90%;
+    min-height: 30vh;
+    border: 3px solid #C8C8C8;
+    border-radius: 50px;
+    display: flex;
+    padding: 2vw;
+
+}        
+.imagem img{
+    width: 7vw;
+    height: 10vw;
+    border-radius: 10px;
+}
+
+.conteudo{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+}
+.texto{
+    font-size: 2em;
+    padding-right: 5em;
+}
+
+#botao{
+    font-size: 1.5em;
+    border: none;
+    background: none;
+}
+
+#botao img{
+    width: 2vw;
+}
+.quantity{
+    font-size: 18px;
+    border: #C8C8C8;
+    border-radius: 10px;
+    padding-right: 2em;
+    
+}
+
+h2{
+    font-size: 36px;
+    color: rgb(40, 92, 202);
+}
+.preco{
+    padding-right: 2em;
+}
+
+h3{
+    display: flex;
+    justify-content: flex-end;
+    font-size: 45px;
+    font-weight: bold;
+    margin-top: 3vw;
+    margin-right: 5vw;
+}
+label{
+    font-size: 23px;
+    font-weight: normal;
+}
+.del{
+    padding-left: 5vw;
+    padding-top: 3vw;
+}
+
+h4{
+    font-size: 2.5em;
+    padding-top: 4vw;
+    padding-left: 7vw;
+    font-weight: bold;
+}
+.opcoes{
+    padding-top: 2vw;
+    padding-left: 5vw;
+}
+
+.bot{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+}
+.btn{
+    font-size: 2em;
+    color: #fff;
+    background: #F448B0;
+    width: 10vw;
+    border-radius: 1em;
+}

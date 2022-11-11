@@ -1,0 +1,39 @@
+﻿﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+html {
+    font-size: 40px;
+}
+
+body {
+    color: #696565;
+    padding-left: 150px;
+    padding-right: 400px;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.textohist {
+    padding-bottom: 10px;
+}
+
+.Historia {
+    text-align: justify;
+}
+
+h4 {
+    font-size: 25px;
+    font-weight: lighter;
+}
+
+.textoMap {
+    font-size: 40px;
+    padding-left: 40px;
+}

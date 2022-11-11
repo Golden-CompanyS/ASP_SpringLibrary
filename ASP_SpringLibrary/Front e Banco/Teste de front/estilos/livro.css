@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+body{
+    margin:auto;
+    text-decoration: none;
+}
+
+aside{
+    width: 20vw;
+    font-family: 'Roboto', sans-serif;
+    color:#696565;
+    font-size: 1vw;
+}
+
+.categoria{
+    margin-left: 45px;
+}
+h2{
+    font-weight: bold;
+}
+.links{
+    text-decoration: none;
+    color:#696565;
+    cursor: pointer;
+    font-size: 23px;
+    margin-left: 10px;
+}
+a{
+    color:inherit;
+}
+
+.traco{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.traco img{
+    height:1px;
+    width:18vw;
+}
+.precos{
+    margin-left: 45px;
+}
+
+.escolha{
+    font-size: 20px;
+    margin-left: 10px;
+    text-decoration: none;
+    color:#696565;
+    font-weight: lighter ;
+}
+label{
+    font-weight: normal;
+}
+
+.op1{
+    padding-bottom: 5px;
+}
+.op2{
+    padding-bottom: 5px;
+}
+.op3{
+    padding-bottom: 5px;
+}
+.preco1{
+    padding-left: 5px;
+}
+
+.content{
+    display:flex;
+    float:right;
+    width: 70vw;
+    margin-top: -500px;
+}
+h1{
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    color:#696565;
+}
+
+.Livros
+{
+    position: absolute;
+    padding-top: 100px;
+    width: 70vw;
+    color:#696565;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Livro{
+    margin:5px;
+
+    border-radius: 10px;
+    padding:10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    cursor: pointer;
+    color:#696565;
+    width:18vw;
+}
+.Livro a:hover{
+   color:#0084ff;
+}
+.Livro a:visited{
+    color:rgb(158, 158, 158);
+}
+
+.Livro a{
+    text-decoration: none;
+}
+
+.Livro img{
+    width:15vw;
+    border-radius: 10px;
+}
+
+.Livro h2{
+    margin:0px;
+}
+
+.Livro p{
+    margin:0px;
+    margin-top:5px;
+    font-size: 1.3vw;
+}

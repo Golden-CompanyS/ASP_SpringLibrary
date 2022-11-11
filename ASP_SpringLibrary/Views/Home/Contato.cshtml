@@ -1,17 +1,44 @@
 ﻿@{
     ViewBag.Title = "Contato";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    @Styles.Render("~/Content/contato.css")
+</head>
+<body>
+    <h1>Contate-nos</h1>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+    <form>
+        <div class="nome1">
+            <label for="Nome">Nome:</label>
+            <input type="text" id="Nome" />
+        </div>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+        <div class="email1">
+            <label for="Email">E-mail:</label>
+            <input type="email" id="email" />
+        </div>
+
+        <div class="msg">
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem">&nbsp</textarea>
+        </div>
+
+        <div class="botao">
+            <button class="boot" type="submit">Enviar</button>
+        </div>
+    </form>
+
+    <div class="info">
+        <h2>Para mais informações:</h2><br>
+        <h4>(11) xxxxx-xxxx</h4>
+        <h4>Email: contato@springlibrary.com.br</h4>
+    </div>
+</body>
+</html>

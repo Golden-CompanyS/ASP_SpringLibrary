@@ -22,13 +22,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li> <!-- /Home/Index -->
-                    <li>@Html.ActionLink("Livros", "Index", "Livros")</li> <!-- /Livros/Index -->
+                    <li>@Html.ActionLink("Livros", "Index", "Index")</li> <!-- /Livros/Index -->
                     <li>@Html.ActionLink("Sobre", "Sobre", "Home")</li> <!-- /Home/Sobre -->
                     <li>@Html.ActionLink("Contato", "Contato", "Home")</li> <!-- /Home/Contato -->
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Login", "Index", "Login", new { area = "Usuario" }, null)</li> <!-- /Dashboard/Home/Index -->
-                    <li>@Html.ActionLink("Carrinho", "Index", "Carrinho", new { area = "Usuario" }, null)</li> <!-- /Usuario/Carrinho/Index -->
+                    <li>@Html.ActionLink("Login", "Login", "Cliente")</li> <!-- /Dashboard/Home/Index -->
+                    <li>@Html.ActionLink("Carrinho", "Index", "Carrinho")</li> <!-- /Usuario/Carrinho/Index -->
                 </ul>
             </div>
         </div>

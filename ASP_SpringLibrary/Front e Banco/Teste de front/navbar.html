@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="estilos/nav.css">
+<nav class="masterNav">
+    <ul class="topItems">
+        <li>
+            <a href='@Url.Action("Index", "Home")'>
+                <img id="logo" src="resources/logo2.png">
+            </a>
+        </li>
+        <li>
+            <li>@Html.ActionLink("LIVROS", "Index", "Livros")</li> <!-- /Livros/Index -->
+            <li>@Html.ActionLink("SOBRE", "Sobre", "Home")</li> <!-- /Home/Sobre -->
+            <li>@Html.ActionLink("CONTATO", "Contato", "Home")</li> <!-- /Home/Contato -->
+        </li>
+        <li class="rightIcons">
+            <a href='@Url.Action("Login", "Index", "Login", new { area = "Usuario" }'>
+                <img src="resources/user.png">
+            </a>
+            <a href='@Url.Action("Carrinho", "Index", "Carrinho", new { area = "Usuario" }'>
+                <img src="resources/carrinho.png">
+            </a>
+        </li>
+    </ul>
+    <form class="busca">
+        <input class="barra" placeholder="Pesquise por um livro, autor ou editora" >
+        <button class="btnbusca" type="submit">Buscar</button>
+    </form>
+</nav>
