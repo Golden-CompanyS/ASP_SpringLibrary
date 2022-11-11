@@ -22,7 +22,7 @@ namespace ASP_SpringLibrary.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Cadastro(CadastroClienteViewModel viewModel)
         {
@@ -132,6 +132,25 @@ namespace ASP_SpringLibrary.Controllers
             bool EmailExists = new Cliente().emailExists(idCli, emailCli); // Checar existência do nome (deve ser único), se não já atrelado ao ID
 
             return Json(!EmailExists, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginClienteViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            //var cliente = new Cliente().LoginExits(viewModel.)
+
+            return RedirectToAction("Index");
         }
     }
 }

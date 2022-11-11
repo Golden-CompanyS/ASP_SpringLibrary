@@ -74,5 +74,8 @@ namespace ASP_SpringLibrary.Models
             else
                 return true;
         }
+
+        /*public bool 
+            Hash.*/
     }
 }

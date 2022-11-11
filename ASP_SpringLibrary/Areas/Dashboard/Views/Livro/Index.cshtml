@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ASP_SpringLibrary.Models.Livro>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Cadastrar Novo", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.imgLiv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ISBNLiv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.titLiv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.titOriLiv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.anoLiv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precoLiv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.qtdLiv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ativoLiv)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src="@Url.Content(item.imgLiv)" style="width: 128px; height: 210px; object-fit: cover;" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ISBNLiv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.titLiv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.titOriLiv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.anoLiv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.precoLiv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.qtdLiv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ativoLiv)
+        </td>
+        <td>
+            @Html.ActionLink("Alterar", "Index", new { ISBNLiv = item.ISBNLiv })
+        </td>
+    </tr>
+}
+
+</table>

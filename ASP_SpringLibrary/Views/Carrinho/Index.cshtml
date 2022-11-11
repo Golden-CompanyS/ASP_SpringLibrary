@@ -1,0 +1,66 @@
+﻿@using ASP_SpringLibrary.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Carrinho</h2>
+
+<table class="table">
+    <tr>
+        <th>ISBN</th>
+
+        <th>Título</th>
+
+        <th>Lançamento</th>
+
+        <th>Quantidade</th>
+
+        <th>Preço</th>
+
+        <th>Sub Total</th>
+    </tr>
+    @{
+        List<Carrinho> carrinho = (List<Carrinho>)Session["SpringCarrinho"];
+    }
+    @if (carrinho != null && carrinho.Count > 0)
+    {
+        foreach (var produto in carrinho)
+        {
+            <tr>
+                <td>
+                    <img src="@produto.livroCart.imgLiv" style="width: 128px; height: 210px; object-fit: cover;" />
+                </td>
+                <td>
+                    @produto.livroCart.ISBNLiv
+                </td>
+                <td>
+                    @produto.livroCart.titLiv
+                </td>
+                <td>
+                    @produto.livroCart.anoLiv
+                </td>
+                <td>
+                    @produto.qtdProdCart
+                </td>
+                <td>
+                    R$ @produto.livroCart.precoLiv.ToString("F")
+                </td>
+                <td>
+                    R$ @((produto.livroCart.precoLiv * produto.qtdProdCart).ToString("F"))
+                </td>
+                <td>
+                    @Html.ActionLink("Remover", "Remover", new { ISBNLiv = produto.livroCart.ISBNLiv },
+                        new { onclick = "return confirm('Tem certeza que quer remover esse livro?');" })
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <h1>Carrinho Vazio</h1>
+    }
+
+</table>
+

@@ -130,10 +130,10 @@ namespace ASP_SpringLibrary.Models
             return tempLiv;
         }
 
-        /*public List<Livro> checkAllLiv()
+        public List<Livro> checkAllLiv()
         {
             connection.Open();
-                command.CommandText = "CALL spcheckAllLiv();"; // SELECIONAR TUDO DA tbLivro
+                command.CommandText = "SELECT * FROM tbLivro;"; // SELECIONAR TUDO DA tbLivro
             command.Connection = connection;
 
             var readLiv = command.ExecuteReader();
@@ -143,18 +143,18 @@ namespace ASP_SpringLibrary.Models
             {
                 var tempLiv = new Livro();
 
-                tempLiv.idLiv = int.Parse(readLiv["idLiv"].ToString());
-                tempLiv.ISBNLiv = int.Parse(readLiv["ISBNLiv"].ToString());
-                tempLiv.sinopLiv = readLiv["sinopLiv"].ToString();
+                tempLiv.ISBNLiv = readLiv["ISBNLiv"].ToString();
                 tempLiv.titLiv = readLiv["titLiv"].ToString();
                 tempLiv.titOriLiv = readLiv["titOriLiv"].ToString();
+                tempLiv.sinopLiv = readLiv["sinopLiv"].ToString();
+                tempLiv.imgLiv = readLiv["imgLiv"].ToString();
                 tempLiv.pratLiv = int.Parse(readLiv["pratLiv"].ToString());
-                tempLiv.publLiv = int.Parse(readLiv["publLiv"].ToString());
-                tempLiv.pagLiv = int.Parse(readLiv["pagLiv"].ToString());
+                tempLiv.numPagLiv = int.Parse(readLiv["numPagLiv"].ToString());
+                tempLiv.numEdicaoLiv = int.Parse(readLiv["numEdicaoLiv"].ToString());
                 tempLiv.anoLiv = int.Parse(readLiv["anoLiv"].ToString());
-                tempLiv.editLiv = new Editora().checkEditById(int.Parse(readLiv["editLiv"].ToString()));
-                tempLiv.autLiv = checkAutListByLivId(int.Parse(readLiv["idLiv"].ToString()));
-                tempLiv.genLiv = new Genero().checkGenById(int.Parse(readLiv["genLiv"].ToString()));
+                tempLiv.precoLiv = decimal.Parse(readLiv["precoLiv"].ToString());
+                tempLiv.qtdLiv = int.Parse(readLiv["qtdLiv"].ToString());
+                tempLiv.ativoLiv = bool.Parse(readLiv["ativoLiv"].ToString());
 
                 tempLivList.Add(tempLiv);
             }
@@ -163,7 +163,7 @@ namespace ASP_SpringLibrary.Models
             connection.Close();
 
             return tempLivList;
-        }*/
+        }
 
         public List<Livro> checkAllLivByFilter(string filter, string query = "")
         {
@@ -199,7 +199,7 @@ namespace ASP_SpringLibrary.Models
                     break;
                 case "ate12reais":
                     command.CommandText = "SELECT ISBNLiv, titLiv, imgLiv, precoLiv FROM tbLivro " +
-                                          "  ;          "; // Livros de até R$12,00
+                                          "   WHERE precoLiv <= 12;          "; // Livros de até R$12,00
                     break;
             }
 
