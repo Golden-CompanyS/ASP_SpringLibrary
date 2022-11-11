@@ -99,6 +99,43 @@ call spcadLiv('9788594540188','Frankenstin',null,'Sinopse','linkImg',1,283,2,199
 call spinsertAutLiv(9788594540188, 2);
 call spinsertAutLiv(9788594540188, 3);
 
+call spCadLiv('8579606179', 
+		'Coleção Turma dos Vegetais: Batata', 
+        'Coleção Turma dos Vegetais: Batata',
+        'Como foram os ingleses os grandes responsáveis 
+        pela difusão do consumo da batata, por muito tempo,
+        no Brasil, ela foi chamada de batata inglesa. Depois ficou somente batata, 
+        com o adjetivo "doce" diferenciando a outra espécie. Na versão tradicional ou doce, 
+        a batata está presente na lista dos alimentos mais consumidos no mundo, graças à sua versatilidade.
+        Frita, assada, cozida ou até crua, ela é encontrada em uma imensa variedade de pratos. Neste livro,
+        você vai conhecer mais sobre suas propriedades e como preparar 18 deliciosas receitas com esse versátil alimento.',
+        'https://m.media-amazon.com/images/I/51x1JKl5eEL._SY477_BO1,204,203,200_.jpg',
+        100, 52, 1, 2022, 11.90, 29, true, 6, 8, 2);
+
+call spCadLiv('8579606217',
+		'Coleção Turma dos Vegetais: Brócolis',
+		'Coleção Turma dos Vegetais: Brócolis',
+        'Brócolis: Ele ficou famoso na Europa durante os anos do Império Romano. Porém, de lá para cá, 
+        muitas descobertas foram feitas e ele caiu no gosto popular. Além de muito saboroso, consumir
+        brócolis frescos e naturais com frequência blinda a saúde contra diversas doenças.
+        Membro da numerosa família das Brassicas, esta hortaliça é uma das melhores fontes 
+        de cálcio, que dá aquela proteção básica para os ossos. Fonte de vitamina C, 
+        ele também melhora o sistema imunológico. Mas nada se compara ao seu poder de proteção
+        contra o câncer, principalmente os casos em que a doença atinge pulmão, próstata ou bexiga. 
+        Conheça mais sobre suas propriedades e como preparar 18 deliciosas receitas com esse poderoso alimento.',
+        'https://m.media-amazon.com/images/I/51u8f9mLrfL._SY476_BO1,204,203,200_.jpg',
+        100, 34, 4, 2022, 10.30, true, 3, 5, 1);
+
+call spCadLiv('6586019117',
+'Coleção Turma dos Vegetais: Abobrinha',
+'Coleção Turma dos Vegetais: Abobrinha',
+'Rica em água e fibra, dois compostos que ajudam a digestão reduzindo o risco de constipação
+ e vários distúrbios intestinais, a abobrinha é excelente para diabéticos. E por ser um alimento de
+ baixa caloria, ajuda na saciedade, o que contribuir para a perda de peso a longo prazo. Além das fibras,
+ por também conter potássio, ela diminui a pressão sanguínea, o colesterol e outros fatores de risco para doenças cardíacas.',
+'https://m.media-amazon.com/images/I/51g9oDfHTyL._SY477_BO1,204,203,200_.jpg',
+100, 30, 4, 2000, 9.90, true, 4, 2, 5);
+
 call spCadLiv(
 	'9786555652956',
     'Morte no internato','The Murders at Fleat House',
