@@ -8,7 +8,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Cadastrar Novo", "Index")
+    @Html.ActionLink("Cadastrar Novo", "Cadastrar")
 </p>
 <table class="table">
     <tr>
@@ -39,36 +39,37 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <img src="@Url.Content(item.imgLiv)" style="width: 128px; height: 210px; object-fit: cover;" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ISBNLiv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.titLiv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.titOriLiv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.anoLiv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.precoLiv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.qtdLiv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ativoLiv)
-        </td>
-        <td>
-            @Html.ActionLink("Alterar", "Index", new { ISBNLiv = item.ISBNLiv })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Content(item.imgLiv)" style="width: 128px; height: 210px; object-fit: cover;" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ISBNLiv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.titLiv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.titOriLiv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.anoLiv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.precoLiv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.qtdLiv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ativoLiv)
+            </td>
+            <td>
+                @Html.ActionLink("Alterar", "Alterar", new { ISBNLiv = item.ISBNLiv })
+            </td>
+        </tr>
+    }
 
 </table>
