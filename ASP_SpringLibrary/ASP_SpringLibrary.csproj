@@ -219,6 +219,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\about.css" />
     <Content Include="Content\contato.css" />
+    <Content Include="Content\LivroEsp.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
