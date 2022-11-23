@@ -5,88 +5,136 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    @Styles.Render("~/Content/LivroEsp.css")
+<h2>Detalhes</h2>
 
-</head>
-<body>
-    <div class="image">
-        <img src="@Html.DisplayFor(model => model.imgLiv)" />
-    </div>
+<div>
+    <h4>Livro</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ISBNLiv)
+        </dt>
 
-    <div class="content">
-        <h1>@Html.DisplayFor(model => model.titLiv)</h1>
+        <dd>
+            @Html.DisplayFor(model => model.ISBNLiv)
+        </dd>
 
-        <h2>@Html.DisplayFor(model => model.precoLiv)</h2>
+        <dt>
+            @Html.DisplayNameFor(model => model.titLiv)
+        </dt>
 
-        <div class="botoes">
-            @Html.ActionLink("Adicionar ao carrinho", "AdicionarCarrinho", "Carrinho", new { ISBNLiv = Model.ISBNLiv }, null);
-        </div>
-    </div>
+        <dd>
+            @Html.DisplayFor(model => model.titLiv)
+        </dd>
 
-    <div class="rest">
-        <p>Sinopse</p>
-        <h3>@Html.DisplayFor(model => model.sinopLiv)</h3>
-        <p>Detalhes do produto</p><br><br>
+        <dt>
+            @Html.DisplayNameFor(model => model.titOriLiv)
+        </dt>
 
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th scope="col">@Html.DisplayNameFor(model => model.autLiv[0].nomAut)</th>
-                    @foreach (var tempAut in Model.autLiv) { 
-                    <td>@tempAut.nomAut</td>}
-                </tr>
+        <dd>
+            @Html.DisplayFor(model => model.titOriLiv)
+        </dd>
 
-                <tr>
-                    <th scope="col">@Html.DisplayNameFor(model => model.ISBNLiv)</th>
-                    <td>@Html.DisplayFor(model => model.ISBNLiv)</td>
-                </tr>
+        <dt>
+            @Html.DisplayNameFor(model => model.sinopLiv)
+        </dt>
 
-                <tr>
-                    <th scope="col">@Html.DisplayNameFor(model => model.pratLiv)</th>
-                    <td>@Html.DisplayFor(model => model.pratLiv)</td>
-                </tr>
+        <dd>
+            @Html.DisplayFor(model => model.sinopLiv)
+        </dd>
 
-                <tr>
-                    <th scope="col">@Html.DisplayNameFor(model => model.numPagLiv)</th>
-                    <td>@Html.DisplayFor(model => model.numPagLiv)</td>
-                </tr>
+        <dd>
+            <img src="@Html.DisplayFor(model => model.imgLiv)" style="width: 300px; height: 450px; object-fit: cover;" />
+        </dd>
 
-                <tr>
-                    <th scope="col">@Html.DisplayNameFor(model => model.numEdicaoLiv)</th>
-                    <td>@Html.DisplayFor(model => model.numEdicaoLiv)</td>
-                </tr>
+        <dt>
+            @Html.DisplayNameFor(model => model.pratLiv)
+        </dt>
 
-                <tr>
-                    <th scope="col">@Html.DisplayNameFor(model => model.anoLiv)</th>
-                    <td>@Html.DisplayFor(model => model.anoLiv)</td>
-                </tr>
+        <dd>
+            @Html.DisplayFor(model => model.pratLiv)
+        </dd>
 
-                <tr>
-                    <th scope="col">@Html.DisplayNameFor(model => model.qtdLiv)</th>
-                    <td>@Html.DisplayFor(model => model.qtdLiv)</td>
-                </tr>
+        <dt>
+            @Html.DisplayNameFor(model => model.numPagLiv)
+        </dt>
 
-                <tr>
-                    <th scope="col"> @Html.DisplayNameFor(model => model.genLiv.nomGen)</th>
-                    <td> @Html.DisplayFor(model => model.genLiv.nomGen)</td>
-                </tr>
+        <dd>
+            @Html.DisplayFor(model => model.numPagLiv)
+        </dd>
 
-                <tr>
-                    <th scope="row"> @Html.DisplayNameFor(model => model.editLiv.nomEdit)</th>
-                    <td>@Html.DisplayFor(model => model.editLiv.nomEdit)</td>
-                </tr>
+        <dt>
+            @Html.DisplayNameFor(model => model.numEdicaoLiv)
+        </dt>
 
-            </tbody>
-        </table>
-    </div>
+        <dd>
+            @Html.DisplayFor(model => model.numEdicaoLiv)
+        </dd>
 
-</body>
-</html>
+        <dt>
+            @Html.DisplayNameFor(model => model.anoLiv)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.anoLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precoLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precoLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.qtdLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.qtdLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ativoLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ativoLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.genLiv.nomGen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.genLiv.nomGen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.editLiv.nomEdit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.editLiv.nomEdit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.autLiv[0].nomAut)
+        </dt>
+
+        @foreach (var tempAut in Model.autLiv)
+        {
+            <dd>
+                @tempAut.nomAut
+            </dd>
+        }
+
+    </dl>
+
+    @Html.ActionLink("Adicionar ao carrinho", "AdicionarCarrinho", "Carrinho", new { ISBNLiv = Model.ISBNLiv }, null);
+
+</div>
+<p>
+    @Html.ActionLink("Voltar aos Livros", "Index")
+</p>
