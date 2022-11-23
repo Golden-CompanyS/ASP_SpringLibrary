@@ -189,6 +189,10 @@
     <Compile Include="Areas\Dashboard\Controllers\HomeController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\LivroController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\Autor\AutorDropDownViewModel.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\Editora\EditoraDropDownViewModel.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\Genero\GeneroDropDownViewModel.cs" />
+    <Compile Include="Areas\Dashboard\ViewModels\Livro\CadastrarLivroViewModel.cs" />
     <Compile Include="Controllers\CarrinhoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -243,6 +247,7 @@
     <Content Include="Areas\Dashboard\Views\Cliente\Fisico.cshtml" />
     <Content Include="Areas\Dashboard\Views\Cliente\Juridico.cshtml" />
     <Content Include="Areas\Dashboard\Views\Livro\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Livro\Cadastrar.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
     <Content Include="Scripts\inputmask\inputmask.es6.js" />
@@ -282,8 +287,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dashboard\Data\" />
-    <Folder Include="Areas\Dashboard\ViewModel\" />
     <Folder Include="Photos\imgFunc\" />
+    <Folder Include="Photos\imgLiv\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

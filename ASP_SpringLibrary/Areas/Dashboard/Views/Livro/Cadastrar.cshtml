@@ -1,0 +1,231 @@
+﻿@model ASP_SpringLibrary.Areas.Dashboard.ViewModels.Livro.CadastrarLivroViewModel
+@using ASP_SpringLibrary.Areas.Dashboard.ViewModels.Editora
+@using ASP_SpringLibrary.Areas.Dashboard.ViewModels.Genero
+@using ASP_SpringLibrary.Areas.Dashboard.ViewModels.Autor
+
+@{
+    ViewBag.Title = "Cadastrar";
+    Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cadastrar</h2>
+
+@using (Html.BeginForm("Cadastrar", "Livro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Livro</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.funcIdLiv, new { Value = ViewBag.Funcionario }) <!-- CPF escondido para passar à Controller -->
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ISBNLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ISBNLiv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ISBNLiv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.titLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.titLiv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.titLiv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.titOriLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.titOriLiv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.titOriLiv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.sinopLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.sinopLiv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.sinopLiv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.imgLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.imgLiv, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                @Html.ValidationMessageFor(model => model.imgLiv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.pratLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.pratLiv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.pratLiv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.numPagLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.numPagLiv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.numPagLiv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.numEdicaoLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.numEdicaoLiv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.numEdicaoLiv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.anoLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.anoLiv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.anoLiv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.precoLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.precoLiv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.precoLiv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.qtdLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.qtdLiv, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.qtdLiv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ativoLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ativoLiv)
+                    @Html.ValidationMessageFor(model => model.ativoLiv, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.editLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.DropDownListFor(model => model.editLiv.idEdit, ((IEnumerable<EditoraDropDownViewModel>)ViewBag.Editoras).Select(option => new SelectListItem
+               {
+                   Text = option.nomEdit,
+                   Value = option.idEdit.ToString(),
+               }), "Selecione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.editLiv, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.genLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.DropDownListFor(model => model.genLiv.idGen, ((IEnumerable<GeneroDropDownViewModel>)ViewBag.Generos).Select(option => new SelectListItem
+               {
+                   Text = option.nomGen,
+                   Value = option.idGen.ToString(),
+                   Selected = (Model != null) && (option.idGen == Model.genLiv.idGen)
+               }), "Selecione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.genLiv, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div id="autGroup">
+            @{
+                var count = 1;
+                if (Model != null)
+                {
+                    count = Model.autLiv.Count;
+                }
+            }
+
+            @Html.Hidden("numAut", count)
+
+            @for (var i = 0; i < count; i++)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.autLiv, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.DropDownListFor(model => model.autLiv[i].idAut, ((IEnumerable<AutorDropDownViewModel>)ViewBag.Autores).Select(option => new SelectListItem
+                       {
+                           Text = option.nomAut,
+                           Value = option.idAut.ToString(),
+                           Selected = (Model != null) && (option.idAut == Model.autLiv[i].idAut)
+                       }), "Selecione", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.autLiv[i], "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+            <a class="btn btn-success add-author">Adicionar</a>
+            <a class="btn btn-danger">Deletar</a>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cadastrar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Cancelar", "Index")
+</div>
+
+@section Scripts {
+    <script>
+        let GroupAuthor = document.querySelector("#autGroup");
+        console.log(GroupAuthor);
+        let i = parseInt(document.getElementById('numAut').value) - 1;
+
+        let buttonAddAuthor = document.querySelector(".add-author");
+        buttonAddAuthor.addEventListener("click", () => {
+            i++;
+
+            var newDropDown = document.createElement('div');
+                newDropDown.className = "form-group";
+                newDropDown.innerHTML = `
+                <div class="form-group form-group-author">
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.DropDownListFor(model => model.autLiv[-1].idAut, ((IEnumerable<AutorDropDownViewModel>)ViewBag.Autores).Select(option => new SelectListItem
+                       {
+                           Text = option.nomAut,
+                           Value = option.idAut.ToString(),
+                           Selected = false
+                       }), "Selecione", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.autLiv[-1], "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>`;
+
+            GroupAuthor.appendChild(newDropDown);
+
+            $("#autGroup > div.form-group:nth-child(" + (i + 2) + ") select").attr("id", "autLiv_" + i + "__idAut")
+            $("#autGroup > div.form-group:nth-child(" + (i + 2) + ") select").attr("name", "autLiv[" + i + "].idAut")
+            $("#autGroup > div.form-group:nth-child(" + (i + 2) + ") span").attr("data-valmsg-for", "autLiv[" + i + "]")
+        });
+
+    </script>
+}
