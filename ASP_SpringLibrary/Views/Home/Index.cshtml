@@ -3,26 +3,39 @@
 @{
     ViewBag.Title = "Home Page";
 }
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    @Styles.Render("~/Content/Index.css")
+    <div class="slideholder">
+        <!--declarando os inputs-->
+        <div class="slides">
+            <input type="radio" name="radio" id="slide1">
+            <input type="radio" name="radio" id="slide2">
 
-@foreach (string secao in (List<string>)ViewData["secoes"])
-{
-    <h2 style="color:red">@ViewData[@secao + "Tit"]</h2>
-
-    <div style="display: flex;">
-
-        @foreach (var tempLiv in (List<LivrosHomeViewModel>)ViewData[secao])
-        {
-        <div>
-            <a href="@Url.Action("Detalhes", "Livros", new { ISBNLiv = tempLiv.ISBNLiv })">
-                <div style="text-align: center;">
-                    <h3>@tempLiv.titLiv</h3>
-                    <img src="@Url.Content(tempLiv.imgLiv)" style="width: 200px; height: 350px; object-fit: cover;" />
-                    <h4>R$ @tempLiv.precoLiv.ToString("F")</h4>
-                </div>
-            </a>
-            @Html.ActionLink("Adicionar ao carrinho", "AdicionarCarrinho", "Carrinho", new { ISBNLiv = tempLiv.ISBNLiv }, null);
+            <!--colocando as imagens-->
+            <div class="slide s1">
+                <img src="Photos/Slide 1.png" alt="SlideShow 1">
+            </div>
+            <div class="slide">
+                <img src="Photos/Slide 2.png" alt="SlideShow 2">
+            </div>
         </div>
-        }
-
-    </div>
-}
+        <!--declarando as labels-->
+        <div class="navigation">
+            <label class="bar" for="slide1"></label>
+            <label class="bar" for="slide2"></label>
+        </div>
+    </div><br><hr>
+    @foreach (string secao in (List<string>)ViewData["secoes"])
+    {
+        <h1 class="title">@ViewData[@secao + "Tit"]</h1>
+        <div class="fotos">
+            @foreach (var tempLiv in (List<LivrosHomeViewModel>)ViewData[secao])
+            {
+                <a href="#" class="item current-item">
+                    <img src="@Url.Content(tempLiv.imgLiv)" />
+                    <h3>@tempLiv.titLiv</h3>
+                    <h2>R$ @tempLiv.precoLiv.ToString("F")</h2>
+                </a>
+            }
+        </div>
+     }
