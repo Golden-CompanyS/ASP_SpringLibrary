@@ -126,6 +126,7 @@
                {
                    Text = option.nomEdit,
                    Value = option.idEdit.ToString(),
+                   Selected = (Model != null) && (option.idEdit == Model.editLiv.idEdit)
                }), "Selecione", new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.editLiv, "", new { @class = "text-danger" })
                 </div>

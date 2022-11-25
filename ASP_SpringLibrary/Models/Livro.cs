@@ -16,12 +16,13 @@ namespace ASP_SpringLibrary.Models
         [Display(Name = "Título")]
         public string titLiv { get; set; }
 
-        [Display(Name = "Original")]
+        [Display(Name = "Título Original")]
         public string titOriLiv { get; set; }
 
         [Display(Name = "Sinopse")]
         public string sinopLiv { get; set; }
 
+        [Display(Name = "Imagem")]
         public string imgLiv { get; set; }
 
         [Display(Name = "Prateleira")]
@@ -33,7 +34,7 @@ namespace ASP_SpringLibrary.Models
         [Display(Name = "Nº da edição")]
         public int numEdicaoLiv { get; set; }
 
-        [Display(Name = "Publicação")]
+        [Display(Name = "Ano de Publicação")]
         public int anoLiv { get; set; }
 
         [Display(Name = "Preço")]
@@ -42,15 +43,19 @@ namespace ASP_SpringLibrary.Models
         [Display(Name = "Quantidade em estoque")]
         public int qtdLiv { get; set; }
 
-        [Display(Name = "Em venda?")]
+        [Display(Name = "À venda?")]
         public bool ativoLiv { get; set; }
 
+        [Display(Name = "Editora")]
         public Editora editLiv { get; set; }
 
+        [Display(Name = "Autores")]
         public List<Autor> autLiv { get; set; }
 
+        [Display(Name = "Gênero")]
         public Genero genLiv { get; set; }
 
+        [Display(Name = "Funcionário")]
         public Funcionario funcLiv { get; set; }
 
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);

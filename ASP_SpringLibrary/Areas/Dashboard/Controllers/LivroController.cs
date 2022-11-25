@@ -78,7 +78,9 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
 
                         string imgPath = Path.Combine(Server.MapPath("/Photos/imgLiv/"), fileName);
 
-                        bool imgSaved = new ImageCrop().SaveCroppedImage(Image.FromStream(imgLiv.InputStream), 256, 256, imgPath);
+                        var width = Image.FromStream(imgLiv.InputStream).Width;
+                        var height = Image.FromStream(imgLiv.InputStream).Height;
+                        bool imgSaved = new ImageCrop().SaveCroppedImage(Image.FromStream(imgLiv.InputStream), width, height, imgPath);
 
                         if (imgSaved)
                         {
@@ -96,6 +98,15 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
                     livro.imgLiv = "/Photos/imgLiv/livrodefault.jpg";
                 }
 
+                // Tirar autores repetidos
+                var tempAllAutIdList = new List<int>();
+                for (var i = 0; i < livro.autLiv.Count; i++)
+                {
+                    tempAllAutIdList.Add(livro.autLiv[i].idAut);
+                }
+                var tempUniqueAutIdList = new HashSet<int>(tempAllAutIdList);
+
+                // Passar valores à classe Livro para cadastrar
                 Livro tempLiv = new Livro();
                 tempLiv.ISBNLiv = livro.ISBNLiv;
                 tempLiv.titLiv = livro.titLiv;
@@ -113,11 +124,12 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
                 tempLiv.genLiv = new Genero { idGen = livro.genLiv.idGen };
 
                 var tempAutList = new List<Autor>();
-                for (var i = 0; i < livro.autLiv.Count; i++)
+                foreach(var autId in tempUniqueAutIdList)
                 {
-                    var tempAut = new Autor { idAut = livro.autLiv[i].idAut };
+                    var tempAut = new Autor { idAut = autId };
                     tempAutList.Add(tempAut);
                 }
+
                 tempLiv.autLiv = tempAutList;
                 tempLiv.funcLiv = new Funcionario { idFunc = livro.funcIdLiv };
 
@@ -135,24 +147,49 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
         private void passDropDownListValues()
         {
             // DropDown Editoras
-            ViewBag.Editoras = new List<EditoraDropDownViewModel> {
-                new EditoraDropDownViewModel { idEdit = 1, nomEdit = "Abril" },
-                new EditoraDropDownViewModel { idEdit = 2, nomEdit = "Intríseca" }
-            };
+            var tempEditList = new Editora().checkAllEdit();
+            var tempEditDropList = new List<EditoraDropDownViewModel>();
+
+            for (var i = 0; i < tempEditList.Count; i++)
+            {
+                var tempEditDrop = new EditoraDropDownViewModel();
+                    tempEditDrop.idEdit = tempEditList[i].idEdit;
+                    tempEditDrop.nomEdit = tempEditList[i].nomEdit;
+
+                tempEditDropList.Add(tempEditDrop);
+            }
+
+            ViewBag.Editoras = tempEditDropList;
 
             // DropDown Generos
-            ViewBag.Generos = new List<GeneroDropDownViewModel> {
-                new GeneroDropDownViewModel { idGen = 1, nomGen = "Terror" },
-                new GeneroDropDownViewModel { idGen = 2, nomGen = "Humor" }
-            };
+            var tempGenList = new Genero().checkAllGen();
+            var tempGenDropList = new List<GeneroDropDownViewModel>();
+
+            for (var i = 0; i < tempGenList.Count; i++)
+            {
+                var tempGenDrop = new GeneroDropDownViewModel();
+                    tempGenDrop.idGen = tempGenList[i].idGen;
+                    tempGenDrop.nomGen = tempGenList[i].nomGen;
+
+                tempGenDropList.Add(tempGenDrop);
+            }
+
+            ViewBag.Generos = tempGenDropList;
 
             // DropDown Autores
-            ViewBag.Autores = new List<AutorDropDownViewModel> {
-                new AutorDropDownViewModel { idAut = 1, nomAut = "Guimarães de Rosa" },
-                new AutorDropDownViewModel { idAut = 2, nomAut = "Maurício de Souza" },
-                new AutorDropDownViewModel { idAut = 3, nomAut = "Machado de Assis" },
-                new AutorDropDownViewModel { idAut = 4, nomAut = "Fernando Pessoa" },
-            };
+            var tempAutList = new Autor().checkAllAut();
+            var tempAutDropList = new List<AutorDropDownViewModel>();
+
+            for (var i = 0; i < tempAutList.Count; i++)
+            {
+                var tempAutDrop = new AutorDropDownViewModel();
+                tempAutDrop.idAut = tempAutList[i].idAut;
+                tempAutDrop.nomAut = tempAutList[i].nomAut;
+
+                tempAutDropList.Add(tempAutDrop);
+            }
+
+            ViewBag.Autores = tempAutDropList;
         }
 
 
