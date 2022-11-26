@@ -5,17 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     @Styles.Render("~/Content/LivroEsp.css")
-
-</head>
-<body>
     <div class="cima">
         <div class="image">
             <img src="@Html.DisplayFor(model => model.imgLiv)" />
@@ -27,8 +17,8 @@
             <h2>R$@Html.DisplayFor(model => model.precoLiv)</h2>
 
             <div class="botoes">
-                <button type="button" class="btn btn-lg botao"
-                        @Html.ActionLink("Adicionar ao carrinho", "AdicionarCarrinho", "Carrinho", new { ISBNLiv = Model.ISBNLiv }, null)
+                <button type="button" class="btn btn-lg botao">
+                    <a href="@Url.Action("AdicionarCarrinho", "Carrinho", new { ISBNLiv = Model.ISBNLiv })">Adicionar ao Carrinho</a>
                 </button>
             </div>
         </div>
@@ -94,6 +84,3 @@
             </tbody>
         </table>
     </div>
-
-</body>
-</html>

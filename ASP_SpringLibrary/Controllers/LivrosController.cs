@@ -1,4 +1,5 @@
 ﻿using ASP_SpringLibrary.Models;
+using ASP_SpringLibrary.ViewModels.Livro;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,21 @@ namespace ASP_SpringLibrary.Controllers
         // GET: Livros
         public ActionResult Index()
         {
-            return View();
+            var tempLivList = new Livro().checkAllLiv();
+            var tempLivViewList = new List<LivrosHomeViewModel>();
+            
+            foreach(var tempLiv in tempLivList)
+            {
+                var tempLivView = new LivrosHomeViewModel();
+                    tempLivView.ISBNLiv = tempLiv.ISBNLiv;
+                    tempLivView.titLiv = tempLiv.titLiv;
+                    tempLivView.imgLiv = tempLiv.imgLiv;
+                    tempLivView.precoLiv = tempLiv.precoLiv;
+
+                tempLivViewList.Add(tempLivView);
+            }
+
+            return View(tempLivViewList);
         }
 
         [HttpGet]

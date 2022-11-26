@@ -1,17 +1,9 @@
 ﻿@{
     ViewBag.Title = "Sobre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     @Styles.Render("~/Content/about.css")
-</head>
-<body>
     <div class="content">
         <!--historia da empresa-->
         <div class="Historia">
@@ -56,5 +48,3 @@
             </tr>
         </table>
     </div>
-</body>
-</html>
