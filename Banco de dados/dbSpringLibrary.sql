@@ -23,8 +23,8 @@ use dbspringlibrary;
 CREATE TABLE tbEditora(
 	idEdit int primary key auto_increment,
     nomEdit varchar(30) not null unique, 
-    celEdit char(11) not null,
-    emailEdit varchar(30) not null
+    celEdit char(11),
+    emailEdit varchar(50) not null
 );
 
 -- cadEditIfNotExists
@@ -32,7 +32,7 @@ DELIMITER $$
 CREATE PROCEDURE spcadEdit(
 	$nomEdit varchar(30),
     $celEdit char(11),
-    $emailEdit varchar(30)
+    $emailEdit varchar(50)
 )
 BEGIN
 	IF NOT EXISTS (SELECT nomEdit FROM tbEditora WHERE nomEdit = $nomEdit) THEN
@@ -54,7 +54,7 @@ CREATE PROCEDURE spaltEdit(
 	$idEdit int,
 	$nomEdit varchar(30),
     $celEdit char(11),
-    $emailEdit varchar(30)
+    $emailEdit varchar(50)
 )
 BEGIN
 	UPDATE tbEditora SET nomEdit = $nomEdit, celEdit = $celEdit, emailEdit = $emailEdit WHERE idEdit = $idEdit;
