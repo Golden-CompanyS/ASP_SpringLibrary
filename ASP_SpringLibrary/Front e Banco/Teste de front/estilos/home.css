@@ -115,7 +115,7 @@ h1{
 
 
 a{
-    color:#696565;
+    color:#696565 !important;
     text-decoration: none;
 }
 a:hover{

@@ -32,6 +32,10 @@
     text-decoration: none;
 }
 
+a{
+    color:#fff  !important;
+}
+
 .rightIcons {
     margin-right: 2vw;
     cursor: pointer;
@@ -79,4 +83,14 @@
         padding: 10px;
         margin-right: 2vw;
         font-size: 20px;
+    }
+
+footer {
+    background-color: #ff9cc4;
+    color:#fff;
+}
+
+    p{
+        font-size:1em;
+        text-align:center;
     }
