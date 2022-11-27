@@ -1,0 +1,103 @@
+﻿@model ASP_SpringLibrary.Models.NotaFiscal
+
+@{
+    ViewBag.Title = "Confirmar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Confirmar</h2>
+
+<div>
+    <h4>NotaFiscal</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateNF)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.dateNF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pagNF)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.pagNF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.valNF)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.valNF)
+        </dd>
+
+        <br />
+
+        @{
+            if (Model.isDelivNF)
+            {
+                <dt>
+                    INFORMAÇÕES
+                </dt>
+                <dd>
+                    @Html.DisplayNameFor(model => model.clienteNF.nomCli):
+                    @Html.DisplayFor(model => model.clienteNF.nomCli)<br />
+                    @Html.DisplayNameFor(model => model.clienteNF.emailCli):
+                    @Html.DisplayFor(model => model.clienteNF.emailCli)<br />
+                    @Html.DisplayNameFor(model => model.clienteNF.celCli):
+                    @Html.DisplayFor(model => model.clienteNF.celCli)<br />
+                    @Html.DisplayNameFor(model => model.clienteNF.CEPCli):
+                    @Html.DisplayFor(model => model.clienteNF.CEPCli)<br />
+                    @Html.DisplayNameFor(model => model.clienteNF.numEndCli):
+                    @Html.DisplayFor(model => model.clienteNF.numEndCli)
+                </dd>
+
+                <br />
+
+                <dt>
+                    DELIVERY
+                </dt>
+                <dd>
+                    @Html.DisplayNameFor(model => model.deliveryNF.dtPrevDel):
+                    @Html.DisplayFor(model => model.deliveryNF.dtPrevDel)<br />
+
+                    @switch (Model.deliveryNF.statDel)
+                    {
+                        case '0':
+                            <p>Ainda não saiu</p>
+                            break;
+                        case '1':
+                            <p>Já está em trânsito!</p>
+                            break;
+                        case '2':
+                            <p>Foi entregue e confirmado.</p>
+                            break;
+                        default:
+                            break;
+                    }
+
+                    @if (Model.deliveryNF.dtEntDel != null)
+                    {
+                        <p>
+                            @Html.DisplayNameFor(model => model.deliveryNF.dtEntDel):
+                            @Html.DisplayFor(model => model.deliveryNF.dtEntDel)
+                        </p>
+                    };
+
+                </dd>
+            }
+            else
+            {
+                <dt>
+                    RETIRADA
+                </dt>
+                <dd>
+                    RETIRE NA LOJA MAIS PRÓXIMA
+                </dd>
+            }
+        }
+
+    </dl>
+</div>

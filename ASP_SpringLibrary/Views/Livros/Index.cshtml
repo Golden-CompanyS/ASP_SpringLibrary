@@ -19,10 +19,10 @@
                     <h3>@tempLiv.titLiv</h3>
                     <h2>R$ @tempLiv.precoLiv.ToString("F")</h2>
                     <button class="botao">
-                        <a href="@Url.Action("Detalhes", "Livros", new { ISBNLiv = tempLiv.ISBNLiv })">Detalhes</a>
+                        <a href="@Url.Action("Detalhes", "Livros", new { id = tempLiv.ISBNLiv })">Detalhes</a>
                     </button>
-                    <button class="botao">
-                        <a href="@Url.Action("AdicionarCarrinho", "Carrinho", new { ISBNLiv = tempLiv.ISBNLiv })">Adicionar ao carrinho</a>
+                    <button class="botao btn-primary">
+                        <a href="@Url.Action("AdicionarCarrinho", "Carrinho", new { id = tempLiv.ISBNLiv })">Adicionar ao carrinho</a>
                     </button>
                 </div>
             }
@@ -73,7 +73,6 @@
             }
 
                 #shop .shop-grid-items .div-image img {
-                    filter: color: red;
                     object-fit: contain;
                     width: 100%;
                     height: 100%;
@@ -90,16 +89,17 @@
             }
 
             #shop .shop-grid-items .botao {
-                padding: 12px;
                 border-radius: 14px;
                 border: none;
                 background: #F448B0;
             }
 
-            #shop .shop-grid-items .botao > a {
-                text-decoration: none;
-                color: #fff;
-            }
+                #shop .shop-grid-items .botao > a {
+                    text-decoration: none;
+                    color: #fff;
+                    padding: 12px;
+                    display: inline-block;
+                }
 
     @@media (min-width: 600px) and (max-width: 1199px) {
         #shop #shop-grid {

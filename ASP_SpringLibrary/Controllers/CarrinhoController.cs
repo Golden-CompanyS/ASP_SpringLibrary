@@ -1,4 +1,5 @@
-﻿using ASP_SpringLibrary.Models;
+﻿using ASP_SpringLibrary.Areas.Dashboard.ViewModels.Editora;
+using ASP_SpringLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,9 @@ namespace ASP_SpringLibrary.Controllers
             return View();
         }
 
-        public ActionResult AdicionarCarrinho(string ISBNLiv)
+        public ActionResult AdicionarCarrinho(string id)
         {
-            if (ISBNLiv == null || ISBNLiv == "")
+            if (id == null || id == "")
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
@@ -29,7 +30,7 @@ namespace ASP_SpringLibrary.Controllers
                 {
                     new Carrinho()
                     {
-                        livroCart = new Livro().checkLivByISBN(ISBNLiv),
+                        livroCart = new Livro().checkLivByISBN(id),
                         qtdProdCart = 1
                     }
                 };
@@ -39,12 +40,12 @@ namespace ASP_SpringLibrary.Controllers
             else
             {
                 var prodListCarrinho = (List<Carrinho>) Session[nomCart];
-                int checkQtd = jaExisteItem(prodListCarrinho, ISBNLiv);
+                int checkQtd = jaExisteItem(prodListCarrinho, id);
                 if (checkQtd == -1)
                 {
                     prodListCarrinho.Add(new Carrinho()
                     {
-                        livroCart = new Livro().checkLivByISBN(ISBNLiv),
+                        livroCart = new Livro().checkLivByISBN(id),
                         qtdProdCart = 1
                     });
                 }
@@ -59,24 +60,24 @@ namespace ASP_SpringLibrary.Controllers
             return RedirectToAction("Index");
         }
 
-        public int jaExisteItem(List<Carrinho> prodListCarrinho, string ISBNLiv)
+        public int jaExisteItem(List<Carrinho> prodListCarrinho, string id)
         {
             for (int i = 0; i < prodListCarrinho.Count; i++)
             {
-                if (prodListCarrinho[i].livroCart.ISBNLiv == ISBNLiv) return i;
+                if (prodListCarrinho[i].livroCart.ISBNLiv == id) return i;
             }
             return -1;
         }
 
-        public ActionResult Remover(string ISBNLiv)
+        public ActionResult Remover(string id)
         {
-            if (ISBNLiv == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
             }
 
-            var prodListCarrinho = (List<Carrinho>)Session[nomCart];
-            int checkQtd = jaExisteItem(prodListCarrinho, ISBNLiv);
+            var prodListCarrinho = (List<Carrinho>) Session[nomCart];
+            int checkQtd = jaExisteItem(prodListCarrinho, id);
 
             if (checkQtd == -1)
             {
@@ -87,6 +88,105 @@ namespace ASP_SpringLibrary.Controllers
                 prodListCarrinho.RemoveAt(checkQtd);
                 return RedirectToAction("Index");
             }
+        }
+
+        [HttpGet]
+        public ActionResult Comprar()
+        {
+            var tempNotaFiscal = getNotaFiscal();
+            passDropDownListValues();
+
+            if (tempNotaFiscal.livrosNF != null)
+            {
+                return View(tempNotaFiscal);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Comprar(NotaFiscal notaFiscal)
+        {
+            var tempNotaFiscal = getNotaFiscal();
+
+                notaFiscal.valNF = tempNotaFiscal.valNF;
+                notaFiscal.livrosNF = tempNotaFiscal.livrosNF;
+                notaFiscal.clienteNF = tempNotaFiscal.clienteNF;
+                notaFiscal.dateNF = DateTime.Now;
+            if (notaFiscal.isDelivNF)
+            {
+                notaFiscal.deliveryNF = new Delivery { dtPrevDel = notaFiscal.dateNF.AddDays(9) };
+            }
+            else
+            {
+                notaFiscal.deliveryNF = new Delivery { dtPrevDel = notaFiscal.dateNF };
+            }
+                
+            if (ModelState.IsValid)
+            {
+                new NotaFiscal().sellNF(notaFiscal);
+                notaFiscal.idNF = new NotaFiscal().getLastNotafiscal();
+
+                return RedirectToAction("Confirmar", new { id = notaFiscal.idNF });
+            }
+
+            passDropDownListValues();
+            return View(notaFiscal);
+        }
+
+        [HttpGet]
+        public ActionResult Confirmar(int? id)
+        {
+            if (id != 0 && id != null)
+            {
+                var tempNotaFiscal = new NotaFiscal().checkNFById((int)id);
+
+                if (tempNotaFiscal.idNF != 0 && tempNotaFiscal.idNF != null)
+                {
+                    Session[nomCart] = null;
+                    return View(tempNotaFiscal);
+                }
+            };
+
+            return RedirectToAction("Index");
+        }
+
+        public NotaFiscal getNotaFiscal()
+        {
+            var notaFiscal = new NotaFiscal();
+            var carrinho = (List<Carrinho>) Session[nomCart];
+
+            if (carrinho != null && carrinho.Count > 0)
+            {
+                var tempLivList = new List<Livro>();
+                decimal tempTotal = 0;
+                foreach (var produto in carrinho)
+                {
+                    tempLivList.Add(new Livro { ISBNLiv = produto.livroCart.ISBNLiv, 
+                                                qtdLiv = produto.qtdProdCart, 
+                                                precoLiv = produto.livroCart.precoLiv });
+                    tempTotal += (produto.livroCart.precoLiv * produto.qtdProdCart);
+                }
+
+                notaFiscal.valNF = tempTotal;
+                notaFiscal.livrosNF = tempLivList;
+                notaFiscal.clienteNF = new Cliente().checkCliById(2);
+            }
+
+            return notaFiscal;
+        }
+
+        public void passDropDownListValues()
+        {
+            // DropDown Pagamentos
+            ViewBag.Pagamentos = new List<string> {
+                "Cartão de crédito",
+                "Cartão de débito",
+                "PIX",
+                "Boleto"
+            };
         }
     }
 }

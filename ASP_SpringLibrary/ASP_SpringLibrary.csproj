@@ -205,10 +205,12 @@
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\ClienteFisico.cs" />
     <Compile Include="Models\ClienteJuridico.cs" />
+    <Compile Include="Models\Delivery.cs" />
     <Compile Include="Models\Editora.cs" />
     <Compile Include="Models\Funcionario.cs" />
     <Compile Include="Models\Genero.cs" />
     <Compile Include="Models\Livro.cs" />
+    <Compile Include="Models\NotaFiscal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Hash.cs" />
     <Compile Include="Utils\ImageCrop.cs" />
@@ -338,6 +340,8 @@
     <Content Include="Views\Cliente\Login.cshtml" />
     <Content Include="Views\Carrinho\Index.cshtml" />
     <Content Include="Views\Livros\Index.cshtml" />
+    <Content Include="Views\Carrinho\Comprar.cshtml" />
+    <Content Include="Views\Carrinho\Confirmar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,121 @@
+﻿@model ASP_SpringLibrary.Models.NotaFiscal
+@using ASP_SpringLibrary.Models
+
+@{
+    ViewBag.Title = "Comprar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Comprar</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <h3>Valor Total:</h3>
+        <h4>@Model.valNF</h4>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.pagNF, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.DropDownListFor(model => model.pagNF, ((IEnumerable<string>)ViewBag.Pagamentos).Select(option => new SelectListItem
+               {
+                   Text = option,
+                   Value = option,
+               }), "Selecione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.pagNF, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isDelivNF, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isDelivNF)
+                    @Html.ValidationMessageFor(model => model.isDelivNF, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div id="delivery">
+            <h3>Informações de Entrega:</h3>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.clienteNF.nomCli)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.clienteNF.nomCli)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.clienteNF.emailCli)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.clienteNF.emailCli)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.clienteNF.celCli)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.clienteNF.celCli)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.clienteNF.CEPCli)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.clienteNF.CEPCli)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.clienteNF.numEndCli)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.clienteNF.numEndCli)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.clienteNF.compEndCli)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.clienteNF.compEndCli)
+                </dd>
+            </dl>
+        </div>
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Comprar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+    <div>
+        @Html.ActionLink("Voltar ao carrinho", "Index")
+    </div>
+
+    @section Scripts {
+        <script>
+            $('#delivery').attr("style", "display:none;")
+
+            $("#isDelivNF").change(function () {
+                let check = $('#isDelivNF').is(':checked');
+
+                if (!check) {
+                    $('#delivery').attr("style", "display:none;")
+                }
+                else {
+                    $('#delivery').attr("style", "display:block;")
+                }
+            });
+        </script>
+    }

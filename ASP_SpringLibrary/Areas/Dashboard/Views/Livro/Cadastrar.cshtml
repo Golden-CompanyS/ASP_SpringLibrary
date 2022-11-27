@@ -19,7 +19,7 @@
             <div class="form-horizontal">
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.funcIdLiv, new { Value = 2 }) <!-- CPF escondido para passar à Controller -->
+                @Html.HiddenFor(model => model.funcIdLiv, new { Value = 2 }) <!-- Id escondido para passar à Controller -->
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.ISBNLiv, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -232,5 +232,3 @@
 
         </script>
     }
-    </body>
-</html>

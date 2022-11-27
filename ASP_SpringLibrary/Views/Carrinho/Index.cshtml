@@ -53,7 +53,7 @@
                     R$ @((produto.livroCart.precoLiv * produto.qtdProdCart).ToString("F"))
                 </td>
                 <td>
-                    @Html.ActionLink("Remover", "Remover", new { ISBNLiv = produto.livroCart.ISBNLiv },
+                    @Html.ActionLink("Remover", "Remover", new { id = produto.livroCart.ISBNLiv },
                         new { onclick = "return confirm('Tem certeza que quer remover esse livro?');" })
                 </td>
             </tr>
@@ -65,4 +65,28 @@
     }
 
 </table>
+
+<center>
+    <button class="botao">
+        <a href="@Url.Action("Index", "Livros")">Continuar Navegando</a>
+    </button>
+    <button class="botao">
+        <a href="@Url.Action("Comprar", "Carrinho")">Comprar os Livros</a>
+    </button>
+</center>
+
+<style>
+    .botao {
+        border-radius: 14px;
+        border: none;
+        background: #F448B0;
+    }
+
+    .botao > a {
+        text-decoration: none;
+        color: #fff;
+        padding: 12px;
+        display: inline-block;
+    }
+</style>
 

@@ -28,7 +28,7 @@ namespace ASP_SpringLibrary.Models
         [Display(Name = "CEP")]
         public string CEPCli { get; set; }
 
-        [Display(Name = "Nº")]
+        [Display(Name = "Número")]
         public int numEndCli { get; set; }
 
         [Display(Name = "Complemento")]
@@ -75,7 +75,31 @@ namespace ASP_SpringLibrary.Models
                 return true;
         }
 
-        /*public bool 
-            Hash.*/
+        public Cliente checkCliById(int idCli)
+        {
+            connection.Open();
+            command.CommandText = "SELECT * FROM tbCliente WHERE idCli = @idCli;";
+                command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = idCli;
+                command.Connection = connection;
+            var readCli = command.ExecuteReader();
+            var tempCli = new Cliente();
+
+            if (readCli.Read())
+            {
+                tempCli.idCli = int.Parse(readCli["idCli"].ToString());
+                tempCli.nomCli = readCli["nomCli"].ToString();
+                tempCli.emailCli = readCli["emailCli"].ToString();
+                tempCli.celCli = readCli["celCli"].ToString();
+                tempCli.CEPCli = readCli["CEPCli"].ToString();
+                tempCli.numEndCli = int.Parse(readCli["numEndCli"].ToString());
+                tempCli.compEndCli = readCli["compEndCli"].ToString();
+                tempCli.tipoCli = bool.Parse(readCli["tipoCli"].ToString());
+            }
+
+            readCli.Close();
+            connection.Close();
+
+            return tempCli;
+        }
     }
 }

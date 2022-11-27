@@ -31,14 +31,14 @@ namespace ASP_SpringLibrary.Controllers
         }
 
         [HttpGet]
-        public ActionResult Detalhes(string ISBNLiv)
+        public ActionResult Detalhes(string id)
         {
-            if (ISBNLiv == null || ISBNLiv == "")
+            if (id == null || id == "")
             {
                 return RedirectToAction("Index");
             }
 
-            var tempLiv = new Livro().checkLivByISBN(ISBNLiv);
+            var tempLiv = new Livro().checkLivByISBN(id);
 
             return View(tempLiv);
         }
