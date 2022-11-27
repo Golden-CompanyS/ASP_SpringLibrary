@@ -29,7 +29,8 @@ namespace ASP_SpringLibrary.Areas.Dashboard.ViewModels.Livro
         public string titOriLiv { get; set; }
 
         [Display(Name = "Sinopse")]
-        [MaxLength(100, ErrorMessage = "A sinopse deve ter até 1500 caracteres")]
+        [MaxLength(1500, ErrorMessage = "A sinopse deve ter até 1500 caracteres")]
+        [DataType(DataType.MultilineText)]
         [Required(ErrorMessage = "Campo obrigatório")]
         public string sinopLiv { get; set; }
 

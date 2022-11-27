@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     @Styles.Render("~/Content/Index.css")
@@ -15,10 +16,10 @@
 
             <!--colocando as imagens-->
             <div class="slide s1">
-                <img src="Photos/Slide 1.png" alt="SlideShow 1">
+                <img src="~/Photos/Slide 1.png" alt="SlideShow 1">
             </div>
             <div class="slide">
-                <img src="Photos/Slide 2.png" alt="SlideShow 2">
+                <img src="~/Photos/Slide 2.png" alt="SlideShow 2">
             </div>
         </div>
         <!--declarando as labels-->

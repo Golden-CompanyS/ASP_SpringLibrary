@@ -64,82 +64,84 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
                 }
             }
 
-            if (ModelState.IsValid)
+            if (imgLiv != null && imgLiv.ContentLength > 0)
             {
-                if (imgLiv != null && imgLiv.ContentLength > 0)
+                if (ModelState.IsValid)
                 {
-                    string extension = Path.GetExtension(imgLiv.FileName).ToLower();
-
-                    if (extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".jpeg"))
+                    if (imgLiv != null && imgLiv.ContentLength > 0)
                     {
-                        string fileName = Hash.GenerateMD5(
-                                string.Format("{0:HH:mm:ss tt}", DateTime.Now) + imgLiv.FileName
-                            ) + extension; // Criptografar o nome do arquivo + data em MD5 para torna-lo único
+                        string extension = Path.GetExtension(imgLiv.FileName).ToLower();
 
-                        string imgPath = Path.Combine(Server.MapPath("/Photos/imgLiv/"), fileName);
-
-                        var width = Image.FromStream(imgLiv.InputStream).Width;
-                        var height = Image.FromStream(imgLiv.InputStream).Height;
-                        bool imgSaved = new ImageCrop().SaveCroppedImage(Image.FromStream(imgLiv.InputStream), width, height, imgPath);
-
-                        if (imgSaved)
+                        if (extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".jpeg"))
                         {
-                            livro.imgLiv = "/Photos/imgLiv/" + fileName;
+                            string fileName = Hash.GenerateMD5(
+                                    string.Format("{0:HH:mm:ss tt}", DateTime.Now) + imgLiv.FileName
+                                ) + extension; // Criptografar o nome do arquivo + data em MD5 para torna-lo único
+
+                            string imgPath = Path.Combine(Server.MapPath("/Photos/imgLiv/"), fileName);
+
+                            var width = Image.FromStream(imgLiv.InputStream).Width;
+                            var height = Image.FromStream(imgLiv.InputStream).Height;
+                            bool imgSaved = new ImageCrop().SaveCroppedImage(Image.FromStream(imgLiv.InputStream), width, height, imgPath);
+
+                            if (imgSaved)
+                            {
+                                livro.imgLiv = "/Photos/imgLiv/" + fileName;
+                            }
                         }
+                        else
+                        {
+                            ModelState.AddModelError("imgLiv", "A imagem deve ser do tipo .jpg/.png/.jpeg");
+                            return View(livro);
+                        }
+
+                        // Tirar autores repetidos
+                        var tempAllAutIdList = new List<int>();
+                        for (var i = 0; i < livro.autLiv.Count; i++)
+                        {
+                            tempAllAutIdList.Add(livro.autLiv[i].idAut);
+                        }
+                        var tempUniqueAutIdList = new HashSet<int>(tempAllAutIdList);
+
+                        // Passar valores à classe Livro para cadastrar
+                        Livro tempLiv = new Livro();
+                        tempLiv.ISBNLiv = livro.ISBNLiv;
+                        tempLiv.titLiv = livro.titLiv;
+                        tempLiv.titOriLiv = livro.titOriLiv;
+                        tempLiv.sinopLiv = livro.sinopLiv;
+                        tempLiv.imgLiv = livro.imgLiv;
+                        tempLiv.pratLiv = livro.pratLiv;
+                        tempLiv.numPagLiv = livro.numPagLiv;
+                        tempLiv.numEdicaoLiv = livro.numEdicaoLiv;
+                        tempLiv.anoLiv = livro.anoLiv;
+                        tempLiv.precoLiv = livro.precoLiv;
+                        tempLiv.qtdLiv = livro.qtdLiv;
+                        tempLiv.ativoLiv = livro.ativoLiv;
+                        tempLiv.editLiv = new Editora { idEdit = livro.editLiv.idEdit };
+                        tempLiv.genLiv = new Genero { idGen = livro.genLiv.idGen };
+
+                        var tempAutList = new List<Autor>();
+                        foreach (var autId in tempUniqueAutIdList)
+                        {
+                            var tempAut = new Autor { idAut = autId };
+                            tempAutList.Add(tempAut);
+                        }
+
+                        tempLiv.autLiv = tempAutList;
+                        tempLiv.funcLiv = new Funcionario { idFunc = livro.funcIdLiv };
+
+                        new Livro().cadLiv(tempLiv);
+
+                        return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        ModelState.AddModelError("imgLiv", "A imagem deve ser do tipo .jpg/.png/.jpeg");
-                        return View(livro);
-                    }
-                }
-                else
-                {
-                    livro.imgLiv = "/Photos/imgLiv/livrodefault.jpg";
                 }
 
-                // Tirar autores repetidos
-                var tempAllAutIdList = new List<int>();
-                for (var i = 0; i < livro.autLiv.Count; i++)
-                {
-                    tempAllAutIdList.Add(livro.autLiv[i].idAut);
-                }
-                var tempUniqueAutIdList = new HashSet<int>(tempAllAutIdList);
-
-                // Passar valores à classe Livro para cadastrar
-                Livro tempLiv = new Livro();
-                tempLiv.ISBNLiv = livro.ISBNLiv;
-                tempLiv.titLiv = livro.titLiv;
-                tempLiv.titOriLiv = livro.titOriLiv;
-                tempLiv.sinopLiv = livro.sinopLiv;
-                tempLiv.imgLiv = livro.imgLiv;
-                tempLiv.pratLiv = livro.pratLiv;
-                tempLiv.numPagLiv = livro.numPagLiv;
-                tempLiv.numEdicaoLiv = livro.numEdicaoLiv;
-                tempLiv.anoLiv = livro.anoLiv;
-                tempLiv.precoLiv = livro.precoLiv;
-                tempLiv.qtdLiv = livro.qtdLiv;
-                tempLiv.ativoLiv = livro.ativoLiv;
-                tempLiv.editLiv = new Editora { idEdit = livro.editLiv.idEdit };
-                tempLiv.genLiv = new Genero { idGen = livro.genLiv.idGen };
-
-                var tempAutList = new List<Autor>();
-                foreach(var autId in tempUniqueAutIdList)
-                {
-                    var tempAut = new Autor { idAut = autId };
-                    tempAutList.Add(tempAut);
-                }
-
-                tempLiv.autLiv = tempAutList;
-                tempLiv.funcLiv = new Funcionario { idFunc = livro.funcIdLiv };
-
-                new Livro().cadLiv(tempLiv);
-
-                return RedirectToAction("Index");
+                ModelState.AddModelError("imgLiv", "Selecione a imagem novamente"); // Quando a página recarrega, devolvendo o erro, a imagem deve ser selecionada novamente
             }
-
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
-
+            else
+            {
+                livro.imgLiv = "/Photos/imgLiv/livrodefault.jpg";
+            }
             passDropDownListValues();
             return View(livro);
         }
