@@ -1,28 +1,15 @@
-﻿@using ASP_SpringLibrary.Models;
+﻿
+
+@using ASP_SpringLibrary.Models;
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+@Styles.Render("~/Content/carrinho.css")
 
-<h2>Carrinho</h2>
-
-<table class="table">
-    <tr>
-        <th>Capa</th>
-
-        <th>ISBN</th>
-
-        <th>Título</th>
-
-        <th>Lançamento</th>
-
-        <th>Quantidade</th>
-
-        <th>Preço</th>
-
-        <th>Sub Total</th>
-    </tr>
+<div class="tudo">
     @{
         List<Carrinho> carrinho = (List<Carrinho>)Session["SpringCarrinho"];
     }
@@ -30,63 +17,64 @@
     {
         foreach (var produto in carrinho)
         {
-            <tr>
-                <td>
-                    <img src="@produto.livroCart.imgLiv" style="width: 128px; height: 210px; object-fit: cover;" />
-                </td>
-                <td>
-                    @produto.livroCart.ISBNLiv
-                </td>
-                <td>
-                    @produto.livroCart.titLiv
-                </td>
-                <td>
-                    @produto.livroCart.anoLiv
-                </td>
-                <td>
-                    @produto.qtdProdCart
-                </td>
-                <td>
-                    R$ @produto.livroCart.precoLiv.ToString("F")
-                </td>
-                <td>
-                    R$ @((produto.livroCart.precoLiv * produto.qtdProdCart).ToString("F"))
-                </td>
-                <td>
-                    @Html.ActionLink("Remover", "Remover", new { id = produto.livroCart.ISBNLiv },
+            <div class="imagem">
+                <img src="@produto.livroCart.imgLiv" alt="livro">
+            </div>
+            <div class="conteudo">
+                <div class="texto">
+                    <p> @produto.livroCart.titLiv</p>
+                </div>
+                <div class="quantity">
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelectPref">
+                        <option selected>@produto.qtdProdCart </option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+                <div class="preco">
+                    <h2>R$ @((produto.livroCart.precoLiv * produto.qtdProdCart).ToString("F"))</h2>
+                </div>
+                <button type="submit" id="botao">
+                    <a>
+                        @Html.ActionLink("Remover", "Remover", new { id = produto.livroCart.ISBNLiv },
                         new { onclick = "return confirm('Tem certeza que quer remover esse livro?');" })
-                </td>
-            </tr>
+                    </a>
+                </button>
+            </div><br /><br />
+
+
         }
     }
     else
     {
-        <h1>Carrinho Vazio</h1>
+        <h1>
+            Carrinho vazio :(
+        </h1>
+        <div class="bot">
+            <button type="button" class="btn">
+                <a href="@Url.Action("Index", "Livros")">Ir às Compras</a>
+            </button>
+        </div>
+
     }
 
-</table>
+    @if (carrinho != null && carrinho.Count > 0)
+    {
+        foreach (var produto in carrinho)
+        {
+            <div class="bot">
+                <button type="button" class="btn">
+                    <a href="@Url.Action("Comprar", "Carrinho")">Comprar</a>
+                </button>
+            </div>
+        }
+    }
+    else
+    {
 
-<center>
-    <button class="botao">
-        <a href="@Url.Action("Index", "Livros")">Continuar Navegando</a>
-    </button>
-    <button class="botao">
-        <a href="@Url.Action("Comprar", "Carrinho")">Comprar os Livros</a>
-    </button>
-</center>
-
-<style>
-    .botao {
-        border-radius: 14px;
-        border: none;
-        background: #F448B0;
     }
 
-    .botao > a {
-        text-decoration: none;
-        color: #fff;
-        padding: 12px;
-        display: inline-block;
-    }
-</style>
 
+</div>

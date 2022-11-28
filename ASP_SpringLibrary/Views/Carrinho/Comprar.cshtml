@@ -5,117 +5,121 @@
     ViewBag.Title = "Comprar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+@Styles.Render("~/Content/comprar.css")
 
 <h2>Comprar</h2>
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    <div class="tudo">
+        <div class="total">
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="pag">
+                <h4>Forma de Pagamento</h4>
 
-        <h3>Valor Total:</h3>
-        <h4>@Model.valNF</h4>
+                <div class="form-horizontal">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.pagNF, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.DropDownListFor(model => model.pagNF, ((IEnumerable<string>)ViewBag.Pagamentos).Select(option => new SelectListItem
-               {
-                   Text = option,
-                   Value = option,
-               }), "Selecione", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.pagNF, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.DropDownListFor(model => model.pagNF, ((IEnumerable<string>)ViewBag.Pagamentos).Select(option => new SelectListItem
+                           {
+                               Text = option,
+                               Value = option,
+                           }), "Selecione", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.pagNF, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.isDelivNF, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.isDelivNF)
-                    @Html.ValidationMessageFor(model => model.isDelivNF, "", new { @class = "text-danger" })
-                </div>
+            <div class="del">
+
+                <label> Delivery</label>
+                @Html.EditorFor(model => model.isDelivNF)
+                @Html.ValidationMessageFor(model => model.isDelivNF, "", new { @class = "text-danger" })
             </div>
+            <div id="delivery">
+                <h4>Informações de Entrega:</h4>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.clienteNF.nomCli)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.clienteNF.nomCli)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.clienteNF.emailCli)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.clienteNF.emailCli)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.clienteNF.celCli)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.clienteNF.celCli)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.clienteNF.CEPCli)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.clienteNF.CEPCli)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.clienteNF.numEndCli)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.clienteNF.numEndCli)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.clienteNF.compEndCli)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.clienteNF.compEndCli)
+                    </dd>
+                </dl>
+            </div>
+
         </div>
 
-        <div id="delivery">
-            <h3>Informações de Entrega:</h3>
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.clienteNF.nomCli)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.clienteNF.nomCli)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.clienteNF.emailCli)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.clienteNF.emailCli)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.clienteNF.celCli)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.clienteNF.celCli)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.clienteNF.CEPCli)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.clienteNF.CEPCli)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.clienteNF.numEndCli)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.clienteNF.numEndCli)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.clienteNF.compEndCli)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.clienteNF.compEndCli)
-                </dd>
-            </dl>
-        </div>
         
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <h3>Total: R$ @Model.valNF</h3>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Comprar" class="btn btn-default" />
-            </div>
-        </div>
+    <div class="bot">
+
+        <button type="button" class="btn">Comprar</button>
     </div>
 }
 
-    <div>
-        @Html.ActionLink("Voltar ao carrinho", "Index")
-    </div>
 
-    @section Scripts {
-        <script>
-            $('#delivery').attr("style", "display:none;")
+@section Scripts {
+    <script>
+        $('#delivery').attr("style", "display:none;")
 
-            $("#isDelivNF").change(function () {
-                let check = $('#isDelivNF').is(':checked');
+        $("#isDelivNF").change(function () {
+            let check = $('#isDelivNF').is(':checked');
 
-                if (!check) {
-                    $('#delivery').attr("style", "display:none;")
-                }
-                else {
-                    $('#delivery').attr("style", "display:block;")
-                }
-            });
-        </script>
-    }
+            if (!check) {
+                $('#delivery').attr("style", "display:none;")
+            }
+            else {
+                $('#delivery').attr("style", "display:block;")
+            }
+        });
+    </script>
+}

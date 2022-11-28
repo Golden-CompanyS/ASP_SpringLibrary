@@ -19,9 +19,9 @@
                 </a>
             </li>
             <li>
-            <li>@Html.ActionLink("LIVROS", "Index", "Livros")</li> <!-- /Livros/Index -->
-            <li>@Html.ActionLink("SOBRE", "Sobre", "Home")</li> <!-- /Home/Sobre -->
-            <li>@Html.ActionLink("CONTATO", "Contato", "Home")</li> <!-- /Home/Contato -->
+            <li>@Html.ActionLink("Livros", "Index", "Livros")</li> <!-- /Livros/Index -->
+            <li>@Html.ActionLink("Sobre", "Sobre", "Home")</li> <!-- /Home/Sobre -->
+            <li>@Html.ActionLink("Contato", "Contato", "Home")</li> <!-- /Home/Contato -->
             </li>
             <li class="rightIcons">
                 <a href='@Url.Action("Login", "Cliente", new { controller = "Cliente" })'>
@@ -40,14 +40,7 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <center>
-                <h6>
-                    &copy; @DateTime.Now.Year - Meu Aplicativo ASP.NET
-                </h6>
-            </center>
-        </footer>
+        
     </div>
 
     @Scripts.Render("~/bundles/jquery")

@@ -226,10 +226,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\about.css" />
     <Content Include="Content\CadLiv.css" />
+    <Content Include="Content\carrinho.css" />
+    <Content Include="Content\comprar.css" />
     <Content Include="Content\contato.css" />
     <Content Include="Content\Index.css" />
     <Content Include="Content\LivroEsp.css" />
     <Content Include="Content\nav.css" />
+    <Content Include="Content\livro.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Front e Banco\Banco de dados\ASP - diagrama conceitual.png" />

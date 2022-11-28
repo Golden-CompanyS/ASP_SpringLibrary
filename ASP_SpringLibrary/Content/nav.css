@@ -33,7 +33,7 @@
 }
 
 a{
-    color:#fff  !important;
+    color:#fff;
 }
 
 .rightIcons {
@@ -85,12 +85,3 @@ a{
         font-size: 20px;
     }
 
-footer {
-    background-color: #ff9cc4;
-    color:#fff;
-}
-
-    p{
-        font-size:1em;
-        text-align:center;
-    }
