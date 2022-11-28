@@ -233,6 +233,7 @@
     <Content Include="Content\LivroEsp.css" />
     <Content Include="Content\nav.css" />
     <Content Include="Content\livro.css" />
+    <Content Include="Content\userLogin.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Front e Banco\Banco de dados\ASP - diagrama conceitual.png" />
@@ -270,6 +271,8 @@
     <Content Include="Front e Banco\Teste de front\resources\Line.png" />
     <Content Include="Front e Banco\Teste de front\resources\logo.png" />
     <Content Include="Front e Banco\Teste de front\resources\logo2.png" />
+    <Content Include="Photos\aside-image.png" />
+    <Content Include="Photos\logo.png" />
     <Content Include="Photos\Slide 1.png" />
     <Content Include="Photos\Slide 2.png" />
     <Content Include="Front e Banco\Teste de front\resources\trash.png" />
