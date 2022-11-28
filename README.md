@@ -1,8 +1,6 @@
 # Sistema http://ASP.Net Spring Library
 
-<img src="![logo2](https://user-images.githubusercontent.com/85740476/204178589-2270e9eb-7034-43c0-8af6-3489983b76a2.png)
-" alt="logo"/>
-
+![Logo_Tema_Claro](https://user-images.githubusercontent.com/80417466/204179176-1fa554bd-87bd-42e0-91bc-16cbea4c4591.png)
 
 ## Desenvolvedores da aplicação 
 Maria Eduarda Rodrigues
@@ -42,7 +40,9 @@ O primeiro passo essencial é executar o banco de dados por completo, tanto o "d
 
 ## Andamento do projeto
 
-Concluído! (tem imagem no meu readme se qujser colocar)
+<p align = "center">
+<img src="http://img.shields.io/static/v1?label=STATUS&message=CONCLUIDO&color=GREEN&style=for-the-badge"/>
+</p>
 
 ## Copyright 
 
