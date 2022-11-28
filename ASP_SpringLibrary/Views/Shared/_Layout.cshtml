@@ -35,6 +35,7 @@
         @using (Html.BeginForm("Index", "Livros", FormMethod.Get))
         {
             <div class="busca">
+                <input id="filter" name="filter" type="hidden" value="titulo" />
                 <input id="busca" name="busca" class="barra" placeholder="Pesquise por um livro, autor ou editora">
                 <button class="btnbusca" type="submit">Buscar</button>
             </div>

@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<ASP_SpringLibrary.ViewModels.Livro.LivrosHomeViewModel>
 @using ASP_SpringLibrary.ViewModels.Livro
+@using ASP_SpringLibrary.Areas.Dashboard.ViewModels.Editora
+@using ASP_SpringLibrary.Areas.Dashboard.ViewModels.Genero
+@using ASP_SpringLibrary.Areas.Dashboard.ViewModels.Autor
 
 @{
     ViewBag.Title = "Index";
@@ -18,23 +21,74 @@
 
 
 <div class="content" style="width: 100%">
-    <h1>Indicações</h1>
+    <h1>Nossos Livros</h1>
+    @if (ViewBag.Busca != null)
+    {
+        <h2>Resultados para: '@ViewBag.Busca'</h2>
+    }
 
-        <div class="fotos" style=" text-align: center; justify-content: center;">
-            @foreach (var tempLiv in Model)
-            {
-                <div class="item current-item">
-                    <a href="@Url.Action("Detalhes", "Livros", new { id = tempLiv.ISBNLiv })">
-                        <img src="@Url.Content(tempLiv.imgLiv)" />
-                        <h3>@tempLiv.titLiv</h3>
-                        <h2>R$ @tempLiv.precoLiv.ToString("F")</h2>
-                    </a>
-                    <button class="botao btn-primary">
-                        <a href="@Url.Action("AdicionarCarrinho", "Carrinho", new { id = tempLiv.ISBNLiv })">Adicionar ao carrinho</a>
-                    </button>
-                </div>
-            }
-        </div>
+    <div class="filters">
+        @using (Html.BeginForm("Index", "Livros", FormMethod.Get))
+        {
+            <div>
+                <h3>Editoras</h3>
+                <input id="filter" name="filter" type="hidden" value="editora" />
+                <select id="busca" name="busca" onchange="this.form.submit()">
+                    <option value>Selecione</option>
+                    @foreach (var edit in (IEnumerable<EditoraDropDownViewModel>)ViewBag.Editoras)
+                    {
+                        <option value="@edit.nomEdit">@edit.nomEdit</option>
+                    }
+                </select>
+            </div>
+        }
+
+        @using (Html.BeginForm("Index", "Livros", FormMethod.Get))
+        {
+            <div>
+                <h3>Gêneros</h3>
+                <input id="filter" name="filter" type="hidden" value="genero" />
+                <select id="busca" name="busca" onchange="this.form.submit()">
+                    <option value>Selecione</option>
+                    @foreach (var gen in (IEnumerable<GeneroDropDownViewModel>)ViewBag.Generos)
+                    {
+                        <option value="@gen.nomGen">@gen.nomGen</option>
+                    }
+                </select>
+            </div>
+        }
+
+        @using (Html.BeginForm("Index", "Livros", FormMethod.Get))
+        {
+            <div>
+                <h3>Autores</h3>
+                <input id="filter" name="filter" type="hidden" value="autor" />
+                <select id="busca" name="busca" onchange="this.form.submit()">
+                    <option value>Selecione</option>
+                    @foreach (var aut in (IEnumerable<AutorDropDownViewModel>)ViewBag.Autores)
+                    {
+                        <option value="@aut.nomAut">@aut.nomAut</option>
+                    }
+                </select>
+            </div>
+        }
+    </div>
+
+    <div class="fotos" style=" text-align: center; justify-content: center;">
+        @foreach (var tempLiv in Model)
+        {
+            <div class="item current-item">
+                <a href="@Url.Action("Detalhes", "Livros", new { id = tempLiv.ISBNLiv })">
+                    <img src="@Url.Content(tempLiv.imgLiv)" />
+                    <h3>@tempLiv.titLiv</h3>
+                    <h2>R$ @tempLiv.precoLiv.ToString("F")</h2>
+                </a>
+                <button class="botao btn-primary">
+                    <a href="@Url.Action("AdicionarCarrinho", "Carrinho", new { id = tempLiv.ISBNLiv })">Adicionar ao carrinho</a>
+                </button>
+            </div>
+        }
+    </div>
 
 </div>
 

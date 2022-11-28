@@ -156,3 +156,15 @@ h3 {
     display: block;
     font-size: 18px;
 }
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.filters select {
+    width: 140px;
+    font-size: 24px;
+    border-radius: 10px;
+}
