@@ -12,7 +12,7 @@
     @Styles.Render("~/Content/CadLiv.css")
     <h2>Livros</h2>
 
-    <form>
+    <div class="formulario">
         @using (Html.BeginForm("Cadastrar", "Livro", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
@@ -202,42 +202,51 @@
             <button type="submit" class="btn btn-lg" id="cad">Cadastrar</button>
         </div>
         }
-    </form>
+    </div>
 
 
     @section Scripts {
         <script>
-        let GroupAuthor = document.querySelector("#autGroup");
-        console.log(GroupAuthor);
-        let i = parseInt(document.getElementById('numAut').value) - 1;
+            let GroupAuthor = document.querySelector("#autGroup");
+            console.log(GroupAuthor);
+            let i = parseInt(document.getElementById('numAut').value) - 1;
 
-        let buttonAddAuthor = document.querySelector(".add-author");
-        buttonAddAuthor.addEventListener("click", () => {
-            i++;
+            let buttonAddAuthor = document.querySelector("#add");
+            buttonAddAuthor.addEventListener("click", () => {
+                i++;
 
-            var newDropDown = document.createElement('div');
-                newDropDown.className = "form-group";
-                newDropDown.innerHTML = `
-                <div class="form-group form-group-author">
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.DropDownListFor(model => model.autLiv[-1].idAut, ((IEnumerable<AutorDropDownViewModel>)ViewBag.Autores).Select(option => new SelectListItem
-                       {
-                           Text = option.nomAut,
-                           Value = option.idAut.ToString(),
-                           Selected = false
-                       }), "Selecione", new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.autLiv[-1], "", new { @class = "text-danger" })
+                var newDropDown = document.createElement('div');
+                    newDropDown.className = "form-group";
+                    newDropDown.id = "aut"+i;
+                    newDropDown.innerHTML = `
+                    <div class="form-group form-group-author">
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.DropDownListFor(model => model.autLiv[-1].idAut, ((IEnumerable<AutorDropDownViewModel>)ViewBag.Autores).Select(option => new SelectListItem
+                           {
+                               Text = option.nomAut,
+                               Value = option.idAut.ToString(),
+                               Selected = false
+                           }), "Selecione", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.autLiv[-1], "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                </div>`;
+                    </div>`;
 
-            GroupAuthor.appendChild(newDropDown);
+                GroupAuthor.appendChild(newDropDown);
 
-            $("#autGroup > div.form-group:nth-child(" + (i + 2) + ") select").attr("id", "autLiv_" + i + "__idAut")
-            $("#autGroup > div.form-group:nth-child(" + (i + 2) + ") select").attr("name", "autLiv[" + i + "].idAut")
-            $("#autGroup > div.form-group:nth-child(" + (i + 2) + ") span").attr("data-valmsg-for", "autLiv[" + i + "]")
-        });
+                $("#autGroup > div.form-group:nth-child(" + (i + 2) + ") select").attr("id", "autLiv_" + i + "__idAut")
+                $("#autGroup > div.form-group:nth-child(" + (i + 2) + ") select").attr("name", "autLiv[" + i + "].idAut")
+                $("#autGroup > div.form-group:nth-child(" + (i + 2) + ") span").attr("data-valmsg-for", "autLiv[" + i + "]")
+            });
+
+            let buttonDelAuthor = document.querySelector("#del");
+            buttonDelAuthor.addEventListener("click", () => {
+
+                $("#aut" + i + "").remove();
+                i--;
+
+            });
 
         </script>
     }
