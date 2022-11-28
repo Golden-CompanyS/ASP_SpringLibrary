@@ -25,17 +25,20 @@
             </li>
             <li class="rightIcons">
                 <a href='@Url.Action("Login", "Cliente", new { controller = "Cliente" })'>
-                <img src="~/Photos/user.png">
-            </a>
+                    <img src="~/Photos/user.png">
+                </a>
                 <a href='@Url.Action("Index", "Carrinho", new { controller = "Carrinho" })'>
-                <img src="~/Photos/carrinho.png">
-            </a>
+                    <img src="~/Photos/carrinho.png">
+                </a>
             </li>
         </ul>
-        <form class="busca">
-            <input class="barra" placeholder="Pesquise por um livro, autor ou editora">
-            <button class="btnbusca" type="submit">Buscar</button>
-        </form>
+        @using (Html.BeginForm("Index", "Livros", FormMethod.Get))
+        {
+            <div class="busca">
+                <input id="busca" name="busca" class="barra" placeholder="Pesquise por um livro, autor ou editora">
+                <button class="btnbusca" type="submit">Buscar</button>
+            </div>
+        }
     </nav>
 
     <div class="container body-content">

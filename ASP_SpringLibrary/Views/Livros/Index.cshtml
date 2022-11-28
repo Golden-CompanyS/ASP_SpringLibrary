@@ -8,21 +8,31 @@
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+    div.body-content {
+        width: 90%;
+    }
+</style>
 @Styles.Render("~/Content/Index.css")
 
 
 
-<div class="content">
+<div class="content" style="width: 100%">
     <h1>Indicações</h1>
 
-        <div class="fotos">
+        <div class="fotos" style=" text-align: center; justify-content: center;">
             @foreach (var tempLiv in Model)
             {
-                <a href="@Url.Action("Detalhes", "Livros", new { id = tempLiv.ISBNLiv })" class="item current-item">
-                    <img src="@Url.Content(tempLiv.imgLiv)" />
-                    <h3>@tempLiv.titLiv</h3>
-                    <h2>R$ @tempLiv.precoLiv.ToString("F")</h2>
-                </a>
+                <div class="item current-item">
+                    <a href="@Url.Action("Detalhes", "Livros", new { id = tempLiv.ISBNLiv })">
+                        <img src="@Url.Content(tempLiv.imgLiv)" />
+                        <h3>@tempLiv.titLiv</h3>
+                        <h2>R$ @tempLiv.precoLiv.ToString("F")</h2>
+                    </a>
+                    <button class="botao btn-primary">
+                        <a href="@Url.Action("AdicionarCarrinho", "Carrinho", new { id = tempLiv.ISBNLiv })">Adicionar ao carrinho</a>
+                    </button>
+                </div>
             }
         </div>
 

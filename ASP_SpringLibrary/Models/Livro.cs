@@ -188,11 +188,12 @@ namespace ASP_SpringLibrary.Models
             if (filter != "editora" &&
                 filter != "autor" &&
                 filter != "genero" &&
+                filter != "titulo" &&
                 filter != "lancamentos" &&
                 filter != "populares" &&
                 filter != "ate12reais")
             {
-                throw new InvalidOperationException("Invalid filter parameter. Use \"editora\", \"autor\", \"genero\", \"lancamentos\", \"populares\" or \"ate12reais\"."); ;
+                throw new InvalidOperationException("Invalid filter parameter. Use \"editora\", \"autor\", \"genero\", \"titulo\", \"lancamentos\", \"populares\" or \"ate12reais\"."); ;
             }
 
             switch (filter)
@@ -205,6 +206,12 @@ namespace ASP_SpringLibrary.Models
                     break;
                 case "genero":
                     command.CommandText = "CALL spcheckAllLivByGen(@query);"; // SELECIONAR PELO GENERO
+                    break;
+                case "titulo":
+                    command.CommandText = "SELECT ISBNLiv, titLiv, imgLiv, precoLiv         " +
+                                          "   FROM tblivro                                  " +
+                                          "   WHERE titLiv LIKE concat('%', @query, '%') or " +
+                                          "         titOriLiv LIKE concat('%', @query, '%');"; // SELECIONAR PELO TITULO
                     break;
                 case "lancamentos":
                     command.CommandText = "SELECT ISBNLiv, titLiv, imgLiv, precoLiv FROM tbLivro            " +

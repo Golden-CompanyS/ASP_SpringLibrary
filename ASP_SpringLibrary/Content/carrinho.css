@@ -21,19 +21,22 @@ h1 {
     width: 7vw;
     height: 10vw;
     border-radius: 10px;
+    margin-right: 16px;
 }
 
 .conteudo {
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
 }
 
 .texto {
     font-size: 2em;
     padding-right: 5em;
+    width: 500px;
+    font-size: 24px;
 }
 
 #botao {
@@ -110,6 +113,10 @@ h4 {
 a{
     text-decoration:none;
     color:#fff;
+}
+#botao a {
+    text-decoration: underline;
+    color: #337ab7;
 }
 .nao{
     cursor:not-allowed;

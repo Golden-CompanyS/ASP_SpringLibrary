@@ -11,10 +11,20 @@ namespace ASP_SpringLibrary.Controllers
     public class LivrosController : Controller
     {
         // GET: Livros
-        public ActionResult Index()
+        public ActionResult Index(string busca)
         {
-            var tempLivList = new Livro().checkAllLiv();
+            var tempLivList = new List<Livro>();
             var tempLivViewList = new List<LivrosHomeViewModel>();
+
+            if (busca == null)
+            {
+                tempLivList = new Livro().checkAllLiv();
+            }
+            else
+            {
+                tempLivList = new Livro().checkAllLivByFilter("titulo", busca);
+            }
+
             
             foreach(var tempLiv in tempLivList)
             {

@@ -1,6 +1,4 @@
-﻿
-
-@using ASP_SpringLibrary.Models;
+﻿@using ASP_SpringLibrary.Models;
 
 @{
     ViewBag.Title = "Index";
@@ -17,20 +15,16 @@
     {
         foreach (var produto in carrinho)
         {
-            <div class="imagem">
-                <img src="@produto.livroCart.imgLiv" alt="livro">
-            </div>
+
             <div class="conteudo">
+                <div class="imagem">
+                    <img src="@produto.livroCart.imgLiv" alt="livro">
+                </div>
                 <div class="texto">
-                    <p> @produto.livroCart.titLiv</p>
+                    <p>@produto.livroCart.titLiv</p>
                 </div>
                 <div class="quantity">
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelectPref">
-                        <option selected>@produto.qtdProdCart </option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
+                    <p>@produto.qtdProdCart item(s)</p>
                 </div>
 
                 <div class="preco">
@@ -42,10 +36,14 @@
                         new { onclick = "return confirm('Tem certeza que quer remover esse livro?');" })
                     </a>
                 </button>
-            </div><br /><br />
-
-
+            </div><br /><hr /><br />
         }
+
+        <div class="bot">
+            <button type="button" class="btn">
+                <a href="@Url.Action("Comprar", "Carrinho")">Comprar</a>
+            </button>
+        </div>
     }
     else
     {
@@ -59,22 +57,5 @@
         </div>
 
     }
-
-    @if (carrinho != null && carrinho.Count > 0)
-    {
-        foreach (var produto in carrinho)
-        {
-            <div class="bot">
-                <button type="button" class="btn">
-                    <a href="@Url.Action("Comprar", "Carrinho")">Comprar</a>
-                </button>
-            </div>
-        }
-    }
-    else
-    {
-
-    }
-
 
 </div>
