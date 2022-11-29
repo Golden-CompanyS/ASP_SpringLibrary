@@ -4,10 +4,11 @@ body {
     display: flex;
     font-family: 'Roboto', sans-serif !important;
     font-size: 20px;
+    flex-wrap:wrap;
 }
 
 aside img {
-    height: 100vh;
+    height: 75vh;
     width: 50vw;
 }
 
@@ -24,6 +25,7 @@ aside img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0 5vw 0 5vw;
 }
 
     .formContainer label {
@@ -88,7 +90,15 @@ aside img {
     margin-top: 10px;
 }
 
-    .btn:hover {
-        color: white;
-        box-shadow: 1px 1px 1px 5px #7030a0;
-    }
+.btn:hover {
+    color: white;
+    box-shadow: 2px 2px 5px #7030a0;
+}
+
+.container {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display:flex;
+}
