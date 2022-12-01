@@ -1,4 +1,5 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using ASP_SpringLibrary.Utils;
+using Microsoft.Ajax.Utilities;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -100,6 +101,58 @@ namespace ASP_SpringLibrary.Models
             connection.Close();
 
             return tempCli;
+        }
+
+        public int cliIdIfLoginExists(string email, string senha)
+        {
+            connection.Open();
+            command.CommandText = "SELECT idCli, senhaCli FROM tbCliente WHERE emailCli = @email;";
+                command.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
+                command.Connection = connection;
+
+            var readCli = command.ExecuteReader();
+            var tempCli = new Cliente();
+
+            if (readCli.Read())
+            {
+                tempCli.idCli = int.Parse(readCli["idCli"].ToString());
+                tempCli.senhaCli = readCli["senhaCli"].ToString();
+            }
+
+            readCli.Close();
+            connection.Close();
+
+            if (Hash.CompareBCrypt(senha, tempCli.senhaCli))
+            {
+                return tempCli.idCli;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public bool isCli(string email)
+        {
+            connection.Open();
+            command.CommandText = "SELECT * FROM tbCliente WHERE emailCli = @email;";
+                command.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
+                command.Connection = connection;
+
+            var readCli = command.ExecuteReader();
+
+            if (readCli.Read())
+            {
+                readCli.Close();
+                connection.Close();
+                return true;
+            }
+            else
+            {
+                readCli.Close();
+                connection.Close();
+                return false;
+            }
         }
     }
 }

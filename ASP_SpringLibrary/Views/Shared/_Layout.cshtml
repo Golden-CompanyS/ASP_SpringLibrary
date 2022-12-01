@@ -19,15 +19,15 @@
                 </a>
             </li>
             <li>
-            <li>@Html.ActionLink("Livros", "Index", "Livros")</li> <!-- /Livros/Index -->
+            <li>@Html.ActionLink("Livros", "Index", "Livros", new { area = "" })</li> <!-- /Livros/Index -->
             <li>@Html.ActionLink("Sobre", "Sobre", "Home")</li> <!-- /Home/Sobre -->
             <li>@Html.ActionLink("Contato", "Contato", "Home")</li> <!-- /Home/Contato -->
             </li>
             <li class="rightIcons">
-                <a href='@Url.Action("Login", "Cliente", new { controller = "Cliente" })'>
+                <a href='@Url.Action("Login", "Cliente", new { controller = "Cliente", Area = "" })'>
                     <img src="~/Photos/user.png">
                 </a>
-                <a href='@Url.Action("Index", "Carrinho", new { controller = "Carrinho" })'>
+                <a href='@Url.Action("Index", "Carrinho", new { controller = "Carrinho", Area = "" })'>
                     <img src="~/Photos/carrinho.png">
                 </a>
             </li>

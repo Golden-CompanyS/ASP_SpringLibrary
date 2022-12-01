@@ -16,6 +16,7 @@ using Image = System.Drawing.Image;
 
 namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
 {
+    [CustomAuthorize("Funcionário")]
     public class LivroController : Controller
     {
         // GET: Dashboard/Livro

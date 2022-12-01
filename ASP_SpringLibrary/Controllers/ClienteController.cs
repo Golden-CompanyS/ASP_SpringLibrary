@@ -1,9 +1,13 @@
 ﻿using ASP_SpringLibrary.Models;
 using ASP_SpringLibrary.Utils;
 using ASP_SpringLibrary.ViewModels.Cliente;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -137,6 +141,13 @@ namespace ASP_SpringLibrary.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            var identity = (ClaimsPrincipal) Thread.CurrentPrincipal;
+            var userName = identity.Claims.Where(c => c.Type == ClaimTypes.Name)
+                                                      .Select(c => c.Value).SingleOrDefault();
+            if (userName != null)
+            {
+                return RedirectToAction("Dados");
+            }
             return View();
         }
 
@@ -145,12 +156,53 @@ namespace ASP_SpringLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View(viewModel);
+                var email = viewModel.emailCli;
+                var senha = viewModel.senhaCli;
+
+                int idCli = new Cliente().cliIdIfLoginExists(email, senha);
+                int idFunc = new Funcionario().funcIdIfLoginExists(email, senha);
+
+                if (idCli > 0 || idFunc > 0)
+                {
+                    this.SignInUser(viewModel.emailCli, false);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("senhaCli", "Login e/ou senha inválidos.");
+                }
             }
 
-            //var cliente = new Cliente().LoginExits(viewModel.)
+            return View(viewModel);
+        }
 
-            return RedirectToAction("Index");
+        private void SignInUser(string username, bool isPersistent)
+        {
+            var claims = new List<Claim>();
+
+            try
+            {
+                claims.Add(new Claim(ClaimTypes.Name, username));
+                claims.Add(new Claim("Login", username));
+                var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+                var ctx = Request.GetOwinContext();
+                var authenticationManager = ctx.Authentication;
+
+                authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, claimIdenties);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        //[CustomAuthorize("Cliente", "Funcionário")]
+        public ActionResult Logout()
+        {
+            var ctx = Request.GetOwinContext();
+            var authenticationManager = ctx.Authentication;
+            authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Login", "Cliente");
         }
     }
 }

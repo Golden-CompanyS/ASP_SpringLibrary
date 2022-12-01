@@ -1,4 +1,5 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using ASP_SpringLibrary.Utils;
+using Microsoft.Ajax.Utilities;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -169,6 +170,58 @@ namespace ASP_SpringLibrary.Models
             connection.Close();
 
             return tempFunc;
+        }
+
+        public int funcIdIfLoginExists(string email, string senha)
+        {
+            connection.Open();
+            command.CommandText = "SELECT idFunc, senhaFunc FROM tbFuncionario WHERE emailFunc = @email;";
+                command.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
+                command.Connection = connection;
+
+            var readFunc = command.ExecuteReader();
+            var tempFunc = new Funcionario();
+
+            if (readFunc.Read())
+            {
+                tempFunc.idFunc = int.Parse(readFunc["idFunc"].ToString());
+                tempFunc.senhaFunc = readFunc["senhaFunc"].ToString();
+            }
+
+            readFunc.Close();
+            connection.Close();
+
+            if (Hash.CompareBCrypt(senha, tempFunc.senhaFunc))
+            {
+                return tempFunc.idFunc;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public bool isFunc(string email)
+        {
+            connection.Open();
+            command.CommandText = "SELECT * FROM tbfuncionario WHERE emailFunc = @email;";
+                command.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
+                command.Connection = connection;
+
+            var readFunc = command.ExecuteReader();
+
+            if (readFunc.Read())
+            {
+                readFunc.Close();
+                connection.Close();
+                return true;
+            }
+            else
+            {
+                readFunc.Close();
+                connection.Close();
+                return false;
+            }
         }
     }
 }

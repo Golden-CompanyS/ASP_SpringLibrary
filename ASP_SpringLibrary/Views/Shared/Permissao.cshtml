@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Erro</title>
+</head>
+<body>
+    <hgroup>
+        <h1>Sem permissão</h1>
+        <h2>Você não tem acesso a essa página.</h2>
+        <a href="@Url.Action("Login", "Cliente", new { controller = "Cliente", Area = "" })">Faça login!</a>
+    </hgroup>
+</body>
+</html>
+
+<style>
+    hgroup {
+        text-align: center;
+    }
+</style>

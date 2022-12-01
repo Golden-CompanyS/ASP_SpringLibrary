@@ -1,4 +1,5 @@
 ﻿using ASP_SpringLibrary.Models;
+using ASP_SpringLibrary.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using Ubiety.Dns.Core.Common;
 
 namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
 {
+    [CustomAuthorize("Funcionário")]
     public class EditoraController : Controller
     {
         // GET: Dashboard/Editora

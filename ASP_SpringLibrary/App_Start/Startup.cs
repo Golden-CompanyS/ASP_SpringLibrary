@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System;
@@ -15,11 +16,13 @@ namespace ASP_SpringLibrary.App_Start
         {
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationType = "AppAplicationCookie",
-                LoginPath = new PathString("/Usuario/Login")
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Cliente/Login"),
+                LogoutPath = new PathString("/Cliente/Logout"),
+                ExpireTimeSpan = TimeSpan.FromMinutes(30.0)
             });
 
-            //AntiForgeryConfig.UniqueClaimTypeIdentifier = "Login";
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = "Login";
         }
     }
 }

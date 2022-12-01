@@ -1069,3 +1069,9 @@ C:\Users\dudar\Documents\GitHub\ASP_SpringLibrary\ASP_SpringLibrary\obj\Debug\AS
 C:\Users\dudar\Documents\GitHub\ASP_SpringLibrary\ASP_SpringLibrary\obj\Debug\ASP_SpringLibrary.csproj.CopyComplete
 C:\Users\dudar\Documents\GitHub\ASP_SpringLibrary\ASP_SpringLibrary\obj\Debug\ASP_SpringLibrary.dll
 C:\Users\dudar\Documents\GitHub\ASP_SpringLibrary\ASP_SpringLibrary\obj\Debug\ASP_SpringLibrary.pdb
+C:\Users\mateu\source\repos\ASP_SpringLibrary\ASP_SpringLibrary\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\mateu\source\repos\ASP_SpringLibrary\ASP_SpringLibrary\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\mateu\source\repos\ASP_SpringLibrary\ASP_SpringLibrary\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\mateu\source\repos\ASP_SpringLibrary\ASP_SpringLibrary\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\mateu\source\repos\ASP_SpringLibrary\ASP_SpringLibrary\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\mateu\source\repos\ASP_SpringLibrary\ASP_SpringLibrary\bin\Microsoft.Owin.Security.OAuth.xml
