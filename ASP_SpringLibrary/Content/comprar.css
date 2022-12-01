@@ -5,6 +5,11 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.container > div {
+    width: 50%;
+    margin: 0 auto;
+}
+
 .tudo {
     margin-top: 8vh;
     width: 90%;
@@ -110,9 +115,17 @@ h4 {
     font-size: 2em;
     color: #fff;
     background: #F448B0;
-    width: 13vw;
+    width: 170px;
     border-radius: 1em;
+    padding: 0;
 }
+
+    .btn a {
+        width: 100%;
+        display: block;
+        height: 100%;
+        padding: 6px 12px;
+    }
 
 a {
     text-decoration: none;

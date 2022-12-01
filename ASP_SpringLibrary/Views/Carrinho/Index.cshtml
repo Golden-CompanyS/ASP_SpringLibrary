@@ -10,6 +10,7 @@
 <div class="tudo">
     @{
         List<Carrinho> carrinho = (List<Carrinho>)Session["SpringCarrinho"];
+        decimal total = 0;
     }
     @if (carrinho != null && carrinho.Count > 0)
     {
@@ -28,21 +29,31 @@
                 </div>
 
                 <div class="preco">
-                    <h2>R$ @((produto.livroCart.precoLiv * produto.qtdProdCart).ToString("F"))</h2>
+                    <h2>R$ @((produto.livroCart.precoLiv * produto.qtdProdCart).ToString("F"))
+                           @{total += (produto.livroCart.precoLiv * produto.qtdProdCart);}
+                    </h2>
                 </div>
                 <button type="submit" id="botao">
-                    <a>
-                        @Html.ActionLink("Remover", "Remover", new { id = produto.livroCart.ISBNLiv },
-                        new { onclick = "return confirm('Tem certeza que quer remover esse livro?');" })
-                    </a>
+                    @Html.ActionLink("Remover", "Remover", new { id = produto.livroCart.ISBNLiv },
+                    new { onclick = "return confirm('Tem certeza que quer remover esse livro?');" })
                 </button>
             </div><br /><hr /><br />
         }
 
         <div class="bot">
-            <button type="button" class="btn">
-                <a href="@Url.Action("Comprar", "Carrinho")">Comprar</a>
-            </button>
+            <h2>Total: R$ @total.ToString("F")</h2>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="@Url.Action("Comprar", "Carrinho")">
+                    <button class="btn">Comprar</button>
+                </a>
+            }
+            else
+            {
+                <a href='@Url.Action("Login", "Cliente", new { controller = "Cliente", Area = "", urlRetorno = Request.Url.AbsolutePath })'>
+                    <button class="btn">Comprar</button>
+                </a>
+            }
         </div>
     }
     else
@@ -50,10 +61,11 @@
         <h1>
             Carrinho vazio :(
         </h1>
+
         <div class="bot">
-            <button type="button" class="btn">
-                <a href="@Url.Action("Index", "Livros")">Ir às Compras</a>
-            </button>
+            <a href="@Url.Action("Index", "Livros")">
+                <button class="btn">Ir às Compras</button>
+            </a>
         </div>
 
     }

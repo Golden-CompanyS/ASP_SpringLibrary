@@ -139,7 +139,7 @@ namespace ASP_SpringLibrary.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string urlRetorno)
         {
             var identity = (ClaimsPrincipal) Thread.CurrentPrincipal;
             var userName = identity.Claims.Where(c => c.Type == ClaimTypes.Name)
@@ -148,7 +148,13 @@ namespace ASP_SpringLibrary.Controllers
             {
                 return RedirectToAction("Dados");
             }
-            return View();
+
+            var viewModel = new LoginClienteViewModel
+            {
+                urlRetorno = urlRetorno != null || urlRetorno != "" ? urlRetorno : "~/Home/Index"
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -160,30 +166,55 @@ namespace ASP_SpringLibrary.Controllers
                 var senha = viewModel.senhaCli;
 
                 int idCli = new Cliente().cliIdIfLoginExists(email, senha);
-                int idFunc = new Funcionario().funcIdIfLoginExists(email, senha);
-
-                if (idCli > 0 || idFunc > 0)
+                if (idCli > 0)
                 {
-                    this.SignInUser(viewModel.emailCli, false);
-                    return RedirectToAction("Index");
+                    var tempCli = new Cliente().checkCliById(idCli);
+                    this.SignInUser(tempCli.emailCli, false);
+
+                    if (Url.IsLocalUrl(viewModel.urlRetorno))
+                    {
+                        return Redirect(viewModel.urlRetorno);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("senhaCli", "Login e/ou senha inválidos.");
+                    int idFunc = new Funcionario().funcIdIfLoginExists(email, senha);
+                    if (idFunc > 0)
+                    {
+                        var tempFunc = new Funcionario().checkFuncById(idFunc);
+                        this.SignInUser(tempFunc.emailFunc, false);
+
+                        if (Url.IsLocalUrl(viewModel.urlRetorno))
+                        {
+                            return Redirect(viewModel.urlRetorno);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("senhaCli", "Login e/ou senha inválidos.");
+                    }
                 }
             }
 
             return View(viewModel);
         }
 
-        private void SignInUser(string username, bool isPersistent)
+        private void SignInUser(string email, bool isPersistent)
         {
             var claims = new List<Claim>();
 
             try
             {
-                claims.Add(new Claim(ClaimTypes.Name, username));
-                claims.Add(new Claim("Login", username));
+                claims.Add(new Claim(ClaimTypes.Name, email));
+                claims.Add(new Claim("Login", email));
                 var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
                 var ctx = Request.GetOwinContext();
                 var authenticationManager = ctx.Authentication;

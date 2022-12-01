@@ -16,14 +16,16 @@
     {
         @Html.AntiForgeryToken()
 
+        @Html.HiddenFor(model => model.urlRetorno) <!-- ID 0 escondido para passar à Controller -->
+
         @Html.DisplayNameFor(model => model.emailCli)
         @Html.EditorFor(model => model.emailCli, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.emailCli, "", new { @class = "text-danger" })
-
+        <br />
         @Html.DisplayNameFor(model => model.senhaCli)
         @Html.EditorFor(model => model.senhaCli, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.senhaCli, "", new { @class = "text-danger" })
-        <br>
+        <br />
         <div id="formEnd">
             <a href="@Url.Action("Cadastro")">Não possui cadastro?</a>
             <br>

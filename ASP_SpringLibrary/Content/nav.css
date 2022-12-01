@@ -44,10 +44,26 @@ a{
 
     .rightIcons img {
         margin-left: 1vw;
+        margin-right: 1vw;
         width: 1.5vw;
         height: 3vh;
         object-fit: contain;
     }
+
+    .rightIcons > a {
+        display: inline-flex;
+        vertical-align: middle;
+        align-items: center;
+    }
+
+    .rightIcons > a:hover, a:visited {
+        color: #fff;
+        text-decoration: none;
+    }
+
+        .rightIcons > a p {
+            margin: 0;
+        }
 
 .busca {
     display: inline-block;
