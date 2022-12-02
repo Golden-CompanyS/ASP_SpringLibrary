@@ -169,7 +169,7 @@ namespace ASP_SpringLibrary.Controllers
                 if (idCli > 0)
                 {
                     var tempCli = new Cliente().checkCliById(idCli);
-                    this.SignInUser(tempCli.emailCli, false);
+                    this.SignInUser(idCli, tempCli.emailCli, false);
 
                     if (Url.IsLocalUrl(viewModel.urlRetorno))
                     {
@@ -186,7 +186,7 @@ namespace ASP_SpringLibrary.Controllers
                     if (idFunc > 0)
                     {
                         var tempFunc = new Funcionario().checkFuncById(idFunc);
-                        this.SignInUser(tempFunc.emailFunc, false);
+                        this.SignInUser(idFunc, tempFunc.emailFunc, false);
 
                         if (Url.IsLocalUrl(viewModel.urlRetorno))
                         {
@@ -207,13 +207,14 @@ namespace ASP_SpringLibrary.Controllers
             return View(viewModel);
         }
 
-        private void SignInUser(string email, bool isPersistent)
+        private void SignInUser(int id, string email, bool isPersistent)
         {
             var claims = new List<Claim>();
 
             try
             {
                 claims.Add(new Claim(ClaimTypes.Name, email));
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, id.ToString()));
                 claims.Add(new Claim("Login", email));
                 var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
                 var ctx = Request.GetOwinContext();

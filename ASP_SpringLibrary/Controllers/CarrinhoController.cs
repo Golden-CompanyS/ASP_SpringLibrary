@@ -178,7 +178,12 @@ namespace ASP_SpringLibrary.Controllers
 
                 notaFiscal.valNF = tempTotal;
                 notaFiscal.livrosNF = tempLivList;
-                notaFiscal.clienteNF = new Cliente().checkCliById(2);
+
+                var identity = (ClaimsPrincipal) Thread.CurrentPrincipal;
+                var idCli = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                          .Select(c => c.Value).SingleOrDefault();
+
+                notaFiscal.clienteNF = new Cliente().checkCliById(int.Parse(idCli));
             }
 
             return notaFiscal;
