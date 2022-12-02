@@ -97,11 +97,12 @@ namespace ASP_SpringLibrary.Models
             return tempCliJList;
         }
 
-        public ClienteJuridico checkCliJ(int CNPJCliJ)
+        public ClienteJuridico checkCliJById(int idCli)
         {
             connection.Open();
-            command.CommandText = "SELECT * FROM tbCliente INNER JOIN tbCliJur on tbCliente.idCli = tbCliJur.idCli WHERE tbCliJur.CNPJCli = @CNPJCli ORDER BY tbCliente.idCli;";
-            command.Parameters.Add("@CNPJCli", MySqlDbType.VarChar).Value = CNPJCliJ;
+            command.CommandText = "SELECT * FROM tbCliente INNER JOIN tbCliJur on tbCliente.idCli = tbCliJur.idCli WHERE tbCliente.idCli = @idCli ORDER BY tbCliente.idCli;";
+                command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = idCli;
+                command.Connection = connection;
             var readCliJ = command.ExecuteReader();
             var tempCliJ = new ClienteJuridico();
 
@@ -116,7 +117,7 @@ namespace ASP_SpringLibrary.Models
                 tempCliJ.CEPCli = readCliJ["CEPCli"].ToString();
                 tempCliJ.numEndCli = int.Parse(readCliJ["numEndCli"].ToString());
                 tempCliJ.compEndCli = readCliJ["compEndCli"].ToString();
-                tempCliJ.CNPJCliJ = readCliJ["CPFCliF"].ToString();
+                tempCliJ.CNPJCliJ = readCliJ["CNPJCli"].ToString();
                 tempCliJ.fantaCliJ = readCliJ["fantaCliJ"].ToString();
                 tempCliJ.represCliJ = readCliJ["represCliJ"].ToString();
             }

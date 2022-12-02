@@ -146,7 +146,7 @@ namespace ASP_SpringLibrary.Controllers
                                                       .Select(c => c.Value).SingleOrDefault();
             if (userName != null)
             {
-                return RedirectToAction("Dados");
+                return RedirectToAction("Perfil");
             }
 
             var viewModel = new LoginClienteViewModel
@@ -228,13 +228,49 @@ namespace ASP_SpringLibrary.Controllers
             }
         }
 
-        //[CustomAuthorize("Cliente", "Funcionário")]
         public ActionResult Logout()
         {
             var ctx = Request.GetOwinContext();
             var authenticationManager = ctx.Authentication;
             authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Login", "Cliente");
+        }
+
+        [CustomAuthorize("Cliente")]
+        public ActionResult Perfil()
+        {
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var idCli = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                      .Select(c => c.Value).SingleOrDefault();
+
+            var tempCli = new Cliente().checkCliById(int.Parse(idCli));
+
+            var tempCliViewModel = new CadastroClienteViewModel()
+            {
+                nomCli = tempCli.nomCli,
+                emailCli = tempCli.emailCli,
+                celCli = tempCli.celCli.Insert(0, "(").Insert(3, ") ").Insert(10, "-"),
+                CEPCli = tempCli.CEPCli.Insert(5, "-"),
+                numEndCli = tempCli.numEndCli,
+                compEndCli = tempCli.compEndCli
+            };
+
+            if (tempCli.tipoCli == true)
+            {
+                var tempCliJur = new ClienteJuridico().checkCliJById(int.Parse(idCli));
+                    tempCliViewModel.CNPJCliJ = tempCliJur.CNPJCliJ.Insert(2, ".").Insert(6, ".").Insert(10, "/").Insert(15, "-"); ;
+                    tempCliViewModel.fantaCliJ = tempCliJur.fantaCliJ;
+                    tempCliViewModel.represCliJ = tempCliJur.represCliJ;
+            }
+            else
+            {
+                var tempCliFis = new ClienteFisico().checkCliFById(int.Parse(idCli));
+                    tempCliViewModel.CPFCliF = tempCliFis.CPFCliF.Insert(3, ".").Insert(7, ".").Insert(11, "-");
+                    tempCliViewModel.dtNascCliF = tempCliFis.dtNascCliF;
+            }
+
+            ViewData["isFunc"] = tempCli.tipoCli;
+            return View(tempCliViewModel);
         }
     }
 }

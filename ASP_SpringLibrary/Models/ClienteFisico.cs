@@ -93,11 +93,12 @@ namespace ASP_SpringLibrary.Models
             return tempCliFList;
         }
 
-        public ClienteFisico checkCliF(int CPFCliF)
+        public ClienteFisico checkCliFById(int idCli)
         {
             connection.Open();
-            command.CommandText = "SELECT * FROM tbCliente INNER JOIN tbCliFis on tbCliente.idCli = tbCliFis.idCli WHERE tbCliFis.CPFCli = @CPFCli;";
-                command.Parameters.Add("@CPFCliF", MySqlDbType.VarChar).Value = CPFCliF;
+            command.CommandText = "SELECT * FROM tbCliente INNER JOIN tbCliFis on tbCliente.idCli = tbCliFis.idCli WHERE tbCliente.idCli = @idCli ORDER BY tbCliente.idCli;";
+                command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = idCli;
+                command.Connection = connection;
             var readCliF = command.ExecuteReader();
             var tempCliF = new ClienteFisico();
 

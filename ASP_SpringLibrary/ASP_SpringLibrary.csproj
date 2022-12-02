@@ -360,6 +360,7 @@
     <Content Include="Views\Carrinho\Comprar.cshtml" />
     <Content Include="Views\Carrinho\Confirmar.cshtml" />
     <Content Include="Views\Shared\Permissao.cshtml" />
+    <Content Include="Views\Cliente\Perfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

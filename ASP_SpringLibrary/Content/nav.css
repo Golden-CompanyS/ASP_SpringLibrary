@@ -3,7 +3,6 @@
 
 .masterNav {
     font-family: 'Baloo Bhaijaan 2', cursive;
-    height:
 }
 
 .topItems {
@@ -25,7 +24,7 @@
     cursor: pointer;
 }
 
-.topItems a {
+.masterNav .topItems a {
     color: #fff;
     font-size: 1.5vw;
     margin-right: 5vw;
@@ -33,7 +32,7 @@
     text-decoration: none;
 }
 
-a{
+.masterNav a{
     color:#fff;
 }
 
@@ -50,13 +49,13 @@ a{
         object-fit: contain;
     }
 
-    .rightIcons > a {
+    .masterNav .rightIcons > a {
         display: inline-flex;
         vertical-align: middle;
         align-items: center;
     }
 
-    .rightIcons > a:hover, a:visited {
+    .masterNav .rightIcons > a:hover, .masterNav .rightIcons > a:visited {
         color: #fff;
         text-decoration: none;
     }
