@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using Image = System.Drawing.Image;
@@ -37,7 +39,10 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
         [HttpPost]
         public ActionResult Cadastrar(CadastrarLivroViewModel livro, HttpPostedFileBase imgLiv)
         {
-            livro.funcIdLiv = 2;
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var funcId = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                      .Select(c => c.Value).SingleOrDefault();
+            livro.funcIdLiv = int.Parse(funcId);
             if (livro.editLiv.idEdit == 0)
             {
                 ModelState.AddModelError("editLiv", "Selecione uma editora.");
