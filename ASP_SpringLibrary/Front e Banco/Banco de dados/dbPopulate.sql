@@ -1,6 +1,9 @@
-/* CÓDIGO PARA CORRIGIR ERRO NA INSERÇÃO DE EDITORAS SEM TELEFONE E MANTER O BANCO
+/* CÓDIGO PARA CORRIGIR ERRO NA INSERÇÃO DE EDITORAS SEM TELEFONE E EMAIL, MANTENDO O BANCO
 alter table tbEditora
 modify celEdit char(11);
+
+alter table tbEditora
+modify emailEdit varchar(50);
 */
 
 /* tbEditora */
