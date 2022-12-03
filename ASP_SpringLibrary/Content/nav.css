@@ -24,7 +24,7 @@
     cursor: pointer;
 }
 
-.topItems a {
+.masterNav .topItems a {
     color: #fff;
     font-size: 1.5vw;
     margin-right: 5vw;
@@ -32,8 +32,8 @@
     text-decoration: none;
 }
 
-a{
-    color:#fff  !important;
+.masterNav a{
+    color:#fff;
 }
 
 .rightIcons {
@@ -43,10 +43,26 @@ a{
 
     .rightIcons img {
         margin-left: 1vw;
+        margin-right: 1vw;
         width: 1.5vw;
         height: 3vh;
         object-fit: contain;
     }
+
+    .masterNav .rightIcons > a {
+        display: inline-flex;
+        vertical-align: middle;
+        align-items: center;
+    }
+
+    .masterNav .rightIcons > a:hover, .masterNav .rightIcons > a:visited {
+        color: #fff;
+        text-decoration: none;
+    }
+
+        .rightIcons > a p {
+            margin: 0;
+        }
 
 .busca {
     display: inline-block;
@@ -85,12 +101,3 @@ a{
         font-size: 20px;
     }
 
-footer {
-    background-color: #ff9cc4;
-    color:#fff;
-}
-
-    p{
-        font-size:1em;
-        text-align:center;
-    }

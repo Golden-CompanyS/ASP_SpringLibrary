@@ -24,7 +24,7 @@ namespace ASP_SpringLibrary.Utils
 
         public static bool CompareBCrypt(string text, string hash)
         {
-            return BCrypt.Net.BCrypt.Verify(text, hash);
+            return text == null || hash == null ? false : BCrypt.Net.BCrypt.Verify(text, hash);
         }
 
         // Criptografia MD5

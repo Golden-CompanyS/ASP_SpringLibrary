@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace ASP_SpringLibrary.Models
 {
@@ -188,23 +189,44 @@ namespace ASP_SpringLibrary.Models
             if (filter != "editora" &&
                 filter != "autor" &&
                 filter != "genero" &&
+                filter != "titulo" &&
                 filter != "lancamentos" &&
                 filter != "populares" &&
                 filter != "ate12reais")
             {
-                throw new InvalidOperationException("Invalid filter parameter. Use \"editora\", \"autor\", \"genero\", \"lancamentos\", \"populares\" or \"ate12reais\"."); ;
+                throw new InvalidOperationException("Invalid filter parameter. Use \"editora\", \"autor\", \"genero\", \"titulo\", \"lancamentos\", \"populares\" or \"ate12reais\"."); ;
             }
 
             switch (filter)
             {
                 case "editora":
-                    command.CommandText = "CALL spcheckAllLivByEdit(@query);"; // SELECIONAR PELA EDITORA
+                    command.CommandText = "SELECT ISBNLiv, titLiv, imgLiv, precoLiv " +
+                                          "   FROM tblivro tbl                      " +
+                                          "     INNER JOIN tbEditora tbe            " +
+                                          "         on tbl.idEdit = tbe.idEdit      " +
+                                          "   WHERE nomEdit = @query;               "; // SELECIONAR PELA EDITORA
                     break;
                 case "autor":
-                    command.CommandText = "CALL spcheckAllLivByAut(@query);"; // SELECIONAR PELO AUTOR
+                    command.CommandText = "SELECT tbl.ISBNLiv, titLiv, imgLiv, precoLiv " +
+                                          "   FROM tblivro tbl                          " +
+                                          "     INNER JOIN tblivroautor tbla            " +
+                                          "         on tbl.ISBNLiv = tbla.ISBNLiv       " +
+                                          "     INNER JOIN tbautor tba                  " +
+                                          "         on tbla.idAut = tba.idAut           " +
+                                          "   WHERE tba.nomAut = @query;                "; // SELECIONAR PELO AUTOR
                     break;
                 case "genero":
-                    command.CommandText = "CALL spcheckAllLivByGen(@query);"; // SELECIONAR PELO GENERO
+                    command.CommandText = "SELECT ISBNLiv, titLiv, imgLiv, precoLiv " +
+                                          "   FROM tblivro tbl                      " +
+                                          "     INNER JOIN tbGenero tbg             " +
+                                          "         on tbl.idGen = tbg.idGen        " +
+                                          "   WHERE nomGen = @query;                "; // SELECIONAR PELO GENERO
+                    break;
+                case "titulo":
+                    command.CommandText = "SELECT ISBNLiv, titLiv, imgLiv, precoLiv         " +
+                                          "   FROM tblivro                                  " +
+                                          "   WHERE titLiv LIKE concat('%', @query, '%') or " +
+                                          "         titOriLiv LIKE concat('%', @query, '%');"; // SELECIONAR PELO TITULO
                     break;
                 case "lancamentos":
                     command.CommandText = "SELECT ISBNLiv, titLiv, imgLiv, precoLiv FROM tbLivro            " +

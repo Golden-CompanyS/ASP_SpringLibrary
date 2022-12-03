@@ -2,84 +2,35 @@
 
 @{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Spring Library</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="estilos/userLogin.css">
-</head>
-<body>
-    <aside>
-        <img src="resources/aside-image.png" />
-    </aside>
-    <div id="filler"></div>
-    <div class="formContainer">
-        <img src="resources/logo.png" />
-        <form>
-            <label for="login">Login</label>
-            <input class="form-control" name="login" type="text" />
-            <label for="senha">Senha</label>
-            <input class="form-control" name="senha" type="password" />
+@Styles.Render("~/Content/userLogin.css")
+
+<aside>
+    <img src="../../Photos/aside-image.png" />
+</aside>
+<div id="filler"></div>
+<div class="formContainer">
+    <img src="../../Photos/logo.png" />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.urlRetorno) <!-- ID 0 escondido para passar à Controller -->
+
+        @Html.DisplayNameFor(model => model.emailCli)
+        @Html.EditorFor(model => model.emailCli, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.emailCli, "", new { @class = "text-danger" })
+        <br />
+        @Html.DisplayNameFor(model => model.senhaCli)
+        @Html.EditorFor(model => model.senhaCli, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.senhaCli, "", new { @class = "text-danger" })
+        <br />
+        <div id="formEnd">
+            <a href="@Url.Action("Cadastro")">Não possui cadastro?</a>
             <br>
-            <div id="formEnd">
-                <a href="">Não possui cadastro?</a><!--TROCAR POR ACTION LINK? - FRONT-->
-                <br>
-                <button class="btn">Entrar</button>
-            </div>
-        </form>
-    </div>
-</body>
-</html>
-
-<h2>Login</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.urlRetorno)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.urlRetorno, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.urlRetorno, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.urlRetorno, "", new { @class = "text-danger" })
-            </div>
+            <input type="submit" value="Entrar" class="btn" />
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.emailCli, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.emailCli, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.emailCli, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.senhaCli, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.senhaCli, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.senhaCli, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>

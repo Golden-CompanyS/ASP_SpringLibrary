@@ -1,9 +1,13 @@
 ﻿using ASP_SpringLibrary.Models;
 using ASP_SpringLibrary.Utils;
 using ASP_SpringLibrary.ViewModels.Cliente;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -135,9 +139,22 @@ namespace ASP_SpringLibrary.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string urlRetorno)
         {
-            return View();
+            var identity = (ClaimsPrincipal) Thread.CurrentPrincipal;
+            var userName = identity.Claims.Where(c => c.Type == ClaimTypes.Name)
+                                                      .Select(c => c.Value).SingleOrDefault();
+            if (userName != null)
+            {
+                return RedirectToAction("Perfil");
+            }
+
+            var viewModel = new LoginClienteViewModel
+            {
+                urlRetorno = urlRetorno != null || urlRetorno != "" ? urlRetorno : "~/Home/Index"
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -145,12 +162,206 @@ namespace ASP_SpringLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-                return View(viewModel);
+                var email = viewModel.emailCli;
+                var senha = viewModel.senhaCli;
+
+                int idCli = new Cliente().cliIdIfLoginExists(email, senha);
+                if (idCli > 0)
+                {
+                    var tempCli = new Cliente().checkCliById(idCli);
+                    this.SignInUser(idCli, tempCli.emailCli, false);
+
+                    if (Url.IsLocalUrl(viewModel.urlRetorno))
+                    {
+                        return Redirect(viewModel.urlRetorno);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    int idFunc = new Funcionario().funcIdIfLoginExists(email, senha);
+                    if (idFunc > 0)
+                    {
+                        var tempFunc = new Funcionario().checkFuncById(idFunc);
+                        this.SignInUser(idFunc, tempFunc.emailFunc, false);
+
+                        if (Url.IsLocalUrl(viewModel.urlRetorno))
+                        {
+                            return Redirect(viewModel.urlRetorno);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("senhaCli", "Login e/ou senha inválidos.");
+                    }
+                }
             }
 
-            //var cliente = new Cliente().LoginExits(viewModel.)
+            return View(viewModel);
+        }
 
-            return RedirectToAction("Index");
+        private void SignInUser(int id, string email, bool isPersistent)
+        {
+            var claims = new List<Claim>();
+
+            try
+            {
+                claims.Add(new Claim(ClaimTypes.Name, email));
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, id.ToString()));
+                claims.Add(new Claim("Login", email));
+                var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+                var ctx = Request.GetOwinContext();
+                var authenticationManager = ctx.Authentication;
+
+                authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, claimIdenties);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            var ctx = Request.GetOwinContext();
+            var authenticationManager = ctx.Authentication;
+            authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Login", "Cliente");
+        }
+
+        [CustomAuthorize("Cliente")]
+        public ActionResult Perfil()
+        {
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var idCli = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                      .Select(c => c.Value).SingleOrDefault();
+
+            var tempCli = new Cliente().checkCliById(int.Parse(idCli));
+
+            var tempCliViewModel = new CadastroClienteViewModel()
+            {
+                nomCli = tempCli.nomCli,
+                emailCli = tempCli.emailCli,
+                celCli = tempCli.celCli.Insert(0, "(").Insert(3, ") ").Insert(10, "-"),
+                CEPCli = tempCli.CEPCli.Insert(5, "-"),
+                numEndCli = tempCli.numEndCli,
+                compEndCli = tempCli.compEndCli
+            };
+
+            if (tempCli.tipoCli == true)
+            {
+                var tempCliJur = new ClienteJuridico().checkCliJById(int.Parse(idCli));
+                    tempCliViewModel.CNPJCliJ = tempCliJur.CNPJCliJ.Insert(2, ".").Insert(6, ".").Insert(10, "/").Insert(15, "-"); ;
+                    tempCliViewModel.fantaCliJ = tempCliJur.fantaCliJ;
+                    tempCliViewModel.represCliJ = tempCliJur.represCliJ;
+            }
+            else
+            {
+                var tempCliFis = new ClienteFisico().checkCliFById(int.Parse(idCli));
+                    tempCliViewModel.CPFCliF = tempCliFis.CPFCliF.Insert(3, ".").Insert(7, ".").Insert(11, "-");
+                    tempCliViewModel.dtNascCliF = tempCliFis.dtNascCliF;
+            }
+
+            ViewData["isFunc"] = tempCli.tipoCli;
+            return View(tempCliViewModel);
+        }
+
+        [CustomAuthorize("Cliente")]
+        public ActionResult Alterar()
+        {
+            var identity = (ClaimsPrincipal) Thread.CurrentPrincipal;
+            var idCli = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                      .Select(c => c.Value).SingleOrDefault();
+
+            var tempCli = new Cliente().checkCliById(int.Parse(idCli));
+
+            var tempCliViewModel = new CadastroClienteViewModel()
+            {
+                idCli = tempCli.idCli,
+                nomCli = tempCli.nomCli,
+                emailCli = tempCli.emailCli,
+                celCli = tempCli.celCli.Insert(2, " ").Insert(8, "-"),
+                CEPCli = tempCli.CEPCli.Insert(5, "-"),
+                numEndCli = tempCli.numEndCli,
+                compEndCli = tempCli.compEndCli,
+                tipoCli = tempCli.tipoCli
+            };
+
+            if (tempCli.tipoCli) // true: cliente jurídico
+            {
+                var tempCliJur = new ClienteJuridico().checkCliJById(int.Parse(idCli));
+                tempCliViewModel.CNPJCliJ = tempCliJur.CNPJCliJ.Insert(2, ".").Insert(6, ".").Insert(10, "/").Insert(15, "-"); ;
+                tempCliViewModel.fantaCliJ = tempCliJur.fantaCliJ;
+                tempCliViewModel.represCliJ = tempCliJur.represCliJ;
+            }
+            else // false: cliente físico
+            {
+                var tempCliFis = new ClienteFisico().checkCliFById(int.Parse(idCli));
+                tempCliViewModel.CPFCliF = tempCliFis.CPFCliF.Insert(3, ".").Insert(7, ".").Insert(11, "-");
+                tempCliViewModel.dtNascCliF = tempCliFis.dtNascCliF;
+            }
+
+            ViewData["isFunc"] = tempCli.tipoCli;
+            return View(tempCliViewModel);
+        }
+
+        [CustomAuthorize("Cliente")]
+        [HttpPost]
+        public ActionResult Alterar(CadastroClienteViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (viewModel.tipoCli) // true: cliente jurídico
+                {
+                    var tempCliJ = new ClienteJuridico()
+                    {
+                        idCli = viewModel.idCli,
+                        nomCli = viewModel.nomCli,
+                        emailCli = viewModel.emailCli,
+                        senhaCli = Hash.GenerateBCrypt(viewModel.senhaCli),
+                        celCli = String.Concat(viewModel.celCli.Where(Char.IsDigit)),
+                        CEPCli = String.Concat(viewModel.CEPCli.Where(Char.IsDigit)),
+                        numEndCli = viewModel.numEndCli,
+                        compEndCli = viewModel.compEndCli,
+                        tipoCli = viewModel.tipoCli,
+                        CNPJCliJ = String.Concat(viewModel.CNPJCliJ.Where(Char.IsDigit)),
+                        fantaCliJ = viewModel.fantaCliJ,
+                        represCliJ = viewModel.represCliJ
+                    };
+
+                    new ClienteJuridico().altCliJ(tempCliJ);
+                    return RedirectToAction("Perfil");
+                }
+                else
+                {
+                    var tempCliF = new ClienteFisico()
+                    {
+                        idCli = viewModel.idCli,
+                        nomCli = viewModel.nomCli,
+                        emailCli = viewModel.emailCli,
+                        senhaCli = Hash.GenerateBCrypt(viewModel.senhaCli),
+                        celCli = String.Concat(viewModel.celCli.Where(Char.IsDigit)),
+                        CEPCli = String.Concat(viewModel.CEPCli.Where(Char.IsDigit)),
+                        numEndCli = viewModel.numEndCli,
+                        compEndCli = viewModel.compEndCli,
+                        tipoCli = viewModel.tipoCli,
+                        CPFCliF = String.Concat(viewModel.CPFCliF.Where(Char.IsDigit)),
+                        dtNascCliF = viewModel.dtNascCliF
+                    };
+
+                    new ClienteFisico().altCliF(tempCliF);
+                    return RedirectToAction("Perfil");
+                }
+            }
+
+            return View(viewModel);
         }
     }
 }

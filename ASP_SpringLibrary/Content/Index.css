@@ -1,12 +1,12 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 .container{
-    margin:0;
+    margin:0 auto;
 }
 body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     font-size: 40px;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
@@ -81,11 +81,11 @@ body {
     align-items: center;
     justify-content: flex-start;
     margin: 0;
-    width: 100vw;
+    width: 100%;
+    flex-wrap: wrap;
+    text-decoration: none;
 }
 
-.fotos {
-}
 
 img {
     width: 100%;
@@ -107,30 +107,28 @@ h1 {
     flex-direction: column;
     align-items: center;
     background-color: rgb(247, 247, 247);
-    margin: 0 1vw 0 1vw;
-    width: 17vw;
+    margin: 1vw;
+    width: 440px;
     min-height: 66vh;
     justify-content: flex-end;
     border-radius: 1vw;
     box-shadow: 5px 5px 5px rgb(206, 201, 201);
-    padding: 0.5vh 2vw 0.5vh 2vw;
+    padding: 2vh 2vw 2vh 2vw;
+    text-decoration: none;
 }
 
 
-a {
+.item a {
     color: #696565;
     text-decoration: none;
 }
 
-    a:hover {
+  .item  a:hover {
         transition: 0.6s;
         opacity: 80%;
         text-decoration: none;
     }
 
-    a:visited {
-        color: #292727;
-    }
 
 h2 {
     margin: 0;
@@ -141,4 +139,32 @@ h2 {
 h3 {
     margin-top: 5px;
     line-break: strict;
+    color: #696565;
+    text-decoration: none;
+}
+
+.botao {
+    border-radius: 14px;
+    border: none;
+    background: #F448B0;
+}
+
+.botao > a {
+    text-decoration: none;
+    color: #fff;
+    padding: 12px;
+    display: block;
+    font-size: 18px;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.filters select {
+    width: 140px;
+    font-size: 24px;
+    border-radius: 10px;
 }

@@ -4,46 +4,36 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
-    @Styles.Render("~/Content/css")
+    <title>@ViewBag.Title - Administrador</title>
+    @Styles.Render("~/Content/nav.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #337ab7">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Spring Library", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color: #fff" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Editoras", "Index", "Editora", new { area = "Dashboard" }, new { @style = "color: #fff" })</li>
-                    <li>@Html.ActionLink("Gêneros", "Index", "Genero", new { area = "Dashboard" }, new { @style = "color: #fff" })</li>
-                    <li>@Html.ActionLink("Autores", "Index", "Autor", new { area = "Dashboard" }, new { @style = "color: #fff" })</li>
-                    <li>@Html.ActionLink("Livros", "Index", "Livro", new { area = "Dashboard" }, new { @style = "color: #fff" })</li>
-                    <li>@Html.ActionLink("Clientes Físico", "Fisico", "Cliente", new { area = "Dashboard" }, new { @style = "color: #fff" })</li>
-                    <li>@Html.ActionLink("Clientes Jurídico", "Juridico", "Cliente", new { area = "Dashboard" }, new { @style = "color: #fff" })</li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Funcionarios", "Index", "Funcionario", new { area = "Dashboard" }, new { @style = "color: #fff" })</li>
-                </ul>
-            </div>
+    <nav class="masterNav">
+        <ul class="topItems">
+            <li>
+                <a href='@Url.Action("Index", "Home")'>
+                    <img id="logo" src="~/Photos/logo2.png">
+                </a>
+            </li>
+            <li>
+            <li>@Html.ActionLink("Autor", "Index", "Autor")</li>
+            <li>@Html.ActionLink("Cliente Fisico", "Fisico", "Cliente")</li>
+            <li>@Html.ActionLink("Cliente Juridico", "Juridico", "Cliente")</li>
+            <li>@Html.ActionLink("Editora", "Index", "Editora")</li>
+            <li>@Html.ActionLink("Funcionário", "Index", "Funcionario")</li>
+            <li>@Html.ActionLink("Gênero", "Index", "Genero")</li>
+            <li>@Html.ActionLink("Livro", "Index", "Livro")</li>
+            </li>
+        </ul>
+        </nav>
+        <div class="container body-content">
+            @RenderBody()
+           
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Meu Aplicativo ASP.NET</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -654,17 +654,6 @@ begin
 		update tbDelivery set statDel = $statDel where idDel = $idDel;
     end if;
 end $$
-
--- vwcheckAllVenda - Ver todas as vendas
-create view vwcheckAllVenda as select 
-	idVen as 'ID',
-    dtHoraVen as 'Data e hora',
-	tbCliente.NomCli as 'Nome do cliente',
-    tipoPgtVen as 'Situação de pagamento', 
-    valTotVen as 'Valor total',
-	delivVen as 'É Delivery?'
-		From tbVenda
-            inner join tbCliente on tbVenda.idCli = tbCliente.idCli;
      
 -- spcheckAllItemVenda - Ver todas os itens de uma venda
 DELIMITER $$
@@ -683,6 +672,17 @@ begin
             inner join tbLivro on tbItemVenda.ISBNLiv = tbLivro.ISBNLiv
 		where(tbVenda.idVen = $idVen);
 end$$
+
+-- vwcheckAllVenda - Ver todas as vendas
+create view vwcheckAllVenda as select 
+	idVen as 'ID',
+    dtHoraVen as 'Data e hora',
+	tbCliente.NomCli as 'Nome do cliente',
+    tipoPgtVen as 'Situação de pagamento', 
+    valTotVen as 'Valor total',
+	delivVen as 'É Delivery?'
+		From tbVenda
+            inner join tbCliente on tbVenda.idCli = tbCliente.idCli;
      
 -- vwcheckAllDeliv - Ver todas as vendas com delivery e sua situação
 create view vwcheckAllDeliv as select 

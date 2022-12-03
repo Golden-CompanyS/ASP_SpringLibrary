@@ -6,7 +6,7 @@ CALL spcadEdit("Primier", 45944886612, "primier.contato@gmail.com");
 CALL spcadEdit("Darkside", 1136189809, 'vc@darksidebooks.com');
 CALL spcadEdit("Intrínseca", 2132067400, 'contato@intrinseca.com.br');
 CALL spcadEdit('Arqueiro', 1134560987, 'arqueiro@contato.com.br');
-CALL spcadEdit('Harper Collins', null, 'vendas@harpercollins.com.br');
+CALL spcadEdit('Harper Collins', 1124684221, 'vendas@harpercollins.com.br');
 CALL spcadEdit('Faro Editorial', 1142080868, 'contato@faroeditorial.com.br');
 CALL spcadEdit('Grupo C. das Letras - Suma', 2139937510, 'site@companhiadasletras.com.br');
 CALL spcadEdit('Grupo Record - BestBolso', null, 'sac@record.com.br');

@@ -8,15 +8,16 @@ body {
     background-color: #FFDAE9;
 }
 
-h1 {
+
+h2 {
     margin-top: 4vw;
     font-weight: bold;
     text-align: center;
+    font-size:3em;
 }
 
-form {
+.formulario {
     width: 100%;
-    margin-left: 30vw;
     margin-top: 3vw;
 }
 
@@ -59,7 +60,7 @@ textarea {
     border-radius: 0.5vw;
     display: flex;
     align-items: center;
-    margin-top: 10vw;
+    margin-top: 1vw;
 }
 
     #cad:hover {

@@ -1,0 +1,113 @@
+﻿@model ASP_SpringLibrary.ViewModels.Cliente.CadastroClienteViewModel
+
+@{
+    ViewBag.Title = "Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Suas Informações</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nomCli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nomCli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.emailCli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.emailCli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.celCli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.celCli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CEPCli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CEPCli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.numEndCli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numEndCli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.compEndCli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.compEndCli)
+        </dd>
+
+        @if (ViewData["isFunc"].ToString().AsBool())
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.CNPJCliJ)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CNPJCliJ)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.fantaCliJ)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.fantaCliJ)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.represCliJ)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.represCliJ)
+            </dd>
+
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.CPFCliF)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CPFCliF)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.dtNascCliF)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.dtNascCliF)
+            </dd>
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Alterar", "Alterar")
+    @Html.ActionLink("Meus Pedidos", "Pedidos")
+    @Html.ActionLink("Deslogar", "Logout")
+</p>

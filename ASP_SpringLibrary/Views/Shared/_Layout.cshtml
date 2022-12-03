@@ -19,35 +19,39 @@
                 </a>
             </li>
             <li>
-            <li>@Html.ActionLink("LIVROS", "Index", "Livros")</li> <!-- /Livros/Index -->
-            <li>@Html.ActionLink("SOBRE", "Sobre", "Home")</li> <!-- /Home/Sobre -->
-            <li>@Html.ActionLink("CONTATO", "Contato", "Home")</li> <!-- /Home/Contato -->
-            </li>
+            <li>@Html.ActionLink("Livros", "Index", "Livros", null, new { Area = "" })</li> <!-- /Livros/Index -->
+            <li>@Html.ActionLink("Sobre", "Sobre", "Home", null, new { Area = "" })</li> <!-- /Home/Sobre -->
+            <li>@Html.ActionLink("Contato", "Contato", "Home", null, new { Area = "" })</li> <!-- /Home/Contato -->
             <li class="rightIcons">
-                <a href='@Url.Action("Login", "Cliente", new { controller = "Cliente" })'>
-                <img src="~/Photos/user.png">
-            </a>
-                <a href='@Url.Action("Index", "Carrinho", new { controller = "Carrinho" })'>
-                <img src="~/Photos/carrinho.png">
-            </a>
+                <a href='@Url.Action("Login", "Cliente", new { controller = "Cliente", Area = "", urlRetorno = Request.Url.AbsolutePath })'>
+                    <img src="~/Photos/user.png">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <p>@User.Identity.Name</p>
+                    }
+                    else
+                    {
+                        <p>Login</p>
+                    }
+                </a>
+                <a href='@Url.Action("Index", "Carrinho", new { controller = "Carrinho", Area = "" })'>
+                    <img src="~/Photos/carrinho.png">
+                </a>
             </li>
         </ul>
-        <form class="busca">
-            <input class="barra" placeholder="Pesquise por um livro, autor ou editora">
-            <button class="btnbusca" type="submit">Buscar</button>
-        </form>
+        @using (Html.BeginForm("Index", "Livros", FormMethod.Get))
+        {
+            <div class="busca">
+                <input id="filter" name="filter" type="hidden" value="titulo" />
+                <input id="busca" name="busca" class="barra" placeholder="Pesquise por um livro, autor ou editora">
+                <button class="btnbusca" type="submit">Buscar</button>
+            </div>
+        }
     </nav>
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <center>
-                <h6>
-                    &copy; @DateTime.Now.Year - Meu Aplicativo ASP.NET
-                </h6>
-            </center>
-        </footer>
+        
     </div>
 
     @Scripts.Render("~/bundles/jquery")

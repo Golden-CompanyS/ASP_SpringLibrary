@@ -1,8 +1,11 @@
 ﻿using ASP_SpringLibrary.Areas.Dashboard.ViewModels.Editora;
 using ASP_SpringLibrary.Models;
+using ASP_SpringLibrary.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -91,6 +94,7 @@ namespace ASP_SpringLibrary.Controllers
         }
 
         [HttpGet]
+        [CustomAuthorize("Cliente")]
         public ActionResult Comprar()
         {
             var tempNotaFiscal = getNotaFiscal();
@@ -107,6 +111,7 @@ namespace ASP_SpringLibrary.Controllers
         }
 
         [HttpPost]
+        [CustomAuthorize("Cliente")]
         public ActionResult Comprar(NotaFiscal notaFiscal)
         {
             var tempNotaFiscal = getNotaFiscal();
@@ -137,6 +142,7 @@ namespace ASP_SpringLibrary.Controllers
         }
 
         [HttpGet]
+        [CustomAuthorize("Cliente")]
         public ActionResult Confirmar(int? id)
         {
             if (id != 0 && id != null)
@@ -172,7 +178,12 @@ namespace ASP_SpringLibrary.Controllers
 
                 notaFiscal.valNF = tempTotal;
                 notaFiscal.livrosNF = tempLivList;
-                notaFiscal.clienteNF = new Cliente().checkCliById(2);
+
+                var identity = (ClaimsPrincipal) Thread.CurrentPrincipal;
+                var idCli = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                          .Select(c => c.Value).SingleOrDefault();
+
+                notaFiscal.clienteNF = new Cliente().checkCliById(int.Parse(idCli));
             }
 
             return notaFiscal;
