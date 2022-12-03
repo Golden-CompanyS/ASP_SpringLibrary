@@ -1,3 +1,7 @@
+/* CÓDIGO PARA CORRIGIR ERRO NA INSERÇÃO DE EDITORAS SEM TELEFONE E MANTER O BANCO
+alter table tbEditora
+modify celEdit char(11);
+*/
 
 /* tbEditora */
 CALL spcadEdit("Seguinte", 1137073500, 'contato@seguinte.com.br');
