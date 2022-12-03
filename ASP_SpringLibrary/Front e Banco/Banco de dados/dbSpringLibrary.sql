@@ -24,7 +24,7 @@ CREATE TABLE tbEditora(
 	idEdit int primary key auto_increment,
     nomEdit varchar(30) not null unique, 
     celEdit char(11),
-    emailEdit varchar(30) not null
+    emailEdit varchar(50) not null
 );
 
 -- cadEditIfNotExists
