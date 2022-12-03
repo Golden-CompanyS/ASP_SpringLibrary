@@ -272,5 +272,96 @@ namespace ASP_SpringLibrary.Controllers
             ViewData["isFunc"] = tempCli.tipoCli;
             return View(tempCliViewModel);
         }
+
+        [CustomAuthorize("Cliente")]
+        public ActionResult Alterar()
+        {
+            var identity = (ClaimsPrincipal) Thread.CurrentPrincipal;
+            var idCli = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                      .Select(c => c.Value).SingleOrDefault();
+
+            var tempCli = new Cliente().checkCliById(int.Parse(idCli));
+
+            var tempCliViewModel = new CadastroClienteViewModel()
+            {
+                idCli = tempCli.idCli,
+                nomCli = tempCli.nomCli,
+                emailCli = tempCli.emailCli,
+                celCli = tempCli.celCli.Insert(2, " ").Insert(8, "-"),
+                CEPCli = tempCli.CEPCli.Insert(5, "-"),
+                numEndCli = tempCli.numEndCli,
+                compEndCli = tempCli.compEndCli,
+                tipoCli = tempCli.tipoCli
+            };
+
+            if (tempCli.tipoCli) // true: cliente jurídico
+            {
+                var tempCliJur = new ClienteJuridico().checkCliJById(int.Parse(idCli));
+                tempCliViewModel.CNPJCliJ = tempCliJur.CNPJCliJ.Insert(2, ".").Insert(6, ".").Insert(10, "/").Insert(15, "-"); ;
+                tempCliViewModel.fantaCliJ = tempCliJur.fantaCliJ;
+                tempCliViewModel.represCliJ = tempCliJur.represCliJ;
+            }
+            else // false: cliente físico
+            {
+                var tempCliFis = new ClienteFisico().checkCliFById(int.Parse(idCli));
+                tempCliViewModel.CPFCliF = tempCliFis.CPFCliF.Insert(3, ".").Insert(7, ".").Insert(11, "-");
+                tempCliViewModel.dtNascCliF = tempCliFis.dtNascCliF;
+            }
+
+            ViewData["isFunc"] = tempCli.tipoCli;
+            return View(tempCliViewModel);
+        }
+
+        [CustomAuthorize("Cliente")]
+        [HttpPost]
+        public ActionResult Alterar(CadastroClienteViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                if (viewModel.tipoCli) // true: cliente jurídico
+                {
+                    var tempCliJ = new ClienteJuridico()
+                    {
+                        idCli = viewModel.idCli,
+                        nomCli = viewModel.nomCli,
+                        emailCli = viewModel.emailCli,
+                        senhaCli = Hash.GenerateBCrypt(viewModel.senhaCli),
+                        celCli = String.Concat(viewModel.celCli.Where(Char.IsDigit)),
+                        CEPCli = String.Concat(viewModel.CEPCli.Where(Char.IsDigit)),
+                        numEndCli = viewModel.numEndCli,
+                        compEndCli = viewModel.compEndCli,
+                        tipoCli = viewModel.tipoCli,
+                        CNPJCliJ = String.Concat(viewModel.CNPJCliJ.Where(Char.IsDigit)),
+                        fantaCliJ = viewModel.fantaCliJ,
+                        represCliJ = viewModel.represCliJ
+                    };
+
+                    new ClienteJuridico().altCliJ(tempCliJ);
+                    return RedirectToAction("Perfil");
+                }
+                else
+                {
+                    var tempCliF = new ClienteFisico()
+                    {
+                        idCli = viewModel.idCli,
+                        nomCli = viewModel.nomCli,
+                        emailCli = viewModel.emailCli,
+                        senhaCli = Hash.GenerateBCrypt(viewModel.senhaCli),
+                        celCli = String.Concat(viewModel.celCli.Where(Char.IsDigit)),
+                        CEPCli = String.Concat(viewModel.CEPCli.Where(Char.IsDigit)),
+                        numEndCli = viewModel.numEndCli,
+                        compEndCli = viewModel.compEndCli,
+                        tipoCli = viewModel.tipoCli,
+                        CPFCliF = String.Concat(viewModel.CPFCliF.Where(Char.IsDigit)),
+                        dtNascCliF = viewModel.dtNascCliF
+                    };
+
+                    new ClienteFisico().altCliF(tempCliF);
+                    return RedirectToAction("Perfil");
+                }
+            }
+
+            return View(viewModel);
+        }
     }
 }

@@ -45,7 +45,7 @@ namespace ASP_SpringLibrary.Models
         public void altCliJ(ClienteJuridico clienteJ)
         {
             connection.Open();
-            command.CommandText = "CALL spaltCliJur(@idCli, @nomCli, @celCli, @emailCli, @senhaCli, @CEPCli, @numEndCli, @compEndCli, @CNPJCliJ, @fantaCliJ0, @represCliJ);";
+            command.CommandText = "CALL spautCliJur(@idCli, @nomCli, @celCli, @emailCli, @senhaCli, @CEPCli, @numEndCli, @compEndCli, @CNPJCliJ, @fantaCliJ, @represCliJ);";
                 command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = clienteJ.idCli;
                 command.Parameters.Add("@nomCli", MySqlDbType.VarChar).Value = clienteJ.nomCli;
                 command.Parameters.Add("@celCli", MySqlDbType.VarChar).Value = clienteJ.celCli;
@@ -55,8 +55,8 @@ namespace ASP_SpringLibrary.Models
                 command.Parameters.Add("@numEndCli", MySqlDbType.Int64).Value = clienteJ.numEndCli;
                 command.Parameters.Add("@compEndCli", MySqlDbType.VarChar).Value = clienteJ.compEndCli;
                 command.Parameters.Add("@CNPJCliJ", MySqlDbType.VarChar).Value = clienteJ.CNPJCliJ;
-                command.Parameters.Add("@fantaCliJ", MySqlDbType.Date).Value = clienteJ.fantaCliJ;
-                command.Parameters.Add("@represCliJ", MySqlDbType.Date).Value = clienteJ.represCliJ;
+                command.Parameters.Add("@fantaCliJ", MySqlDbType.VarChar).Value = clienteJ.fantaCliJ;
+                command.Parameters.Add("@represCliJ", MySqlDbType.VarChar).Value = clienteJ.represCliJ;
                 command.Connection = connection;
                 command.ExecuteNonQuery();
             connection.Close();
