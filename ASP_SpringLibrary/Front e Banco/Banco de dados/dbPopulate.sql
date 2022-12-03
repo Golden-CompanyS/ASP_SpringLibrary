@@ -8,10 +8,15 @@ CALL spcadEdit("Intrínseca", 2132067400, 'contato@intrinseca.com.br');
 CALL spcadEdit('Arqueiro', 1134560987, 'arqueiro@contato.com.br');
 CALL spcadEdit('Harper Collins', null, 'vendas@harpercollins.com.br');
 CALL spcadEdit('Faro Editorial', 1142080868, 'contato@faroeditorial.com.br');
-CALL spcadEdit('Suma', 2139937510, 'site@companhiadasletras.com.br');
+CALL spcadEdit('Grupo C. das Letras - Suma', 2139937510, 'site@companhiadasletras.com.br');
 CALL spcadEdit('Grupo Record - BestBolso', null, 'sac@record.com.br');
 CALL spcadEdit('Grupo Record - Galera', null, 'sac@record.com.br');
 CALL spcadEdit('Penguin', null, 'consumerservices@penguinrandomhouse.com');
+CALL spcadEdit('Thomas Nelson', null, 'vendas@thomasnelson.com.br');
+CALL spcadEdit('Grupo Record - Verus', null, 'sac@record.com.br');
+CALL spcadEdit('Grupo Record - Bestseller', null, 'sac@record.com.br');
+CALL spcadEdit('Astral Cultural', null, 'sac@astral.com.br');
+CALL spcadEdit('Grupo C. das Letras - Paralela', 2139937510, 'site@companhiadasletras.com.br');
 
 CALL spcheckAllEdit();
 
@@ -71,6 +76,12 @@ CALL spcadAut('Daniel Glattauer');
 CALL spcadAut('Sophie Kinsella');
 CALL spcadAut('Elayne Baeta');
 CALL spcadAut('Sue Townsend');
+CALL spcadAut('Tina Andrews');
+CALL spcadAut('Sabaa Tahir');
+CALL spcadAut('Viola Davis');
+CALL spcadAut('Adam Silvera');
+CALL spcadAut('Maya Eigenmann');
+CALL spcadAut('Lia Louis');
 
 CALL spcheckAllAut();
 
@@ -231,6 +242,83 @@ Bestselling author Sue Townsend has been Britain's favourite comic writer for ov
 	'https://m.media-amazon.com/images/I/91+X7tkQd-L.jpg',
 	1,464,1,2012,55.62,12,true,12,27,3);
 call spinsertAutLiv(0141399643, 11);
+
+call spCadLiv(
+	'6555113820',
+    'Charlotte Sophia: Um romance','Charlotte Sophia: Myth, Madness, and the Moor',
+	"O reinado. A loucura. O segredo.
+Antes de se tornar rainha da Inglaterra, Charlotte Sophia de Mecklemburgo-Strelitz era princesa da Alemanha. Mas, apesar do status de nobreza, ela guardava um grande segredo: a sua ascendência africana
+Com a família real falida, a única opção da princesa é esconder quem realmente é e desistir do verdadeiro amor em busca de conseguir um casamento vantajoso com o rei da Inglaterra, George III, para então ascender ao trono e se tornar a nova rainha consorte. O que Charlotte não esperava era que o trauma, a loucura e a mentira que permeiam o reinado pudessem pesar tanto em sua vida.
+Em Charlotte Sophia: Um romance, a autora Tina Andrews usa uma escrita assertiva para revelar todas as camadas de uma vida na corte repleta de ressentimentos, traições e angústias. Recheado com a coragem da mulher que, por décadas, enfrentou o preconceito da monarquia inglesa, Andrews apresenta os cenários de intriga aristocrática, adultério e as disfunções familiares que moldaram Charlotte Sophia desde sua vida como princesa da Alemanha até ocupar o trono ao lado do rei George III como rainha da Inglaterra.",
+	'https://m.media-amazon.com/images/I/816vOnOODtL.jpg',
+	2,464,1,2022,52.42,30,true,13,8,1);
+call spinsertAutLiv(6555113820, 12);
+
+call spCadLiv(
+	'6559240770',
+    'Toda a minha ira','All My Rage',
+	"Lahore, Paquistão. Passado. Misbah é uma sonhadora e contadora de histórias, recém-casada com Toufiq em um casamento arranjado. Depois de ter a vida abalada por uma tragédia, eles emigram para os Estados Unidos e abrem o Clouds’ Rest Inn Motel, com a esperança de um recomeço.
+Juniper, Califórnia. Presente. Salahudin e Noor são mais que melhores amigos; eles são família. Crescendo como párias numa cidadezinha em pleno deserto de Mojave, eles entendem um ao outro como ninguém mais consegue. Até a Briga, que destrói o vínculo entre eles com a fúria de uma explosão.
+Agora, Sal luta para administrar o motel da família conforme a saúde de sua mãe, Misbah, se deteriora e seu pai se perde no alcoolismo. Noor, por sua vez, anda numa corda bamba angustiante, trabalhando na loja de bebidas de seu tio violento enquanto esconde o fato de que está se candidatando em várias universidades para poder escapar dele ― e de Juniper ― para sempre.
+Quando as tentativas de Sal de salvar o motel saem de controle, ele e Noor precisam se perguntar quanto vale a amizade entre eles ― e o que é preciso para derrotar os monstros do passado e também os do presente.
+Um romance juvenil contemporâneo brilhante, inesquecível e comovente sobre família e perdão, amor e perda, em uma história arrebatadora que atravessa gerações e continentes.",
+	'https://m.media-amazon.com/images/I/718rcouaSCL.jpg',
+	3,364,1,2022,45.24,250,true,14,12,1);
+call spinsertAutLiv(6559240770, 13);
+
+call spCadLiv(
+	'6557121383',
+    'Em busca de mim','Finding Me',
+	"A internacionalmente aclamada atriz Viola Davis narra em sua biografia, Em busca de mim, tudo o que viveu desde a infância difícil até o estrelato. Nesta biografia você vai conhecer uma garotinha chamada Viola, que fugia de seu passado até tomar a transformadora decisão de parar de fugir para sempre.
+Em busca de mim conta a minha história, de um apartamento caindo aos pedaços na cidade de Central Falls, em Rhode Island, para os palcos de Nova York e além. Este é o caminho que percorri em busca de propósito e força, mas também para me fazer ser ouvida em um mundo que não me percebia.
+Enquanto escrevia Em busca de mim, pensei no quanto nossas histórias nem sempre recebem a devida atenção. São reinventadas para serem encaixadas em um mundo louco, competitivo e crítico. Escrevi este livro para aqueles que se sentem excluídos, que estão em busca de uma forma de entender e superar um passado complicado e encontrar autoaceitação no lugar da vergonha.
+Escrevi para quem precisa se lembrar de que a vida só vale a pena ser vivida se a encararmos com honestidade radical e coragem de abandonar as máscaras e apenas ser... você.
+Em busca de mim é uma reflexão profunda, uma promessa e uma declaração de amor a mim mesma. Espero que minha história o inspire a revolucionar sua vida de forma criativa e a redescobrir quem você era antes que o mundo tentasse defini-lo.",
+	'https://m.media-amazon.com/images/I/91J7EVQy1jL.jpg',
+	3,266,3,2022,29.99,150,true,15,19,3);
+call spinsertAutLiv(6557121383, 14);
+
+call spCadLiv(
+	'6555603518',
+    'O primeiro a morrer no final','The first to die at the end',
+	"Em Os dois morrem no final, obra que já vendeu mais de 100 mil exemplares no Brasil, acompanhamos a história emocionante de Mateo e Rufus, dois jovens que decidem compartilhar seus últimos momentos e viver uma vida inteira em um único dia. Agora, Adam Silvera retorna com maestria ao universo que conquistou fãs no mundo inteiro, em uma trama que se passa sete anos antes do primeiro livro.
+Na noite de 30 de julho de 2010, as pessoas se reúnem em diversas cidades dos Estados Unidos para a inauguração da Central da Morte, um serviço controverso capaz de informar se seus usuários terão um encontro prematuro com a morte ao longo das próximas 24 horas.
+Orion Pagan espera há anos que alguém lhe diga quando vai morrer. Só assim ele conseguirá aproveitar um pouco a vida, sem o temor de não saber quando a doença grave que tem no coração o fará partir dessa para a melhor.
+Receber uma ligação da Central da Morte é a última coisa que Valentino Prince deseja. Após deixar o Arizona e se mudar para Nova York, ele mal pode esperar para viver esse novo capítulo de sua história e realizar seus sonhos.
+Sob as luzes da Times Square, Orion e Valentino se conhecem, e a conexão entre eles é imediata. Mas, á meia-noite, a primeira ligação da Central da Morte anuncia que um dos dois vai morrer em breve. Embora não saibam como ― ou quando ― o dia vai terminar, eles só têm uma certeza: querem ficar juntos até o fim.",
+	'https://m.media-amazon.com/images/I/51vz37k-LGL.jpg',
+	4,544,1,2022,53.13,79,true,5,11,3);
+call spinsertAutLiv(6555603518, 15);
+
+call spCadLiv(
+	'6555662646',
+    'A raiva não educa. A calma educa.',null,
+	"“FOI NA BUSCA DE OUTRAS FORMAS [DE EDUCAÇÃO] QUE CONHECI A MAYA E A EDUCAÇÃO RESPEITOSA. [...] NESTE LIVRO, MAYA FALA COMO SE ELA ESTIVESSE SENTADA NA SUA FRENTE, TOMANDO UMA XÍCARA DE CAFÉ, TE OUVINDO SEM JULGAMENTOS, E FALANDO: ‘EU TE ENTENDO, DEIXA TE CONTAR UMA COISA...’”
+Paola Carosella, chef de cozinha, empresária e mãe da Fran
+MAYA EIGENMANN, pedagoga e educadora parental, convida você a repensar tudo o que sabe sobre educar crianças, mostrando que esse processo não precisa (nem deve) ser autoritário, constrangedor e ameaçador. Na educação respeitosa, proposta pela autora, considera-se as necessidades e os sentimentos da criança, sem deixar de colocar os limites necessários na criação dela. Isso significa que o objetivo é desenvolver o respeito da criança e do adolescente, e não a obediência, pura e simplesmente.
+Ao longo do livro, você perceberá que a educação respeitosa, na verdade, não tem como foco principal as crianças, e sim os adultos, porque, para Maya, somos nós que precisamos ser reeducados com respeito e amor para que possamos propagar uma educação saudável às futuras gerações.",
+	'https://m.media-amazon.com/images/I/71SvgvNLrPL.jpg',
+	6,176,1,2022,29.99,239,true,16,32,3);
+call spinsertAutLiv(6555662646, 16);
+
+call spCadLiv(
+	'8584392831',
+    'Oito horas perfeitas','Eight perfect hours',
+	"Uma história de amor emocionante, cheia de encontros e desencontros, que fará você acreditar no poder do destino.
+Qualquer coisa poderia ter acontecido naquele dia. Mas Noelle nunca imaginou que uma nevasca fecharia a estrada e ela passaria a noite parada no trânsito, sozinha, sem comida, água ou um carregador de celular. E sequer pensou que, de repente, estaria sentada no carro do charmoso Sam, um norte-americano em uma breve visita à Inglaterra, tendo a melhor conversa de sua vida ― por oito horas perfeitas. Mas Sam está a caminho do aeroporto e ambos sabem que, no dia seguinte, seus caminhos se separarão para sempre. Mas e se o destino reservar um plano diferente para eles?",
+	'https://m.media-amazon.com/images/I/71v1P3X7WEL.jpg',
+	5,304,1,2022,29.99,99,true,18,9,3);
+call spinsertAutLiv(8584392831, 17);
+
+call spCadLiv(
+	'655560302X',
+    'Os dois morrem no final','Eight perfect hours',
+	"No dia 5 de setembro, pouco depois da meia-noite, Mateo Torrez e Rufus Emeterio recebem uma ligação da Central da Morte. A notícia é devastadora: eles vão morrer naquele mesmo dia.
+Os dois não se conhecem, mas, por motivos diferentes, estão à procura de um amigo com quem compartilhar os últimos momentos, uma conexão verdadeira que ajude a diminuir um pouco a angústia e a solidão que sentem. Por sorte, existe um aplicativo para isso, e é graças a ele que Rufus e Mateo vão se encontrar para uma última grande aventura: viver uma vida inteira em um único dia.
+Uma história sensível e emocionante, Os dois morrem no final nos lembra o que significa estar vivo. Com seu olhar único, Adam Silvera mostra que cada segundo importa, e mesmo que não haja vida sem morte, nem amor sem perda, tudo pode mudar em 24 horas.",
+	'https://m.media-amazon.com/images/I/51P4vYRr7XL.jpg',
+	4,416,1,2021,29.99,200,true,5,11,3);
+call spinsertAutLiv('655560302X', 15);
 
 -- Retificando o nome do livro e retirando/recolocando a autora de ID 2
 call spaltLivro('9788594540188','Frankenstein',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,0,2,4,7);
