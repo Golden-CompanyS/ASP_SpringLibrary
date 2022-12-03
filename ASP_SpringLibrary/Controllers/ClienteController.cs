@@ -363,5 +363,17 @@ namespace ASP_SpringLibrary.Controllers
 
             return View(viewModel);
         }
+
+        /*[CustomAuthorize("Cliente")]
+        public ActionResult Pedidos()
+        {
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var idCli = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                      .Select(c => c.Value).SingleOrDefault();
+
+            var notaFiscalList = new NotaFiscal()
+
+
+        }*/
     }
 }

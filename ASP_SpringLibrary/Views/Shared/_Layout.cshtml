@@ -14,14 +14,14 @@
     <nav class="masterNav">
         <ul class="topItems">
             <li>
-                <a href='@Url.Action("Index", "Home")'>
+                <a href='@Url.Action("Index", "Home", new { area = "" })'>
                     <img id="logo" src="~/Photos/logo2.png">
                 </a>
             </li>
             <li>
-            <li>@Html.ActionLink("Livros", "Index", "Livros", null, new { Area = "" })</li> <!-- /Livros/Index -->
-            <li>@Html.ActionLink("Sobre", "Sobre", "Home", null, new { Area = "" })</li> <!-- /Home/Sobre -->
-            <li>@Html.ActionLink("Contato", "Contato", "Home", null, new { Area = "" })</li> <!-- /Home/Contato -->
+            <li><a href='@Url.Action("Index", "Livros", new { area = "" })'>Livros</a></li> <!-- /Livros/Index -->
+            <li><a href='@Url.Action("Sobre", "Home", new { area = "" })'>Sobre</a></li> <!-- /Home/Sobre -->
+            <li><a href='@Url.Action("Contato", "Home", new { area = "" })'>Contato</a></li> <!-- /Home/Contato -->
             <li class="rightIcons">
                 <a href='@Url.Action("Login", "Cliente", new { controller = "Cliente", Area = "", urlRetorno = Request.Url.AbsolutePath })'>
                     <img src="~/Photos/user.png">

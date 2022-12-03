@@ -17,20 +17,20 @@
 
     <div class="func">
         <div class="botoes">
-            <a @Html.ActionLink("Cadastrar Livros", "Cadastrar", "Livro", new { area = "Dashboard" }, null)</a>
-            <a id="conVen" class="btn btn-primary" href="#" role="button">Consultar Vendas</a><br>
             <a @Html.ActionLink("Consulta Livros", "Index", "Livro", new { area = "Dashboard" }, null)</a>
+            <a @Html.ActionLink("Consulta Vendas", "Index", "Venda", new { area = "Dashboard" }, null)</a>
             <a @Html.ActionLink("Clientes Jurídicos", "Fisico", "Cliente", new { area = "Dashboard" }, null)</a>
             <a @Html.ActionLink("Clientes Físicos", "Juridico", "Cliente", new { area = "Dashboard" }, null)</a>
             <a @Html.ActionLink("Consulta Editoras", "Index", "Editora", new { area = "Dashboard" }, null)</a>
             <a @Html.ActionLink("Consulta Gêneros", "Index", "Genero", new { area = "Dashboard" }, null)</a>
             <a @Html.ActionLink("Consulta Autores", "Index", "Autor", new { area = "Dashboard" }, null)</a>
+            <a @Html.ActionLink("Consulta Funcionários", "Index", "Funcionario", new { area = "Dashboard" }, null)</a>
         </div>
     </div>
 
     <div class="footer">
         <div class="texto">
-            <h2>ola caraljo</h2>
+            <h2>@User.Identity.Name</h2>
         </div>
 
         <a class="tchau"
