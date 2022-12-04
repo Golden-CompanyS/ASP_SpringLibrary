@@ -62,15 +62,16 @@ namespace ASP_SpringLibrary.Models
             command.ExecuteNonQuery();
         }
 
-        public NotaFiscal checkNFById(int idNF)
+        public NotaFiscal checkNFById(int idNF, int idCli)
         {
             connection.Open();
             command.CommandText = "SELECT tbVenda.idVen, dtHoraVen, tbCliente.idCli, tipoPgtVen, valTotVen, " +
-                                  "     delivVen, statDel, dtPrevDel, dtFinDel FROM tbVenda                          " +
-                                  "     LEFT JOIN tbCliente on tbVenda.idCli = tbCliente.idCli             " +
-                                  "     LEFT JOIN tbDelivery on tbVenda.idVen = tbDelivery.idVen           " +
-                                  "  WHERE tbVenda.idVen = @idNF;";
+                                  "     delivVen, statDel, dtPrevDel, dtFinDel FROM tbVenda                 " +
+                                  "     LEFT JOIN tbCliente on tbVenda.idCli = tbCliente.idCli              " +
+                                  "     LEFT JOIN tbDelivery on tbVenda.idVen = tbDelivery.idVen            " +
+                                  "  WHERE tbVenda.idVen = @idNF and tbVenda.idCli = @idCli;";
                 command.Parameters.Add("@idNF", MySqlDbType.Int64).Value = idNF;
+                command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = idCli;
                 command.Connection = connection;
 
             var readNF = command.ExecuteReader();
@@ -146,6 +147,59 @@ namespace ASP_SpringLibrary.Models
                         tempDel.idDel = int.Parse(readNf["idDel"].ToString());
                         tempDel.statDel = char.Parse(readNf["statDel"].ToString());
                         tempDel.dtPrevDel = DateTime.Parse(readNf["dtPrevDel"].ToString());
+
+                    if (readNf["dtFinDel"].ToString() != "")
+                    {
+                        tempDel.dtEntDel = DateTime.Parse(readNf["dtFinDel"].ToString());
+                    }
+
+                    tempNf.deliveryNF = tempDel;
+                }
+
+                tempNfList.Add(tempNf);
+            }
+
+            readNf.Close();
+            connection.Close();
+
+            return tempNfList;
+        }
+
+        public List<NotaFiscal> checkAllNfByCliId(int idCli)
+        {
+            connection.Open();
+            command.CommandText = " SELECT tbVenda.idVen, dtHoraVen, tbCliente.NomCli, " +
+                                  "  tipoPgtVen, valTotVen, delivVen, idDel, statDel,  " +
+                                  "  dtPrevDel, dtFinDel                               " +
+                                  "     FROM tbVenda                                   " +
+                                  "         INNER JOIN tbCliente                       " +
+                                  "             on tbVenda.idCli = tbCliente.idCli     " +
+                                  "         LEFT JOIN tbDelivery                       " +
+                                  "             on tbVenda.idVen = tbDelivery.idVen    " +
+                                  "     WHERE tbCliente.idCli = @idCli;                "; // SELECIONAR TUDO DA tbVenda + Cliente
+                command.Parameters.Add("@idCli", MySqlDbType.Int64).Value = idCli;
+                command.Connection = connection;
+
+            var readNf = command.ExecuteReader();
+            List<NotaFiscal> tempNfList = new List<NotaFiscal>();
+
+            while (readNf.Read())
+            {
+                var tempNf = new NotaFiscal();
+
+                tempNf.idNF = int.Parse(readNf["idVen"].ToString());
+                tempNf.dateNF = DateTime.Parse(readNf["dtHoraVen"].ToString());
+                tempNf.clienteNF = new Cliente() { nomCli = readNf["nomCli"].ToString() };
+                tempNf.pagNF = readNf["tipoPgtVen"].ToString();
+                tempNf.valNF = decimal.Parse(readNf["valTotVen"].ToString());
+                tempNf.isDelivNF = readNf["delivVen"].ToString().AsBool();
+
+                if (tempNf.isDelivNF)
+                {
+                    var tempDel = new Delivery();
+                    tempDel.idDel = int.Parse(readNf["idDel"].ToString());
+                    tempDel.statDel = char.Parse(readNf["statDel"].ToString());
+                    tempDel.dtPrevDel = DateTime.Parse(readNf["dtPrevDel"].ToString());
 
                     if (readNf["dtFinDel"].ToString() != "")
                     {

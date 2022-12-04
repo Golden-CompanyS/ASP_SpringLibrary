@@ -364,6 +364,7 @@
     <Content Include="Views\Shared\Permissao.cshtml" />
     <Content Include="Views\Cliente\Perfil.cshtml" />
     <Content Include="Views\Cliente\Alterar.cshtml" />
+    <Content Include="Views\Cliente\Pedidos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

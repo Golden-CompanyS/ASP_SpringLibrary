@@ -147,12 +147,20 @@ namespace ASP_SpringLibrary.Controllers
         {
             if (id != 0 && id != null)
             {
-                var tempNotaFiscal = new NotaFiscal().checkNFById((int)id);
+                var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+                var idCli = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                          .Select(c => c.Value).SingleOrDefault();
 
-                if (tempNotaFiscal.idNF != 0 && tempNotaFiscal.idNF != null)
+                var tempNotaFiscal = new NotaFiscal().checkNFById((int) id, int.Parse(idCli));
+
+                if (tempNotaFiscal.idNF != 0)
                 {
                     Session[nomCart] = null;
                     return View(tempNotaFiscal);
+                }
+                else
+                {
+                    return View("Permissao");
                 }
             };
 
