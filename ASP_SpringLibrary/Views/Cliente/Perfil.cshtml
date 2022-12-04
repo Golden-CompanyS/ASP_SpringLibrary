@@ -107,8 +107,9 @@
     <div class="links">
         <p>@Html.ActionLink("Alterar", "Alterar")</p>
         <p>@Html.ActionLink("Meus Pedidos", "Pedidos")</p>
-        <p>@Html.ActionLink("Deslogar", "Logout")</p>
     </div>
     
-    <center><button class="btn btn-lg">Sair</button></center>
+    <center>
+        <a href="@Url.Action("Logout", "Cliente", new { Area = "" })"><button class="btn btn-lg">Sair</button></a>
+    </center>
 </div>

@@ -7,15 +7,15 @@ modify emailEdit varchar(50);
 */
 
 /* tbEditora */
-CALL spcadEdit("Seguinte", 1137073500, 'contato@seguinte.com.br');
-CALL spcadEdit("BooKsa", 99999999999, "contato@booksa.com");
-CALL spcadEdit("Primier", 45944886612, "primier.contato@gmail.com");
-CALL spcadEdit("Darkside", 1136189809, 'vc@darksidebooks.com');
-CALL spcadEdit("Intrínseca", 2132067400, 'contato@intrinseca.com.br');
-CALL spcadEdit('Arqueiro', 1134560987, 'arqueiro@contato.com.br');
-CALL spcadEdit('Harper Collins', 1124684221, 'vendas@harpercollins.com.br');
-CALL spcadEdit('Faro Editorial', 1142080868, 'contato@faroeditorial.com.br');
-CALL spcadEdit('Grupo C. das Letras - Suma', 2139937510, 'site@companhiadasletras.com.br');
+CALL spcadEdit("Seguinte", 48984691240, 'contato@seguinte.com.br');
+CALL spcadEdit("BooKsa", 16984643229, "contato@booksa.com");
+CALL spcadEdit("Primier", 69989811574, "primier.contato@gmail.com");
+CALL spcadEdit("Darkside", 74984049757, 'vc@darksidebooks.com');
+CALL spcadEdit("Intrínseca", 24983630483, 'contato@intrinseca.com.br');
+CALL spcadEdit('Arqueiro', 65974095817, 'arqueiro@contato.com.br');
+CALL spcadEdit('Harper Collins', 43999452432, 'vendas@harpercollins.com.br');
+CALL spcadEdit('Faro Editorial', 87997209806, 'contato@faroeditorial.com.br');
+CALL spcadEdit('Grupo C. das Letras - Suma', 62995215536, 'site@companhiadasletras.com.br');
 CALL spcadEdit('Grupo Record - BestBolso', null, 'sac@record.com.br');
 CALL spcadEdit('Grupo Record - Galera', null, 'sac@record.com.br');
 CALL spcadEdit('Penguin', null, 'consumerservices@penguinrandomhouse.com');
@@ -23,11 +23,11 @@ CALL spcadEdit('Thomas Nelson', null, 'vendas@thomasnelson.com.br');
 CALL spcadEdit('Grupo Record - Verus', null, 'sac@record.com.br');
 CALL spcadEdit('Grupo Record - Bestseller', null, 'sac@record.com.br');
 CALL spcadEdit('Astral Cultural', null, 'sac@astral.com.br');
-CALL spcadEdit('Grupo C. das Letras - Paralela', 2139937510, 'site@companhiadasletras.com.br');
+CALL spcadEdit('Grupo C. das Letras - Paralela', 81987463394, 'site@companhiadasletras.com.br');
 
 CALL spcheckAllEdit();
 
-CALL spaltEdit(3, "Primier", 1137777777, "primier.contato@gmail.com");
+CALL spaltEdit(3, "Primier", 69989811574, "primier.contato@gmail.com");
 
 CALL spcheckEditById(3);
 

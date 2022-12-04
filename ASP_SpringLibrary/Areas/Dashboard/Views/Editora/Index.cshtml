@@ -38,7 +38,14 @@
                 @Html.DisplayFor(modelItem => item.nomEdit)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.celEdit)
+                @if (item.celEdit == "")
+                {
+                    <span>&emsp;&emsp;&emsp;-</span>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.celEdit)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.emailEdit)

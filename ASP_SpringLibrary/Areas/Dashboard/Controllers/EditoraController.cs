@@ -20,7 +20,10 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
 
             foreach (var tempEdit in tempEditList)
             {
-                tempEdit.celEdit = tempEdit.celEdit.Insert(0, "(").Insert(3, ") ").Insert(10, "-");
+                if (tempEdit.celEdit != "")
+                {
+                    tempEdit.celEdit = tempEdit.celEdit.Insert(0, "(").Insert(3, ") ").Insert(10, "-");
+                }
             }
 
             return View(tempEditList);
