@@ -19,7 +19,7 @@ namespace ASP_SpringLibrary.Models
         [Display(Name = "Data Entregue")]
         public DateTime? dtEntDel { get; set; }
 
-        [Display(Name = "Status")]
+        [Display(Name = "Status Delivery")]
         public char statDel { get; set; }
 
         MySqlConnection connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString);

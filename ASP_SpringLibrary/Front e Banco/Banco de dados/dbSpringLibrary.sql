@@ -32,7 +32,7 @@ DELIMITER $$
 CREATE PROCEDURE spcadEdit(
 	$nomEdit varchar(30),
     $celEdit char(11),
-    $emailEdit varchar(30)
+    $emailEdit varchar(50)
 )
 BEGIN
 	IF NOT EXISTS (SELECT nomEdit FROM tbEditora WHERE nomEdit = $nomEdit) THEN

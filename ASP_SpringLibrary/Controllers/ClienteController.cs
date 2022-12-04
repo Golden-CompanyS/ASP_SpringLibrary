@@ -142,10 +142,14 @@ namespace ASP_SpringLibrary.Controllers
         public ActionResult Login(string urlRetorno)
         {
             var identity = (ClaimsPrincipal) Thread.CurrentPrincipal;
-            var userName = identity.Claims.Where(c => c.Type == ClaimTypes.Name)
+            var email = identity.Claims.Where(c => c.Type == ClaimTypes.Name)
                                                       .Select(c => c.Value).SingleOrDefault();
-            if (userName != null)
+            if (email != null)
             {
+                if (new Funcionario().isFunc(email))
+                {
+                    return RedirectToAction("Index", "Home", new { Area = "Dashboard" });
+                }
                 return RedirectToAction("Perfil");
             }
 
