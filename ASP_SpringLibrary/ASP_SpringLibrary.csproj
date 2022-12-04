@@ -246,6 +246,7 @@
     <Content Include="Content\livro.css" />
     <Content Include="Content\user.css" />
     <Content Include="Content\userLogin.css" />
+    <Content Include="Content\usualt.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Front e Banco\Banco de dados\ASP - diagrama conceitual.png" />

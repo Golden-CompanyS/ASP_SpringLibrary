@@ -1,0 +1,80 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #696565;
+    margin: auto;
+    text-decoration: none;
+    background-color: #FFDAE9;
+}
+
+
+h2 {
+    margin-top: 4vw;
+    font-weight: bold;
+    text-align: center;
+    font-size: 3em;
+}
+
+.formulario {
+    width: 100%;
+    margin-top: 3vw;
+}
+
+label {
+    font-weight: bold;
+    font-size: 2em !important;
+}
+
+input {
+    border-radius: 1vw !important;
+    font-size: 1.5em !important;
+}
+
+select {
+    border-radius: 1vw !important;
+    font-size: 2em !important;
+}
+
+textarea {
+    border-radius: 1vw !important;
+    min-height: 30vh;
+    max-height: 30vh;
+    font-size: 2em !important;
+}
+
+
+#add {
+    background: #FF9CC0;
+    color: #fff;
+    border-radius: 0.5vw;
+    margin-right: 3vw;
+}
+
+#del {
+    background: #FF9CC0;
+    color: #fff;
+    border-radius: 0.5vw;
+    margin-left: 3vw;
+}
+
+#cad {
+    background: #F448B0 !important;
+    color: #fff;
+    border-radius: 0.5vw;
+    display: flex;
+    align-items: center;
+    margin-top: 1vw;
+
+    font-size: 2em !important;
+}
+
+    #cad:hover {
+        background: #F448B0;
+        color: #fff;
+        text-decoration: none;
+    }
+
+a {
+    text-decoration: none;
+}

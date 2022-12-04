@@ -24,7 +24,7 @@
             <a @Html.ActionLink("Consultar Editoras", "Index", "Editora", new { area = "Dashboard" }, null)</a>
             <a @Html.ActionLink("Consultar Gêneros", "Index", "Genero", new { area = "Dashboard" }, null)</a>
             <a @Html.ActionLink("Consultar Autores", "Index", "Autor", new { area = "Dashboard" }, null)</a>
-            <a @Html.ActionLink("Consultar Funcionários", "Index", "Funcionario", new { area = "Dashboard" }, null)</a>
+            <a @Html.ActionLink("Funcionários", "Index", "Funcionario", new { area = "Dashboard" }, null)</a>
         </div>
     </div>
 
@@ -33,8 +33,8 @@
             <h2>@User.Identity.Name</h2>
         </div>
 
-        <a class="tchau"
-           @Html.ActionLink("Deslogar", "Logout", "Cliente", new { area = "" }, new { @class = "navbar-brand"})
+        <a class="tchau">
+           @Html.ActionLink("Sair", "Logout", "Cliente", new { area = "" }, new { @class = "navbar-brand"})
            </a>
     </div>
 </body>
