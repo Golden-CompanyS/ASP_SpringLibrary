@@ -25,16 +25,16 @@ namespace ASP_SpringLibrary.Utils
                 var identity = (ClaimsPrincipal) Thread.CurrentPrincipal;
                 try
                 {
-                    String userName = identity.Claims.Where(c => c.Type == ClaimTypes.Name)
+                    String email = identity.Claims.Where(c => c.Type == ClaimTypes.Name)
                                                       .Select(c => c.Value).SingleOrDefault();
 
                     if (role == "Cliente")
                     {
-                        authorize = new Cliente().isCli(userName);
+                        authorize = new Cliente().isCli(email);
                     }
                     else if (role == "Funcionário")
                     {
-                        authorize = new Funcionario().isFunc(userName);
+                        authorize = new Funcionario().isFunc(email);
                     }
 
                 }

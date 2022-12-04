@@ -13,14 +13,14 @@ namespace ASP_SpringLibrary.Models
     {
         public int idNF { get; set; }
 
-        [Display(Name = "Hora e Data de emissão")]
+        [Display(Name = "Data e hora de emissão")]
         public DateTime dateNF { get; set; }
 
         [Display(Name = "Pagamento")]
         [Required(ErrorMessage = "Especifique a forma de pagamento.")]
         public string pagNF { get; set; }
 
-        [Display(Name = "Valor Total")]
+        [Display(Name = "Total da compra")]
         public decimal valNF { get; set; }
 
         [Display(Name = "É delivery?")]
@@ -122,7 +122,7 @@ namespace ASP_SpringLibrary.Models
                                   "     FROM tbVenda                                   " +
                                   "         INNER JOIN tbCliente                       " +
                                   "             on tbVenda.idCli = tbCliente.idCli     " +
-                                  "         INNER JOIN tbDelivery                      " +
+                                  "         LEFT JOIN tbDelivery                       " +
                                   "             on tbVenda.idVen = tbDelivery.idVen;   "; // SELECIONAR TUDO DA tbVenda + Cliente
                 command.Connection = connection;
 
@@ -140,17 +140,20 @@ namespace ASP_SpringLibrary.Models
                 tempNf.valNF = decimal.Parse(readNf["valTotVen"].ToString());
                 tempNf.isDelivNF = readNf["delivVen"].ToString().AsBool();
 
-                var tempDel = new Delivery();
-                    tempDel.idDel = int.Parse(readNf["idDel"].ToString());
-                    tempDel.statDel = char.Parse(readNf["statDel"].ToString());
-                    tempDel.dtPrevDel = DateTime.Parse(readNf["dtPrevDel"].ToString());
-                    
+                if (tempNf.isDelivNF)
+                {
+                    var tempDel = new Delivery();
+                        tempDel.idDel = int.Parse(readNf["idDel"].ToString());
+                        tempDel.statDel = char.Parse(readNf["statDel"].ToString());
+                        tempDel.dtPrevDel = DateTime.Parse(readNf["dtPrevDel"].ToString());
+
                     if (readNf["dtFinDel"].ToString() != "")
                     {
                         tempDel.dtEntDel = DateTime.Parse(readNf["dtFinDel"].ToString());
                     }
 
-                tempNf.deliveryNF = tempDel;
+                    tempNf.deliveryNF = tempDel;
+                }
 
                 tempNfList.Add(tempNf);
             }

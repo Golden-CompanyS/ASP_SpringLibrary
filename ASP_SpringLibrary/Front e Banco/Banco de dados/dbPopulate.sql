@@ -314,12 +314,12 @@ call spCadLiv(
 	"Uma história de amor emocionante, cheia de encontros e desencontros, que fará você acreditar no poder do destino.
 Qualquer coisa poderia ter acontecido naquele dia. Mas Noelle nunca imaginou que uma nevasca fecharia a estrada e ela passaria a noite parada no trânsito, sozinha, sem comida, água ou um carregador de celular. E sequer pensou que, de repente, estaria sentada no carro do charmoso Sam, um norte-americano em uma breve visita à Inglaterra, tendo a melhor conversa de sua vida ― por oito horas perfeitas. Mas Sam está a caminho do aeroporto e ambos sabem que, no dia seguinte, seus caminhos se separarão para sempre. Mas e se o destino reservar um plano diferente para eles?",
 	'https://m.media-amazon.com/images/I/71v1P3X7WEL.jpg',
-	5,304,1,2022,29.99,99,true,18,9,3);
+	5,304,1,2022,29.99,99,true,17,9,3);
 call spinsertAutLiv(8584392831, 17);
 
 call spCadLiv(
 	'655560302X',
-    'Os dois morrem no final','Eight perfect hours',
+    'Os dois morrem no final','They Both Die at the End',
 	"No dia 5 de setembro, pouco depois da meia-noite, Mateo Torrez e Rufus Emeterio recebem uma ligação da Central da Morte. A notícia é devastadora: eles vão morrer naquele mesmo dia.
 Os dois não se conhecem, mas, por motivos diferentes, estão à procura de um amigo com quem compartilhar os últimos momentos, uma conexão verdadeira que ajude a diminuir um pouco a angústia e a solidão que sentem. Por sorte, existe um aplicativo para isso, e é graças a ele que Rufus e Mateo vão se encontrar para uma última grande aventura: viver uma vida inteira em um único dia.
 Uma história sensível e emocionante, Os dois morrem no final nos lembra o que significa estar vivo. Com seu olhar único, Adam Silvera mostra que cada segundo importa, e mesmo que não haja vida sem morte, nem amor sem perda, tudo pode mudar em 24 horas.",

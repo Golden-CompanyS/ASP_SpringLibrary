@@ -28,7 +28,7 @@ namespace ASP_SpringLibrary.Models
 
         [Display(Name = "E-Mail")]
         [Required(ErrorMessage = "Campo obrigatório")]
-        [MaxLength(30, ErrorMessage = "O email da editora deve ter até 30 caracteres")]
+        [MaxLength(30, ErrorMessage = "O email da editora deve ter até 50 caracteres")]
         [EmailAddress(ErrorMessage = "Email inválido")]
         public string emailEdit { get; set; }
 

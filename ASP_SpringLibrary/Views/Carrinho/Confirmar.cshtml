@@ -30,7 +30,7 @@
             @Html.DisplayNameFor(model => model.valNF)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.valNF)
+            R$ @Model.valNF.ToString("F")
         </dd>
 
         <br />
@@ -61,7 +61,7 @@
                 </dt>
                 <dd>
                     @Html.DisplayNameFor(model => model.deliveryNF.dtPrevDel):
-                    @Html.DisplayFor(model => model.deliveryNF.dtPrevDel)<br />
+                    @Model.deliveryNF.dtPrevDel.ToShortDateString()<br />
 
                     @switch (Model.deliveryNF.statDel)
                     {
@@ -82,9 +82,9 @@
                     {
                         <p>
                             @Html.DisplayNameFor(model => model.deliveryNF.dtEntDel):
-                            @Html.DisplayFor(model => model.deliveryNF.dtEntDel)
+                            @Model.deliveryNF.dtEntDel.Value.ToShortDateString()
                         </p>
-                    };
+                    }
 
                 </dd>
             }
