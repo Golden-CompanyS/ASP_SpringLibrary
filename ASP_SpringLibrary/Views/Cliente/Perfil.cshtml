@@ -4,110 +4,111 @@
     ViewBag.Title = "Perfil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@Styles.Render("~/Content/user.css")
 
 <h2>Suas Informações</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.nomCli)
-        </dt>
+<div class="container">
+    <center>
+        <img src="../Photos/user2.png" alt="usuario">
+    </center>
 
-        <dd>
-            @Html.DisplayFor(model => model.nomCli)
-        </dd>
+    <div class="info">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.nomCli)</th>
+                    <td>@Html.DisplayFor(model => model.nomCli)</td>
+                </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.emailCli)
-        </dt>
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.emailCli)</th>
+                    <td>@Html.DisplayFor(model => model.emailCli)</td>
+                </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.emailCli)
-        </dd>
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.celCli)</th>
+                    <td>@Html.DisplayFor(model => model.celCli)</td>
+                </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.celCli)
-        </dt>
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.CEPCli)</th>
+                    <td>@Html.DisplayFor(model => model.CEPCli)</td>
+                </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.celCli)
-        </dd>
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.numEndCli)</th>
+                    <td>@Html.DisplayFor(model => model.numEndCli)</td>
+                </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CEPCli)
-        </dt>
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.compEndCli)</th>
+                    <td>@Html.DisplayFor(model => model.compEndCli)</td>
+                </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.CEPCli)
-        </dd>
+                @if (ViewData["isFunc"].ToString().AsBool())
+                {
+                    <tr>
+                        <th scope="col">@Html.DisplayNameFor(model => model.CNPJCliJ)</th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.numEndCli)
-        </dt>
+                        <td>
+                            @Html.DisplayFor(model => model.CNPJCliJ)
+                        </td>
+                    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.numEndCli)
-        </dd>
+                    <tr>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.fantaCliJ)
+                        </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.compEndCli)
-        </dt>
+                        <td>
+                            @Html.DisplayFor(model => model.fantaCliJ)
+                        </td>
+                    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.compEndCli)
-        </dd>
+                    <tr>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.represCliJ)
+                        </th>
 
-        @if (ViewData["isFunc"].ToString().AsBool())
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.CNPJCliJ)
-            </dt>
+                        <td>
+                            @Html.DisplayFor(model => model.represCliJ)
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.CPFCliF)
+                        </th>
 
-            <dd>
-                @Html.DisplayFor(model => model.CNPJCliJ)
-            </dd>
+                        <td>
+                            @Html.DisplayFor(model => model.CPFCliF)
+                        </td>
+                    </tr>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.fantaCliJ)
-            </dt>
+                    <tr>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.dtNascCliF)
+                        </th>
 
-            <dd>
-                @Html.DisplayFor(model => model.fantaCliJ)
-            </dd>
+                        <td>
+                            @Html.DisplayFor(model => model.dtNascCliF)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.represCliJ)
-            </dt>
+    </div>
 
-            <dd>
-                @Html.DisplayFor(model => model.represCliJ)
-            </dd>
-
-        }
-        else
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.CPFCliF)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CPFCliF)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.dtNascCliF)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.dtNascCliF)
-            </dd>
-        }
-
-    </dl>
+    <div class="links">
+        <p>@Html.ActionLink("Alterar", "Alterar")</p>
+        <p>@Html.ActionLink("Meus Pedidos", "Pedidos")</p>
+        <p>@Html.ActionLink("Deslogar", "Logout")</p>
+    </div>
+    
+    <center><button class="btn btn-lg">Sair</button></center>
 </div>
-<p>
-    @Html.ActionLink("Alterar", "Alterar")
-    @Html.ActionLink("Meus Pedidos", "Pedidos")
-    @Html.ActionLink("Deslogar", "Logout")
-</p>
