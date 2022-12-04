@@ -4,6 +4,8 @@
     ViewBag.Title = "Cadastrar";
     Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@Styles.Render("~/Content/CadLiv.css")
 
 <h2>Cadastrar</h2>
 
@@ -12,7 +14,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Funcionario</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.idFunc, new { Value = 0 }) <!-- ID 0 escondido para passar à Controller -->
@@ -75,7 +76,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Cadastrar" class="btn btn-default" />
+                <input type="submit" value="Cadastrar" class="btn btn-default" id="cad"/>
             </div>
         </div>
     </div>

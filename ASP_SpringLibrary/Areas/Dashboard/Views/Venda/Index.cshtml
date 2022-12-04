@@ -4,12 +4,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -42,81 +42,82 @@
         <th>Alterar Status</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.idNF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dateNF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.pagNF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.valNF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.clienteNF.nomCli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isDelivNF)
-        </td>
-        <td>
-            @switch (item.deliveryNF.statDel)
-            {
-                case '0':
-                    <span>Encomendado</span>
-                    break;
-                case '1':
-                    <span>Saiu</span>
-                    break;
-                case '2':
-                    <span>Entregue</span>
-                    break;
-                default:
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idNF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dateNF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pagNF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.valNF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.clienteNF.nomCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isDelivNF)
+            </td>
+            <td>
+                @switch (item.deliveryNF.statDel)
+                {
+                    case '0':
+                        <span>Encomendado</span>
+                        break;
+                    case '1':
+                        <span>Saiu</span>
+                        break;
+                    case '2':
+                        <span>Entregue</span>
+                        break;
+                    default:
+                        <span>-</span>
+                        break;
+                }
+            </td>
+            <td>
+                @if (item.deliveryNF.dtPrevDel != null)
+                {
+                    <span>@item.deliveryNF.dtPrevDel.ToShortDateString()</span>
+                }
+                else
+                {
                     <span>-</span>
-                    break;
-            }
-        </td>
-        <td>
-            @if(item.deliveryNF.dtPrevDel != null)
-            {
-                <span>@item.deliveryNF.dtPrevDel.ToShortDateString()</span>
-            }
-            else
-            {
-                <span>-</span>
-            }
-        </td>
-        <td>
-            @if(item.deliveryNF.dtEntDel != null)
-            {
-               <span>@item.deliveryNF.dtEntDel.Value.ToShortDateString()</span>
-            }
-            else
-            {
-                <span>-</span>
-            }
-        </td>
-        <td>
-            @switch (item.deliveryNF.statDel)
-            {
-                case '0':
-                    @Html.ActionLink("Saiu", "altStatus", new { idDel = item.deliveryNF.idDel, status = 1 });
-                    break;
-                case '1':
-                    @Html.ActionLink("Entregue", "altStatus", new { idDel = item.deliveryNF.idDel, status = 2 });
-                    break;
-                case '2':
-                    <span>Entregue</span>
-                    break;
-                default:
+                }
+            </td>
+            <td>
+                @if (item.deliveryNF.dtEntDel != null)
+                {
+                    <span>@item.deliveryNF.dtEntDel.Value.ToShortDateString()</span>
+                }
+                else
+                {
                     <span>-</span>
-                    break;
-            }
-        </td>
-    </tr>
-}
+                }
+            </td>
+            <td>
+                @switch (item.deliveryNF.statDel)
+                {
+                    case '0':
+                        @Html.ActionLink("Saiu", "altStatus", new { idDel = item.deliveryNF.idDel, status = 1 });
+                        break;
+                    case '1':
+                        @Html.ActionLink("Entregue", "altStatus", new { idDel = item.deliveryNF.idDel, status = 2 });
+                        break;
+                    case '2':
+                        <span>Entregue</span>
+                        break;
+                    default:
+                        <span>-</span>
+                        break;
+                }
+            </td>
+        </tr>
+    }
 
 </table>

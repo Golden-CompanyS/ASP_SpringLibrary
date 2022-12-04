@@ -45,6 +45,10 @@ h2 {
     color: rgb(62, 62, 209);
 }
 
+button a{
+    color:#fff;
+}
+
 button {
     color: #fff;
     background: #F448B0;
