@@ -138,6 +138,11 @@ namespace ASP_SpringLibrary.Controllers
             return Json(!EmailExists, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult Login(string urlRetorno)
         {

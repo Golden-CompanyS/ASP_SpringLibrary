@@ -328,7 +328,7 @@ Uma história sensível e emocionante, Os dois morrem no final nos lembra o que 
 call spinsertAutLiv('655560302X', 15);
 
 -- Retificando o nome do livro e retirando/recolocando a autora de ID 2
-call spaltLivro('9788594540188','Frankenstein',null,'Sinopse','linkImg',1,283,2,1991,39.99,300,0,2,4,7);
+call spaltLivro('9788594540188','Frankenstein',null,'Sinopse','https://darkside.vteximg.com.br/arquivos/ids/173999-519-519/94-frankenstein-ou-o-prometeu-moderno-2.png?v=637558414029330000',1,283,2,1991,39.99,300,0,2,4,7);
 
 select * from vwcheckAllLiv;
 
