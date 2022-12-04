@@ -4,12 +4,14 @@ body {
     display: flex;
     font-family: 'Roboto', sans-serif !important;
     font-size: 20px;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
 }
 
 aside img {
-    height: 75vh;
+    height: 74vh;
     width: 50vw;
+    object-fit: cover;
+    height: 76.5vh;
 }
 
 #signinAside img {
@@ -18,14 +20,14 @@ aside img {
 
 #filler {
     width: 10vw;
+    height: 100px;
 }
 
 .formContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin: 0 5vw 0 5vw;
+    margin: 10vh 5vw 0 5vw;
 }
 
     .formContainer label {
@@ -43,8 +45,9 @@ aside img {
     }
 
     .formContainer img {
-        width: 200px;
-        height: 200px;
+        width: 5vw;
+        height: 10vh;
+        object-fit: contain;
     }
 
     .formContainer a {
@@ -55,6 +58,7 @@ aside img {
 .radioArea {
     display: flex;
     list-style: none;
+    justify-content: space-evenly;
 }
 
 .form-check input {
@@ -90,15 +94,15 @@ aside img {
     margin-top: 10px;
 }
 
-.btn:hover {
-    color: white;
-    box-shadow: 2px 2px 5px #7030a0;
-}
+    .btn:hover {
+        color: white;
+        box-shadow: 2px 2px 5px #7030a0;
+    }
 
 .container {
     margin-right: 0 !important;
     margin-left: 0 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
-    display:flex;
+    display: flex;
 }
