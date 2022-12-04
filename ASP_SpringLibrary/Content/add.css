@@ -4,6 +4,8 @@ body {
     color: #696565;
     font-family: 'Roboto', sans-serif;
     background: #F7CFE0;
+    overflow-y: hidden;
+    overflow-x:hidden;
 }
 
 h1 {
@@ -15,7 +17,7 @@ h1 {
 
 .func {
     width: 100vw;
-    margin-top: 15vh;
+    margin-top: 5vh;
 }
 
 .func a {
@@ -25,12 +27,12 @@ h1 {
         width: 20vw;
         height: 30vh;
         border-radius: 40px;
-        font-size: 1.5vw;
+        font-size: 2vw;
         justify-items: center;
     }
 
 .botoes {
-    padding-bottom: 7vh;
+    padding-bottom: 3vh;
     display: flex;
     flex-wrap: wrap;
 }
@@ -52,12 +54,16 @@ h1 {
 .footer {
     display: flex;
     justify-content: space-between;
-    margin: 5vh;
-    margin-top: 16vh;
     align-items: center;
 }
 
-.tchau {
+.tchau p {
     font-size: 30px;
-    text-decoration: underline;
+    text-decoration: none;
+    color: rgb(243, 117, 205);
 }
+
+    .tchau p:hover {
+        text-decoration: none;
+        color: rgb(245, 75, 194);
+    }

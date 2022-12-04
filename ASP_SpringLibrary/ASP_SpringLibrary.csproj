@@ -244,6 +244,7 @@
     <Content Include="Content\LivroEsp.css" />
     <Content Include="Content\nav.css" />
     <Content Include="Content\livro.css" />
+    <Content Include="Content\user.css" />
     <Content Include="Content\userLogin.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -288,7 +289,7 @@
     <Content Include="Photos\Slide 2.png" />
     <Content Include="Front e Banco\Teste de front\resources\trash.png" />
     <Content Include="Front e Banco\Teste de front\resources\user.png" />
-    <Content Include="Front e Banco\Teste de front\resources\user2.png" />
+    <Content Include="Photos\user2.png" />
     <Content Include="Front e Banco\Teste de front\signin.html" />
     <Content Include="Front e Banco\Teste de front\sobre.html" />
     <Content Include="Front e Banco\Teste de front\teste.html" />
