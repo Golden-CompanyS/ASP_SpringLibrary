@@ -2,9 +2,10 @@
 
 ![Logo_Tema_Claro](https://user-images.githubusercontent.com/80417466/204179176-1fa554bd-87bd-42e0-91bc-16cbea4c4591.png)
 
-## Desenvolvedores da aplicação 
-Maria Eduarda Rodrigues
-Mateus Taveira 
+## Perfil do desenvolvedor e seus respectivos contribuintes:
+
+| [<img src="https://avatars.githubusercontent.com/u/62896500?v=4" width=115><br><sub>Mateus Taveira</sub>](https://github.com/letyresina) | [<img src="https://avatars.githubusercontent.com/u/85740476?v=4" width=115><br><sub>Erin Rodrigues</sub>](https://github.com/LarissaSonoda) | [<img src="https://avatars.githubusercontent.com/u/82532010?v=4" width=115><br><sub>Gustavo Pereira</sub>](https://github.com/PereiraGus) 
+| :---: | :---: | :---:
 
 ## Objetivo
 O sistema tem como enfoque entrega do TCC que une os conhecimentos desde o Primeiro Ano do Ensino Médio integrado ao Desenvolvimento de sistemas na ETEC Professor Basilides de Godoy. Essa é a entrega final.
