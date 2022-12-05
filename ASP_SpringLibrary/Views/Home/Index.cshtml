@@ -40,6 +40,7 @@
             @foreach (var tempLiv in (List<LivrosHomeViewModel>)ViewData[secao])
             {
                 <div class="item current-item">
+                    <div style="padding: 0;"></div>
                     <a href="@Url.Action("Detalhes", "Livros", new { id = tempLiv.ISBNLiv })">
                         <img src="@Url.Content(tempLiv.imgLiv)" />
                         <h3>@tempLiv.titLiv</h3>

@@ -3,9 +3,9 @@
 body {
     color: #696565;
     font-family: 'Roboto', sans-serif;
-    background: #F7CFE0;
+    background: #337ab740;
     overflow-y: hidden;
-    overflow-x:hidden;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -59,7 +59,8 @@ h1 {
     margin-right: 3vw;
 }
 
-.tchau p {
-    font-size: 30px;
+.tchau {
+    color: #337ab7;
     text-decoration: underline;
-    }
+    font-size: 1.6vw;
+}

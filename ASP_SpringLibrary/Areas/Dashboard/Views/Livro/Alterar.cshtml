@@ -4,28 +4,27 @@
 @using ASP_SpringLibrary.Areas.Dashboard.ViewModels.Autor
 
 @{
-    ViewBag.Title = "Cadastrar";
+    ViewBag.Title = "Alterar";
     Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
-    
 }
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    @Styles.Render("~/Content/CadLiv.css")
-    <h2>Cadastrar</h2>
+@Styles.Render("~/Content/CadLiv.css")
+<h2>Alterar</h2>
 
-    <div class="formulario">
-        @using (Html.BeginForm("Cadastrar", "Livro", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.AntiForgeryToken()
+<div class="formulario">
+    @using (Html.BeginForm("Alterar", "Livro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="form-group">
                 <div class="col-md-10">
                     @Html.LabelFor(model => model.ISBNLiv, htmlAttributes: new { @class = "control-label col-md-4" })
 
-                    @Html.EditorFor(model => model.ISBNLiv, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.ISBNLiv, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.ISBNLiv, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -178,8 +177,10 @@
                 {
                     <div class="form-group">
                         <div class="col-md-10">
-                            @Html.LabelFor(model => model.autLiv, htmlAttributes: new { @class = "control-label col-md-4" })
-
+                            @if (i == 0)
+                            {
+                                @Html.LabelFor(model => model.autLiv, htmlAttributes: new { @class = "control-label col-md-4" })
+                            }
                             <div class="checkbox">
                                 @Html.DropDownListFor(model => model.autLiv[i].idAut, ((IEnumerable<AutorDropDownViewModel>)ViewBag.Autores).Select(option => new SelectListItem
                            {
@@ -200,12 +201,12 @@
             </div><br><br /><hr />
             <button type="submit" class="btn btn-lg" id="cad">Cadastrar</button>
         </div>
-        }
-    </div>
+    }
+</div>
 
 
-    @section Scripts {
-        <script>
+@section Scripts {
+    <script>
             let GroupAuthor = document.querySelector("#autGroup");
             console.log(GroupAuthor);
             let i = parseInt(document.getElementById('numAut').value) - 1;
@@ -218,7 +219,7 @@
                     newDropDown.className = "form-group";
                     newDropDown.id = "aut"+i;
                     newDropDown.innerHTML = `
-                    <div class="form-group form-group-author">
+                    <div class="form-group-author">
                         <div class="col-md-10">
                             <div class="checkbox">
                                 @Html.DropDownListFor(model => model.autLiv[-1].idAut, ((IEnumerable<AutorDropDownViewModel>)ViewBag.Autores).Select(option => new SelectListItem
@@ -247,5 +248,5 @@
 
             });
 
-        </script>
-    }
+    </script>
+}

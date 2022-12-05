@@ -17,6 +17,10 @@
     font-size: 22px;
 }
 
+.topItemsAdmin {
+    background-color: #337ab7;
+}
+
 #logo {
     width: 15vw;
     height: 8vh;

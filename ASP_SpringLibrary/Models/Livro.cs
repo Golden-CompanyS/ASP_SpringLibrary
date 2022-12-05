@@ -106,15 +106,43 @@ namespace ASP_SpringLibrary.Models
             connection.Close();
         }
 
+        public void altLiv(Livro livro)
+        {
+            connection.Open();
+            command.CommandText = "CALL spcadLiv(@ISBNLiv, @titLiv, @titOriLiv, @sinopLiv, @imgLiv, @pratLiv,       " +
+                                  "              @numPagLiv, @numEdicaoLiv, @anoLiv, @precoLiv, @qtdLiv, @ativoLiv, " +
+                                  "              @idEdit, @idGen, @idFunc);                                         "; // INSERIR tbLivro
+                command.Parameters.Add("@ISBNLiv", MySqlDbType.Int64).Value = livro.ISBNLiv;
+                command.Parameters.Add("@titLiv", MySqlDbType.String).Value = livro.titLiv;
+                command.Parameters.Add("@titOriLiv", MySqlDbType.String).Value = livro.titOriLiv;
+                command.Parameters.Add("@sinopLiv", MySqlDbType.String).Value = livro.sinopLiv;
+                command.Parameters.Add("@imgLiv", MySqlDbType.String).Value = livro.imgLiv;
+                command.Parameters.Add("@pratLiv", MySqlDbType.Int64).Value = livro.pratLiv;
+                command.Parameters.Add("@numPagLiv", MySqlDbType.Int64).Value = livro.numPagLiv;
+                command.Parameters.Add("@numEdicaoLiv", MySqlDbType.Int64).Value = livro.numEdicaoLiv;
+                command.Parameters.Add("@anoLiv", MySqlDbType.Int64).Value = livro.anoLiv;
+                command.Parameters.Add("@precoLiv", MySqlDbType.Decimal).Value = livro.precoLiv;
+                command.Parameters.Add("@qtdLiv", MySqlDbType.Int64).Value = livro.qtdLiv;
+                command.Parameters.Add("@ativoLiv", MySqlDbType.Bit).Value = livro.ativoLiv;
+                command.Parameters.Add("@idEdit", MySqlDbType.Int64).Value = livro.editLiv.idEdit; // ID da Editora
+                command.Parameters.Add("@idGen", MySqlDbType.Int64).Value = livro.genLiv.idGen; // ID do Genero
+                command.Parameters.Add("@idFunc", MySqlDbType.Int64).Value = livro.funcLiv.idFunc; // ID do Funcionario
+                command.Connection = connection;
+                command.ExecuteNonQuery();
+            connection.Close();
+        }
+
         public Livro checkLivByISBN(string ISBNLiv)
         {
             connection.Open();
-            command.CommandText = "SELECT ISBNLiv, titLiv, titOriLiv, sinopLiv, imgLiv, pratLiv, numPagLiv, " +
-                                  "       numEdicaoLiv, anoLiv, precoLiv, qtdLiv, ativoLiv, nomEdit, nomGen " +
-                                  "     FROM tbLivro liv                                                    " +
-                                  "     INNER JOIN tbEditora edt on liv.idEdit = edt.idEdit                 " +
-                                  "     INNER JOIN tbGenero gen on liv.idGen = gen.idGen                    " +
-                                  "   WHERE ISBNLiv = @ISBNLiv;                                             "; // SELECIONAR tbLivro PELO ISBN
+            command.CommandText = "SELECT ISBNLiv, titLiv, titOriLiv, sinopLiv, imgLiv, pratLiv, numPagLiv,  " +
+                                  "       numEdicaoLiv, anoLiv, precoLiv, qtdLiv, ativoLiv, nomEdit, nomGen, " +
+                                  "       liv.idFunc, edt.idEdit, gen.idGen                                  " +
+                                  "     FROM tbLivro liv                                                     " +
+                                  "         INNER JOIN tbEditora edt on liv.idEdit = edt.idEdit              " +
+                                  "         INNER JOIN tbGenero gen on liv.idGen = gen.idGen                 " +
+                                  "         INNER JOIN tbFuncionario fun on liv.idFunc = fun.idFunc          " +
+                                  "   WHERE ISBNLiv = @ISBNLiv;                                              "; // SELECIONAR tbLivro PELO ISBN
                 command.Parameters.Add("@ISBNLiv", MySqlDbType.VarChar).Value = ISBNLiv;
             command.Connection = connection;
 
@@ -135,8 +163,9 @@ namespace ASP_SpringLibrary.Models
                 tempLiv.precoLiv = decimal.Parse(readLiv["precoLiv"].ToString());
                 tempLiv.qtdLiv = int.Parse(readLiv["qtdLiv"].ToString());
                 tempLiv.ativoLiv = bool.Parse(readLiv["ativoLiv"].ToString());
-                tempLiv.editLiv = new Editora() { nomEdit = readLiv["nomEdit"].ToString() };
-                tempLiv.genLiv = new Genero() { nomGen = readLiv["nomGen"].ToString() };
+                tempLiv.editLiv = new Editora() { nomEdit = readLiv["nomEdit"].ToString(), idEdit = int.Parse(readLiv["idEdit"].ToString()) };
+                tempLiv.genLiv = new Genero() { nomGen = readLiv["nomGen"].ToString(), idGen = int.Parse(readLiv["idGen"].ToString()) };
+                tempLiv.funcLiv = new Funcionario() { idFunc = int.Parse(readLiv["idFunc"].ToString()) };
             }
 
             readLiv.Close();
@@ -308,7 +337,7 @@ namespace ASP_SpringLibrary.Models
         public List<Autor> checkAutListByLivISBN(string ISBNLiv)
         {
             connection.Open();
-            command.CommandText = "SELECT nomAut, lvaut.idAut FROM tbAutor aut                              " +
+            command.CommandText = "SELECT nomAut, lvaut.idAut FROM tbAutor aut                 " +
                                   "   INNER JOIN tbLivroAutor lvaut on aut.idAut = lvaut.idAut " +
                                   " WHERE ISBNLiv = ?ISBNLiv;                                  "; // SELECIONAR Autores de determinado Livro
                 command.Parameters.Add("?ISBNLiv", MySqlDbType.VarChar).Value = ISBNLiv;

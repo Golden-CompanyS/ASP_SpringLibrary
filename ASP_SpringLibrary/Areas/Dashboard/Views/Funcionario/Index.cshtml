@@ -5,17 +5,17 @@
     Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@Styles.Render("~/Content/CadLiv.css")
+<style>.container { width: 100%; }</style>
 
-<h2>Index</h2>
+<h2>Todos os Funcionários</h2>
 
 <p>
     @Html.ActionLink("Cadastrar Novo", "Cadastrar")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.idFunc)
-        </th>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.imgFunc)
         </th>

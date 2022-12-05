@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.idEdit, new { Value = 0 }) <!-- ID 0 escondido para passar à Controller -->
 
         <div class="form-group">
-            @Html.LabelFor(model => model.nomEdit, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.nomEdit, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.nomEdit, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.nomEdit, "", new { @class = "text-danger" })
@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.celEdit, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.celEdit, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.celEdit, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.celEdit, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.emailEdit, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.emailEdit, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.emailEdit, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.emailEdit, "", new { @class = "text-danger" })

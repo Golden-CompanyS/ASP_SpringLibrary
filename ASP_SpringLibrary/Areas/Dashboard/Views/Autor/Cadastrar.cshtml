@@ -19,7 +19,7 @@
         @Html.HiddenFor(model => model.idAut, new { Value = 0 }) <!-- ID 0 escondido para passar à Controller -->
 
         <div class="form-group">
-            @Html.LabelFor(model => model.nomAut, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.nomAut, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.nomAut, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.nomAut, "", new { @class = "text-danger" })

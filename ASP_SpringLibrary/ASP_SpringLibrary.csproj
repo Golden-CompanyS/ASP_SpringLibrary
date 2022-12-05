@@ -325,6 +325,7 @@
     <Content Include="Front e Banco\Banco de dados\ASP - diagrama lógico OLD.mwb" />
     <Content Include="Front e Banco\Banco de dados\ASP - diagrama lógico.mwb" />
     <Content Include="Areas\Dashboard\Views\Venda\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Livro\Alterar.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
     <Content Include="Scripts\inputmask\inputmask.es6.js" />

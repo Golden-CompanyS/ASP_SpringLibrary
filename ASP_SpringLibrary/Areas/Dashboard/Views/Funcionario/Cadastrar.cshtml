@@ -19,7 +19,7 @@
         @Html.HiddenFor(model => model.idFunc, new { Value = 0 }) <!-- ID 0 escondido para passar à Controller -->
 
         <div class="form-group">
-            @Html.LabelFor(model => model.nomFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.nomFunc, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.nomFunc, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.nomFunc, "", new { @class = "text-danger" })
@@ -27,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CPFFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CPFFunc, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CPFFunc, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CPFFunc, "", new { @class = "text-danger" })
@@ -35,7 +35,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.imgFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.imgFunc, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.imgFunc, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
                 @Html.ValidationMessageFor(model => model.imgFunc, "", new { @class = "text-danger" })
@@ -43,7 +43,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.celFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.celFunc, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.celFunc, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.celFunc, "", new { @class = "text-danger" })
@@ -51,7 +51,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.cargoFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.cargoFunc, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.cargoFunc, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.cargoFunc, "", new { @class = "text-danger" })
@@ -59,7 +59,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.emailFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.emailFunc, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.emailFunc, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.emailFunc, "", new { @class = "text-danger" })
@@ -67,7 +67,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.senhaFunc, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.senhaFunc, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.senhaFunc, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.senhaFunc, "", new { @class = "text-danger" })

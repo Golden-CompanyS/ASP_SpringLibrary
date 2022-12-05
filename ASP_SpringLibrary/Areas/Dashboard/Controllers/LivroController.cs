@@ -110,21 +110,21 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
                         var tempUniqueAutIdList = new HashSet<int>(tempAllAutIdList);
 
                         // Passar valores à classe Livro para cadastrar
-                        Livro tempLiv = new Livro();
-                        tempLiv.ISBNLiv = livro.ISBNLiv;
-                        tempLiv.titLiv = livro.titLiv;
-                        tempLiv.titOriLiv = livro.titOriLiv;
-                        tempLiv.sinopLiv = livro.sinopLiv;
-                        tempLiv.imgLiv = livro.imgLiv;
-                        tempLiv.pratLiv = livro.pratLiv;
-                        tempLiv.numPagLiv = livro.numPagLiv;
-                        tempLiv.numEdicaoLiv = livro.numEdicaoLiv;
-                        tempLiv.anoLiv = livro.anoLiv;
-                        tempLiv.precoLiv = livro.precoLiv;
-                        tempLiv.qtdLiv = livro.qtdLiv;
-                        tempLiv.ativoLiv = livro.ativoLiv;
-                        tempLiv.editLiv = new Editora { idEdit = livro.editLiv.idEdit };
-                        tempLiv.genLiv = new Genero { idGen = livro.genLiv.idGen };
+                        var tempLiv = new Livro();
+                            tempLiv.ISBNLiv = livro.ISBNLiv;
+                            tempLiv.titLiv = livro.titLiv;
+                            tempLiv.titOriLiv = livro.titOriLiv;
+                            tempLiv.sinopLiv = livro.sinopLiv;
+                            tempLiv.imgLiv = livro.imgLiv;
+                            tempLiv.pratLiv = livro.pratLiv;
+                            tempLiv.numPagLiv = livro.numPagLiv;
+                            tempLiv.numEdicaoLiv = livro.numEdicaoLiv;
+                            tempLiv.anoLiv = livro.anoLiv;
+                            tempLiv.precoLiv = livro.precoLiv;
+                            tempLiv.qtdLiv = livro.qtdLiv;
+                            tempLiv.ativoLiv = livro.ativoLiv;
+                            tempLiv.editLiv = new Editora { idEdit = livro.editLiv.idEdit };
+                            tempLiv.genLiv = new Genero { idGen = livro.genLiv.idGen };
 
                         var tempAutList = new List<Autor>();
                         foreach (var autId in tempUniqueAutIdList)
@@ -201,12 +201,92 @@ namespace ASP_SpringLibrary.Areas.Dashboard.Controllers
         }
 
 
-        /*[HttpGet]
+        [HttpGet]
         public ActionResult Alterar(string ISBNLiv)
         {
             var tempLiv = new Livro().checkLivByISBN(ISBNLiv);
 
-            return View(tempFunc);
-        }*/
+            var viewmodel = new CadastrarLivroViewModel();
+                viewmodel.ISBNLiv = tempLiv.ISBNLiv;
+                viewmodel.titLiv = tempLiv.titLiv;
+                viewmodel.titOriLiv = tempLiv.titOriLiv;
+                viewmodel.sinopLiv = tempLiv.sinopLiv;
+                viewmodel.imgLiv = tempLiv.imgLiv;
+                viewmodel.pratLiv = tempLiv.pratLiv;
+                viewmodel.numPagLiv = tempLiv.numPagLiv;
+                viewmodel.numEdicaoLiv = tempLiv.numEdicaoLiv;
+                viewmodel.anoLiv = tempLiv.anoLiv;
+                viewmodel.precoLiv = tempLiv.precoLiv;
+                viewmodel.qtdLiv = tempLiv.qtdLiv;
+                viewmodel.ativoLiv = tempLiv.ativoLiv;
+                viewmodel.editLiv = new EditoraDropDownViewModel { idEdit = tempLiv.editLiv.idEdit };
+                viewmodel.genLiv = new GeneroDropDownViewModel { idGen = tempLiv.genLiv.idGen };
+
+            var tempAutList = new List<AutorDropDownViewModel>();
+            foreach (var aut in tempLiv.autLiv)
+            {
+                var tempAut = new AutorDropDownViewModel { idAut = aut.idAut };
+                tempAutList.Add(tempAut);
+            }
+
+            viewmodel.autLiv = tempAutList;
+            tempLiv.funcLiv = new Funcionario { idFunc = tempLiv.funcLiv.idFunc };
+
+            passDropDownListValues();
+            return View(viewmodel);
+        }
+
+        [HttpPost]
+        public ActionResult Alterar(CadastrarLivroViewModel livro, HttpPostedFileBase imgLiv)
+        {
+            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
+            var funcId = identity.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                                                      .Select(c => c.Value).SingleOrDefault();
+            livro.funcIdLiv = int.Parse(funcId);
+
+            if (ModelState.IsValid)
+            {
+                if (imgLiv != null && imgLiv.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(imgLiv.FileName).ToLower();
+
+                    if (extension.Equals(".jpg") || extension.Equals(".png") || extension.Equals(".jpeg"))
+                    {
+                        string fileName = Hash.GenerateMD5(
+                                string.Format("{0:HH:mm:ss tt}", DateTime.Now) + imgLiv.FileName
+                            ) + extension; // Criptografar o nome do arquivo + data em MD5 para torna-lo único
+
+                        string imgPath = Path.Combine(Server.MapPath("/Photos/imgFunc/"), fileName);
+
+                        bool imgSaved = new ImageCrop().SaveCroppedImage(Image.FromStream(imgLiv.InputStream), 256, 256, imgPath);
+
+                        if (imgSaved)
+                        {
+                            if (livro.imgLiv != "/Photos/imgLiv/livrodefault.jpg")
+                            {
+                                System.IO.File.Delete(Server.MapPath(livro.imgLiv));
+                            }
+
+                            livro.imgLiv = "/Photos/imgLiv/" + fileName;
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("imgLiv", "A imagem deve ser do tipo .jpg/.png/.jpeg");
+                        return View(livro);
+                    }
+                }
+
+                //livro.CPFFunc = String.Concat(funcionario.CPFFunc.Where(Char.IsDigit));
+                //livro.celFunc = String.Concat(funcionario.celFunc.Where(Char.IsDigit));
+                //livro.senhaFunc = Hash.GenerateBCrypt(funcionario.senhaFunc); // Criptografar a senha em BCrypt
+
+                //new Livro().altLiv(livro);
+
+                return RedirectToAction("Index");
+            }
+
+            return View(livro);
+        }
     }
 }

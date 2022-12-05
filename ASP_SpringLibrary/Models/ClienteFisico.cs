@@ -61,7 +61,7 @@ namespace ASP_SpringLibrary.Models
         public List<ClienteFisico> checkAllCliF()
         {
             connection.Open();
-            command.CommandText = "SELECT * FROM tbCliente INNER JOIN tbCliFis on tbCliente.idCli = tbCliFis.idCli;";
+            command.CommandText = "SELECT * FROM tbCliente INNER JOIN tbCliFis on tbCliente.idCli = tbCliFis.idCli ORDER BY tbCliente.idCli;";
                 command.Connection = connection;
 
             var readCliF = command.ExecuteReader();

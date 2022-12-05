@@ -5,8 +5,10 @@
     Layout = "~/Areas/Dashboard/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@Styles.Render("~/Content/CadLiv.css")
+<style>.container { width: 100%; max-width: 70%; }</style>
 
-<h2>Index</h2>
+<h2>Todos os Livros</h2>
 
 <p>
     @Html.ActionLink("Cadastrar Novo", "Cadastrar")
@@ -59,7 +61,7 @@
                 @Html.DisplayFor(modelItem => item.anoLiv)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.precoLiv)
+                <span style="margin-right: 2px;">R$</span>@item.precoLiv.ToString("F")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.qtdLiv)

@@ -5,7 +5,7 @@ body {
     color: #696565;
     margin: auto;
     text-decoration: none;
-    background-color: #FFDAE9;
+    background-color: #337ab715;
 }
 
 
@@ -70,4 +70,16 @@ textarea {
     }
 a{
     text-decoration:none;
+}
+
+.col-md-10 {
+    max-width: 100%;
+}
+
+.container {
+    width: 40%;
+}
+
+input[type=checkbox] {
+    height: 32px;
 }

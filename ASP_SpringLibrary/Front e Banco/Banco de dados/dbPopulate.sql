@@ -231,7 +231,7 @@ Multifacetada, indo além da escrita, Elayne dedica-se também a podcasts e trab
 call spinsertAutLiv(6559810429, 10);
 
 call spCadLiv(
-	'0141399643',
+	'1141399643',
     'The Woman who Went to Bed for a Year',null,
 	"What happens when a duvet day turns into a duvet year?
 
@@ -248,7 +248,7 @@ Bestselling author Sue Townsend has been Britain's favourite comic writer for ov
 'Laugh-out-loud . . . a teeming world of characters whose foibles and misunderstandings provide glorious amusement. Something deeper and darker than comedy' Sunday Times",
 	'https://m.media-amazon.com/images/I/91+X7tkQd-L.jpg',
 	1,464,1,2012,55.62,12,true,12,27,3);
-call spinsertAutLiv(0141399643, 11);
+call spinsertAutLiv(1141399643, 11);
 
 call spCadLiv(
 	'6555113820',
